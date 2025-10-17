@@ -43,7 +43,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     alt = altFromResource || ''
 
     const cacheTag = resource.updatedAt
-
     src = getMediaUrl(url, cacheTag)
   }
 
@@ -66,7 +65,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         placeholder="blur"
         blurDataURL={placeholderBlur}
         priority={priority}
-        quality={100}
+        quality={90}
         loading={loading}
         sizes={sizes}
         src={src}
