@@ -83,15 +83,30 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
     )
   }
 
-  // Art direction with both landscape and portrait images
+  // Art direction with both landscape and portrait images using CSS to show/hide
+  // This ensures both images go through Next.js optimization
   return (
     <div className={className}>
-      <picture>
-        {/* Portrait image for narrow screens (aspect ratio < 1:1 or max-width: 768px) */}
-        <source media="(max-aspect-ratio: 1/1) or (max-width: 768px)" srcSet={portraitData.src} />
-        {/* Landscape image for wide screens (default) */}
-        <source media="(min-aspect-ratio: 1/1) and (min-width: 769px)" srcSet={landscapeData.src} />
-        {/* Fallback Next.js Image for optimization */}
+      {/* Portrait image for narrow screens - hidden on wide screens */}
+      <div className="block md:hidden">
+        <NextImage
+          alt={alt}
+          className={cn(imgClassName)}
+          fill={fill}
+          height={!fill ? portraitData.height : undefined}
+          placeholder="blur"
+          blurDataURL={placeholderBlur}
+          priority={priority}
+          quality={quality}
+          loading={loading}
+          sizes="(max-width: 768px) 100vw, 0px"
+          src={portraitData.src}
+          width={!fill ? portraitData.width : undefined}
+        />
+      </div>
+
+      {/* Landscape image for wide screens - hidden on narrow screens */}
+      <div className="hidden md:block">
         <NextImage
           alt={alt}
           className={cn(imgClassName)}
@@ -102,11 +117,11 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
           priority={priority}
           quality={quality}
           loading={loading}
-          sizes="100vw"
-          src={landscapeData.src} // Fallback to landscape
+          sizes="(min-width: 769px) 100vw, 0px"
+          src={landscapeData.src}
           width={!fill ? landscapeData.width : undefined}
         />
-      </picture>
+      </div>
     </div>
   )
 }
