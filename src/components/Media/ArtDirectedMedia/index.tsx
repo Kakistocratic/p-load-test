@@ -34,6 +34,9 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
   loading,
   quality = 90,
 }) => {
+  // All hooks must be called at the top level, before any early returns
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
   // Helper function to process media resource
   const processMediaResource = (resource: MediaType | string | number | null) => {
     if (!resource || typeof resource !== 'object' || !('url' in resource)) {
@@ -83,9 +86,6 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
       </div>
     )
   }
-
-  // Use media query to determine which image to render
-  const isMobile = useMediaQuery('(max-width: 768px)')
 
   // Choose which image data to use based on screen size
   const activeImageData = isMobile ? portraitData : landscapeData
