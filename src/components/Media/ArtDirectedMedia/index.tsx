@@ -4,6 +4,7 @@ import React from 'react'
 import NextImage from 'next/image'
 import { cn } from '@/utilities/ui'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import type { Media as MediaType } from '@/payload-types'
 
 interface ArtDirectedMediaProps {
@@ -83,45 +84,32 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
     )
   }
 
-  // Art direction with both landscape and portrait images using CSS to show/hide
-  // This ensures both images go through Next.js optimization
+  // Use media query to determine which image to render
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
+  // Choose which image data to use based on screen size
+  const activeImageData = isMobile ? portraitData : landscapeData
+  const appropriateSizes = isMobile
+    ? '(max-width: 768px) 100vw, 768px'
+    : '(min-width: 769px) 100vw, 100vw'
+
+  // Render only the appropriate image - true art direction with performance
   return (
     <div className={className}>
-      {/* Portrait image for narrow screens - hidden on wide screens */}
-      <div className="block md:hidden">
-        <NextImage
-          alt={alt}
-          className={cn(imgClassName)}
-          fill={fill}
-          height={!fill ? portraitData.height : undefined}
-          placeholder="blur"
-          blurDataURL={placeholderBlur}
-          priority={priority}
-          quality={quality}
-          loading={loading}
-          sizes="(max-width: 768px) 100vw, 0px"
-          src={portraitData.src}
-          width={!fill ? portraitData.width : undefined}
-        />
-      </div>
-
-      {/* Landscape image for wide screens - hidden on narrow screens */}
-      <div className="hidden md:block">
-        <NextImage
-          alt={alt}
-          className={cn(imgClassName)}
-          fill={fill}
-          height={!fill ? landscapeData.height : undefined}
-          placeholder="blur"
-          blurDataURL={placeholderBlur}
-          priority={priority}
-          quality={quality}
-          loading={loading}
-          sizes="(min-width: 769px) 100vw, 0px"
-          src={landscapeData.src}
-          width={!fill ? landscapeData.width : undefined}
-        />
-      </div>
+      <NextImage
+        alt={alt}
+        className={cn(imgClassName)}
+        fill={fill}
+        height={!fill ? activeImageData.height : undefined}
+        placeholder="blur"
+        blurDataURL={placeholderBlur}
+        priority={priority}
+        quality={quality}
+        loading={loading}
+        sizes={appropriateSizes}
+        src={activeImageData.src}
+        width={!fill ? activeImageData.width : undefined}
+      />
     </div>
   )
 }
