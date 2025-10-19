@@ -33,7 +33,10 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
           },
         },
       ],
-      media: heroImage.id,
+      media: {
+        landscape: heroImage.id,
+        // portrait is optional, so we'll omit it for the seed data
+      },
       richText: {
         root: {
           type: 'root',
