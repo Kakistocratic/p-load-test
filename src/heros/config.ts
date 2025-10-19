@@ -60,12 +60,33 @@ export const hero: Field = {
     }),
     {
       name: 'media',
-      type: 'upload',
+      type: 'group',
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
       },
-      relationTo: 'media',
-      required: true,
+      fields: [
+        {
+          name: 'landscape',
+          type: 'upload',
+          label: 'Landscape Image',
+          admin: {
+            description: 'Image used for wide screens (landscape orientation)',
+          },
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'portrait',
+          type: 'upload',
+          label: 'Portrait Image (Optional)',
+          admin: {
+            description:
+              'Optional image for narrow screens (portrait/mobile). If not provided, landscape image will be used.',
+          },
+          relationTo: 'media',
+        },
+      ],
+      label: 'Hero Images',
     },
   ],
   label: false,

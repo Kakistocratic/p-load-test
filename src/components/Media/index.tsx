@@ -5,6 +5,9 @@ import type { Props } from './types'
 import { ImageMedia } from './ImageMedia'
 import { VideoMedia } from './VideoMedia'
 
+// Export the ArtDirectedMedia component for use in heroes
+export { ArtDirectedMedia } from './ArtDirectedMedia'
+
 export const Media: React.FC<Props> = (props) => {
   const { className, htmlElement = 'div', resource } = props
 

@@ -3,7 +3,7 @@ import React from 'react'
 import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
-import { Media } from '@/components/Media'
+import { ArtDirectedMedia } from '@/components/Media/ArtDirectedMedia'
 import RichText from '@/components/RichText'
 
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
@@ -27,17 +27,14 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
       <div className="container ">
         {media && typeof media === 'object' && (
           <div>
-            <Media
+            <ArtDirectedMedia
+              landscapeImage={media.landscape}
+              portraitImage={media.portrait}
               className="-mx-4 md:-mx-8 2xl:-mx-16"
               imgClassName=""
               priority
-              resource={media}
             />
-            {media?.caption && (
-              <div className="mt-3">
-                <RichText data={media.caption} enableGutter={false} />
-              </div>
-            )}
+            {/* Note: Caption functionality would need to be added to the media group if needed */}
           </div>
         )}
       </div>

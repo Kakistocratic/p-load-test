@@ -189,7 +189,16 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (number | null) | Media;
+    media?: {
+      /**
+       * Image used for wide screens (landscape orientation)
+       */
+      landscape: number | Media;
+      /**
+       * Optional image for narrow screens (portrait/mobile). If not provided, landscape image will be used.
+       */
+      portrait?: (number | null) | Media;
+    };
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -958,7 +967,12 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        media?: T;
+        media?:
+          | T
+          | {
+              landscape?: T;
+              portrait?: T;
+            };
       };
   layout?:
     | T
