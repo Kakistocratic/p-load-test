@@ -34,8 +34,9 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
   loading,
   quality = 90,
 }) => {
-  // All hooks must be called at the top level, before any early returns
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  // Use media query to determine screen size (only applies if portrait image is available)
+  const isMobileScreen = useMediaQuery('(max-width: 768px)')
+  const shouldUsePortrait = isMobileScreen && portraitImage
 
   // Helper function to process media resource
   const processMediaResource = (resource: MediaType | string | number | null) => {
@@ -55,45 +56,16 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
     }
   }
 
-  const landscapeData = processMediaResource(landscapeImage)
-  const portraitData = portraitImage ? processMediaResource(portraitImage) : null
+  // Only process the image we actually need
+  const targetImage = shouldUsePortrait ? portraitImage : landscapeImage
+  const activeImageData = processMediaResource(targetImage)
 
-  if (!landscapeData) {
+  if (!activeImageData) {
     return null
   }
 
-  // Use portrait image alt text if available, otherwise fallback to landscape, then prop
-  const alt = altProp || portraitData?.alt || landscapeData.alt || ''
+  const alt = altProp || activeImageData.alt || ''
 
-  // If no portrait image is provided, use regular Next.js Image
-  if (!portraitData) {
-    return (
-      <div className={className}>
-        <NextImage
-          alt={alt}
-          className={cn(imgClassName)}
-          fill={fill}
-          height={!fill ? landscapeData.height : undefined}
-          placeholder="blur"
-          blurDataURL={placeholderBlur}
-          priority={priority}
-          quality={quality}
-          loading={loading}
-          sizes="100vw"
-          src={landscapeData.src}
-          width={!fill ? landscapeData.width : undefined}
-        />
-      </div>
-    )
-  }
-
-  // Choose which image data to use based on screen size
-  const activeImageData = isMobile ? portraitData : landscapeData
-  const appropriateSizes = isMobile
-    ? '(max-width: 768px) 100vw, 768px'
-    : '(min-width: 769px) 100vw, 100vw'
-
-  // Render only the appropriate image - true art direction with performance
   return (
     <div className={className}>
       <NextImage
@@ -106,7 +78,7 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
         priority={priority}
         quality={quality}
         loading={loading}
-        sizes={appropriateSizes}
+        sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, (max-width: 1920px) 1920px, (max-width: 2560px) 2560px, (max-width: 3840px) 3840px, 5120px"
         src={activeImageData.src}
         width={!fill ? activeImageData.width : undefined}
       />

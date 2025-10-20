@@ -21,10 +21,10 @@ const nextConfig = {
       // Note: S3 endpoint may not be needed if images are served via Payload API (/api/media/file/)
       // Add only if you're serving images directly from S3 URLs
     ],
-    // Optimized device sizes that match your breakpoints
-    deviceSizes: [640, 768, 1024, 1280, 1536, 1920],
-    // Image sizes for different use cases
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Optimized device sizes that match your breakpoints including 4K screens
+    deviceSizes: [640, 768, 1024, 1280, 1536, 1920, 2560, 3840],
+    // Image sizes for different use cases including larger images
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512, 768, 1024],
     // Image formats to try (AVIF is more efficient than WebP)
     formats: ['image/avif', 'image/webp'],
     // Enable placeholder blur for better UX
