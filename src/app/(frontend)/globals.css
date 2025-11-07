@@ -101,3 +101,13 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+/* Opening Hours Styles */
+.opening-hours-item {
+  position: relative;
+}
+
+.opening-hours-item .clock-icon::before {
+  content: '🕐';
+  display: block;
+}
