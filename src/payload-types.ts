@@ -72,6 +72,8 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    'opening-hours': OpeningHour;
+    'contact-info': ContactInfo;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +90,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'opening-hours': OpeningHoursSelect<false> | OpeningHoursSelect<true>;
+    'contact-info': ContactInfoSelect<false> | ContactInfoSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -688,6 +692,41 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opening-hours".
+ */
+export interface OpeningHour {
+  id: number;
+  /**
+   * e.g., Mon-Fri, Sat-Sun, or a specific day
+   */
+  dayRange: string;
+  openingTime?: string | null;
+  closingTime?: string | null;
+  /**
+   * Check this if the shop is closed on these days
+   */
+  isClosed?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info".
+ */
+export interface ContactInfo {
+  id: number;
+  phoneNumber?: string | null;
+  email?: string | null;
+  facebookUrl?: string | null;
+  instagramUrl?: string | null;
+  streetAddress?: string | null;
+  city?: string | null;
+  postalCode?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -878,6 +917,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'opening-hours';
+        value: number | OpeningHour;
+      } | null)
+    | ({
+        relationTo: 'contact-info';
+        value: number | ContactInfo;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1174,6 +1221,33 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opening-hours_select".
+ */
+export interface OpeningHoursSelect<T extends boolean = true> {
+  dayRange?: T;
+  openingTime?: T;
+  closingTime?: T;
+  isClosed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info_select".
+ */
+export interface ContactInfoSelect<T extends boolean = true> {
+  phoneNumber?: T;
+  email?: T;
+  facebookUrl?: T;
+  instagramUrl?: T;
+  streetAddress?: T;
+  city?: T;
+  postalCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
