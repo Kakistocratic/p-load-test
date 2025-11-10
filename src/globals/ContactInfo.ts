@@ -1,20 +1,14 @@
-import type { CollectionConfig } from 'payload'
+import type { GlobalConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { revalidateContactInfo } from './hooks/revalidateContactInfo'
 
-export const ContactInfo: CollectionConfig = {
+export const ContactInfo: GlobalConfig = {
   slug: 'contact-info',
   access: {
-    create: authenticated,
-    delete: authenticated,
-    read: anyone,
-    update: authenticated,
+    read: () => true,
   },
-  admin: {
-    useAsTitle: 'phoneNumber',
-    defaultColumns: ['phoneNumber', 'email', 'city'],
-    description: 'Manage contact information for the coffee shop',
+  hooks: {
+    afterChange: [revalidateContactInfo],
   },
   fields: [
     {
@@ -24,7 +18,6 @@ export const ContactInfo: CollectionConfig = {
       defaultValue: 'Contact',
       admin: {
         description: 'The heading to display above contact info (e.g., "Contact", "Kontakt")',
-        position: 'sidebar',
       },
     },
     {

@@ -8,14 +8,14 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
-import { ContactInfo } from './collections/ContactInfo'
 import { Media } from './collections/Media'
-import { OpeningHours } from './collections/OpeningHours'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { ContactInfo } from './globals/ContactInfo'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { OpeningHours } from './globals/OpeningHours'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -67,9 +67,9 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, OpeningHours, ContactInfo],
+  collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, OpeningHours, ContactInfo],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
