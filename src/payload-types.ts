@@ -1440,6 +1440,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Upload a logo for the header. Recommended size: 170x130px
+   */
+  logo?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -1549,6 +1553,7 @@ export interface ContactInfo {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
   navItems?:
     | T
     | {
