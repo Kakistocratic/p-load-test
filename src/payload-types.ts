@@ -71,6 +71,7 @@ export interface Config {
     posts: Post;
     media: Media;
     categories: Category;
+    menu: Menu;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -87,6 +88,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    menu: MenuSelect<false> | MenuSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -309,6 +311,10 @@ export interface Media {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * What type of content does this category apply to?
+   */
+  type: 'post' | 'menu' | 'product';
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | Category;
@@ -692,6 +698,78 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu".
+ */
+export interface Menu {
+  id: number;
+  /**
+   * The name of the menu item
+   */
+  name: string;
+  /**
+   * A description of the menu item
+   */
+  description?: string | null;
+  /**
+   * Base price in NOK
+   */
+  price: number;
+  /**
+   * Add optional extras with additional costs (e.g., extra cream, oat milk)
+   */
+  optionalExtras?:
+    | {
+        /**
+         * Name of the extra (e.g., "Extra shot", "Oat milk")
+         */
+        label: string;
+        /**
+         * Additional cost in NOK
+         */
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Select or create a menu category for this item
+   */
+  category: number | Category;
+  /**
+   * Is this item served hot, cold, or both?
+   */
+  temperature?: ('varm' | 'kald' | 'begge') | null;
+  /**
+   * Upload an image for this menu item
+   */
+  image?: (number | null) | Media;
+  /**
+   * Add allergens associated with this menu item
+   */
+  allergens?:
+    | {
+        allergen:
+          | 'gluten'
+          | 'dairy'
+          | 'nuts'
+          | 'eggs'
+          | 'soy'
+          | 'fish'
+          | 'shellfish'
+          | 'sesame'
+          | 'peanuts'
+          | 'celery'
+          | 'mustard'
+          | 'sulfites'
+          | 'lupin'
+          | 'molluscs';
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -878,6 +956,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'menu';
+        value: number | Menu;
       } | null)
     | ({
         relationTo: 'users';
@@ -1142,6 +1224,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  type?: T;
   slug?: T;
   slugLock?: T;
   parent?: T;
@@ -1151,6 +1234,33 @@ export interface CategoriesSelect<T extends boolean = true> {
         doc?: T;
         url?: T;
         label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_select".
+ */
+export interface MenuSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  price?: T;
+  optionalExtras?:
+    | T
+    | {
+        label?: T;
+        price?: T;
+        id?: T;
+      };
+  category?: T;
+  temperature?: T;
+  image?: T;
+  allergens?:
+    | T
+    | {
+        allergen?: T;
         id?: T;
       };
   updatedAt?: T;
