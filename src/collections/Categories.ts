@@ -14,8 +14,10 @@ export const Categories: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'type', 'updatedAt'],
+    defaultColumns: ['title', 'type', 'order', 'updatedAt'],
+    listSearchableFields: ['title', 'type'],
   },
+  defaultSort: 'order',
   fields: [
     {
       name: 'title',
@@ -32,10 +34,6 @@ export const Categories: CollectionConfig = {
           value: 'post',
         },
         {
-          label: 'Menu Category',
-          value: 'menu',
-        },
-        {
           label: 'Product Category',
           value: 'product',
         },
@@ -45,6 +43,17 @@ export const Categories: CollectionConfig = {
         position: 'sidebar',
       },
       defaultValue: 'post',
+    },
+    {
+      name: 'order',
+      type: 'number',
+      required: false,
+      admin: {
+        description: 'Display order (lower numbers appear first)',
+        position: 'sidebar',
+        step: 1,
+      },
+      defaultValue: 0,
     },
     ...slugField(),
   ],

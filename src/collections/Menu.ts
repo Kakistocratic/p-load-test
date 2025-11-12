@@ -72,17 +72,31 @@ export const Menu: CollectionConfig = {
     {
       name: 'category',
       type: 'relationship',
-      relationTo: 'categories',
-      required: true,
+      relationTo: 'menu-categories',
+      required: false, // Temporarily optional during migration
       hasMany: false,
-      filterOptions: {
-        type: {
-          equals: 'menu',
-        },
-      },
       admin: {
         description: 'Select or create a menu category for this item',
       },
+    },
+    {
+      name: 'type',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          label: 'Drikke',
+          value: 'drink',
+        },
+        {
+          label: 'Mat',
+          value: 'food',
+        },
+      ],
+      admin: {
+        description: 'Is this a drink or food item?',
+      },
+      defaultValue: 'food',
     },
     {
       name: 'temperature',
@@ -117,77 +131,23 @@ export const Menu: CollectionConfig = {
     },
     {
       name: 'allergens',
-      type: 'array',
+      type: 'relationship',
+      relationTo: 'allergens',
+      hasMany: true,
       required: false,
       admin: {
-        description: 'Add allergens associated with this menu item',
-        initCollapsed: true,
+        description: 'Select allergens associated with this menu item',
       },
-      fields: [
-        {
-          name: 'allergen',
-          type: 'select',
-          required: true,
-          options: [
-            {
-              label: 'Gluten',
-              value: 'gluten',
-            },
-            {
-              label: 'Dairy',
-              value: 'dairy',
-            },
-            {
-              label: 'Nuts',
-              value: 'nuts',
-            },
-            {
-              label: 'Eggs',
-              value: 'eggs',
-            },
-            {
-              label: 'Soy',
-              value: 'soy',
-            },
-            {
-              label: 'Fish',
-              value: 'fish',
-            },
-            {
-              label: 'Shellfish',
-              value: 'shellfish',
-            },
-            {
-              label: 'Sesame',
-              value: 'sesame',
-            },
-            {
-              label: 'Peanuts',
-              value: 'peanuts',
-            },
-            {
-              label: 'Celery',
-              value: 'celery',
-            },
-            {
-              label: 'Mustard',
-              value: 'mustard',
-            },
-            {
-              label: 'Sulfites',
-              value: 'sulfites',
-            },
-            {
-              label: 'Lupin',
-              value: 'lupin',
-            },
-            {
-              label: 'Molluscs',
-              value: 'molluscs',
-            },
-          ],
-        },
-      ],
+    },
+    {
+      name: 'ingredients',
+      type: 'relationship',
+      relationTo: 'ingredients',
+      hasMany: true,
+      required: false,
+      admin: {
+        description: 'Select ingredients for this menu item',
+      },
     },
   ],
 }

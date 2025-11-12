@@ -56,8 +56,8 @@ export function MobileMenu({ menu }: Props) {
           {menu?.length ? (
             <ul className="flex w-full flex-col">
               {menu.map((item) => (
-                <li className="py-2" key={item.id}>
-                  <CMSLink {...item.link} appearance="link" />
+                <li className="py-2" key={item?.id || Math.random()}>
+                  {item?.link && <CMSLink {...item.link} appearance="link" />}
                 </li>
               ))}
             </ul>

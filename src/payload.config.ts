@@ -8,8 +8,11 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { Allergens } from './collections/Allergens'
+import { Ingredients } from './collections/Ingredients'
 import { Media } from './collections/Media'
 import { Menu } from './collections/Menu'
+import { MenuCategories } from './collections/MenuCategories'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
@@ -68,7 +71,17 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Menu, Users],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Menu,
+    MenuCategories,
+    Allergens,
+    Ingredients,
+    Users,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, OpeningHours, ContactInfo],
   plugins: [

@@ -72,6 +72,9 @@ export interface Config {
     media: Media;
     categories: Category;
     menu: Menu;
+    'menu-categories': MenuCategory;
+    allergens: Allergen;
+    ingredients: Ingredient;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -89,6 +92,9 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     menu: MenuSelect<false> | MenuSelect<true>;
+    'menu-categories': MenuCategoriesSelect<false> | MenuCategoriesSelect<true>;
+    allergens: AllergensSelect<false> | AllergensSelect<true>;
+    ingredients: IngredientsSelect<false> | IngredientsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -314,7 +320,11 @@ export interface Category {
   /**
    * What type of content does this category apply to?
    */
-  type: 'post' | 'menu' | 'product';
+  type: 'post' | 'product';
+  /**
+   * Display order (lower numbers appear first)
+   */
+  order?: number | null;
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | Category;
@@ -733,7 +743,11 @@ export interface Menu {
   /**
    * Select or create a menu category for this item
    */
-  category: number | Category;
+  category?: (number | null) | MenuCategory;
+  /**
+   * Is this a drink or food item?
+   */
+  type: 'drink' | 'food';
   /**
    * Is this item served hot, cold, or both?
    */
@@ -743,28 +757,60 @@ export interface Menu {
    */
   image?: (number | null) | Media;
   /**
-   * Add allergens associated with this menu item
+   * Select allergens associated with this menu item
    */
-  allergens?:
-    | {
-        allergen:
-          | 'gluten'
-          | 'dairy'
-          | 'nuts'
-          | 'eggs'
-          | 'soy'
-          | 'fish'
-          | 'shellfish'
-          | 'sesame'
-          | 'peanuts'
-          | 'celery'
-          | 'mustard'
-          | 'sulfites'
-          | 'lupin'
-          | 'molluscs';
-        id?: string | null;
-      }[]
-    | null;
+  allergens?: (number | Allergen)[] | null;
+  /**
+   * Select ingredients for this menu item
+   */
+  ingredients?: (number | Ingredient)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu-categories".
+ */
+export interface MenuCategory {
+  id: number;
+  /**
+   * Category name (e.g., Kaffe, Te, Alkohol)
+   */
+  name: string;
+  /**
+   * Parent category (leave empty for top-level categories)
+   */
+  parent?: (number | null) | MenuCategory;
+  /**
+   * Display order within parent (lower numbers appear first)
+   */
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "allergens".
+ */
+export interface Allergen {
+  id: number;
+  /**
+   * Name of the allergen (e.g., Gluten, Dairy, Nuts)
+   */
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ingredients".
+ */
+export interface Ingredient {
+  id: number;
+  /**
+   * Name of the ingredient (e.g., Espresso, Milk, Flour)
+   */
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -960,6 +1006,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'menu';
         value: number | Menu;
+      } | null)
+    | ({
+        relationTo: 'menu-categories';
+        value: number | MenuCategory;
+      } | null)
+    | ({
+        relationTo: 'allergens';
+        value: number | Allergen;
+      } | null)
+    | ({
+        relationTo: 'ingredients';
+        value: number | Ingredient;
       } | null)
     | ({
         relationTo: 'users';
@@ -1225,6 +1283,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   type?: T;
+  order?: T;
   slug?: T;
   slugLock?: T;
   parent?: T;
@@ -1255,14 +1314,40 @@ export interface MenuSelect<T extends boolean = true> {
         id?: T;
       };
   category?: T;
+  type?: T;
   temperature?: T;
   image?: T;
-  allergens?:
-    | T
-    | {
-        allergen?: T;
-        id?: T;
-      };
+  allergens?: T;
+  ingredients?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu-categories_select".
+ */
+export interface MenuCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  parent?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "allergens_select".
+ */
+export interface AllergensSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ingredients_select".
+ */
+export interface IngredientsSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
