@@ -212,7 +212,7 @@ export interface Page {
       portrait?: (number | null) | Media;
     };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | MenuBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -708,6 +708,23 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuBlock".
+ */
+export interface MenuBlock {
+  /**
+   * Optional heading for the menu section
+   */
+  heading?: string | null;
+  /**
+   * Show category, temperature, and type filters
+   */
+  showFilters?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'menuBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "menu".
  */
 export interface Menu {
@@ -756,6 +773,10 @@ export interface Menu {
    * Upload an image for this menu item
    */
   image?: (number | null) | Media;
+  /**
+   * Check this if the item should not display with an image (compact layout)
+   */
+  noImage?: boolean | null;
   /**
    * Select allergens associated with this menu item
    */
@@ -1126,6 +1147,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        menuBlock?: T | MenuBlockSelect<T>;
       };
   meta?:
     | T
@@ -1227,6 +1249,16 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuBlock_select".
+ */
+export interface MenuBlockSelect<T extends boolean = true> {
+  heading?: T;
+  showFilters?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1317,6 +1349,7 @@ export interface MenuSelect<T extends boolean = true> {
   type?: T;
   temperature?: T;
   image?: T;
+  noImage?: T;
   allergens?: T;
   ingredients?: T;
   updatedAt?: T;

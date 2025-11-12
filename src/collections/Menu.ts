@@ -130,6 +130,16 @@ export const Menu: CollectionConfig = {
       },
     },
     {
+      name: 'noImage',
+      type: 'checkbox',
+      required: false,
+      admin: {
+        description: 'Check this if the item should not display with an image (compact layout)',
+        position: 'sidebar',
+      },
+      defaultValue: false,
+    },
+    {
       name: 'allergens',
       type: 'relationship',
       relationTo: 'allergens',
