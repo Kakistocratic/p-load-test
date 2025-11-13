@@ -85,6 +85,19 @@ export const hero: Field = {
           },
           relationTo: 'media',
         },
+        {
+          name: 'overlayOpacity',
+          type: 'number',
+          label: 'Overlay Opacity',
+          admin: {
+            description:
+              'Dark overlay opacity between image and text (0-1). Default is 0.15 (15% opaque). Higher values make text more readable.',
+            step: 0.05,
+          },
+          defaultValue: 0.15,
+          min: 0,
+          max: 1,
+        },
       ],
       label: 'Hero Images',
     },

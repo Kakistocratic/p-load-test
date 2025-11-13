@@ -67,7 +67,7 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
   const alt = altProp || activeImageData.alt || ''
 
   return (
-    <div className={className}>
+    <>
       <NextImage
         alt={alt}
         className={cn(imgClassName)}
@@ -82,6 +82,6 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
         src={activeImageData.src}
         width={!fill ? activeImageData.width : undefined}
       />
-    </div>
+    </>
   )
 }

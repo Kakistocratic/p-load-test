@@ -210,6 +210,10 @@ export interface Page {
        * Optional image for narrow screens (portrait/mobile). If not provided, landscape image will be used.
        */
       portrait?: (number | null) | Media;
+      /**
+       * Dark overlay opacity between image and text (0-1). Default is 0.15 (15% opaque). Higher values make text more readable.
+       */
+      overlayOpacity?: number | null;
     };
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | MenuBlock)[];
@@ -1137,6 +1141,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               landscape?: T;
               portrait?: T;
+              overlayOpacity?: T;
             };
       };
   layout?:
