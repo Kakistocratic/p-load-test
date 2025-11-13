@@ -62,6 +62,43 @@ export const MenuBlockComponent: React.FC<MenuBlockComponentProps> = ({
   const withImages = filteredItems.filter((item) => !item.noImage)
   const withoutImages = filteredItems.filter((item) => item.noImage)
 
+  // Group filtered items by category
+  const groupedByCategory = useMemo(() => {
+    const groups = new Map<
+      string,
+      { categoryName: string; order: number; withImages: MenuItem[]; withoutImages: MenuItem[] }
+    >()
+
+    filteredItems.forEach((item) => {
+      if (item.category && typeof item.category === 'object' && item.category !== null) {
+        const categoryId = String(item.category.id)
+        const categoryName = item.category.name
+        const categoryOrder = item.category.order || 0
+
+        if (!groups.has(categoryId)) {
+          groups.set(categoryId, {
+            categoryName,
+            order: categoryOrder,
+            withImages: [],
+            withoutImages: [],
+          })
+        }
+
+        const group = groups.get(categoryId)!
+        if (item.noImage) {
+          group.withoutImages.push(item)
+        } else {
+          group.withImages.push(item)
+        }
+      }
+    })
+
+    // Convert to array and sort by category order
+    return Array.from(groups.entries())
+      .map(([id, data]) => ({ id, ...data }))
+      .sort((a, b) => a.order - b.order)
+  }, [filteredItems])
+
   return (
     <div className="container my-12">
       {heading && <h2 className="text-4xl font-bold mb-8">{heading}</h2>}
@@ -147,28 +184,35 @@ export const MenuBlockComponent: React.FC<MenuBlockComponentProps> = ({
         </div>
       )}
 
-      {/* No results message */}
-      {filteredItems.length === 0 && (
+      {/* Menu items grouped by category */}
+      {groupedByCategory.length > 0 ? (
+        groupedByCategory.map((group) => (
+          <div key={group.id} className="mb-16">
+            {/* Category heading */}
+            <h2 className="text-3xl font-bold mb-6 border-b pb-2">{group.categoryName}</h2>
+
+            {/* Items with images */}
+            {group.withImages.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
+                {group.withImages.map((item) => (
+                  <MenuCard key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+
+            {/* Items without images (compact layout) */}
+            {group.withoutImages.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {group.withoutImages.map((item) => (
+                  <MenuCardCompact key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      ) : (
         <div className="text-center py-12">
           <p className="text-muted-foreground">Ingen menyelementer matcher filtrene dine.</p>
-        </div>
-      )}
-
-      {/* Menu Items with Images (full width) */}
-      {withImages.length > 0 && (
-        <div className="space-y-6 mb-8">
-          {withImages.map((item) => (
-            <MenuCard key={item.id} item={item} />
-          ))}
-        </div>
-      )}
-
-      {/* Menu Items without Images (grid layout) */}
-      {withoutImages.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {withoutImages.map((item) => (
-            <MenuCardCompact key={item.id} item={item} />
-          ))}
         </div>
       )}
     </div>

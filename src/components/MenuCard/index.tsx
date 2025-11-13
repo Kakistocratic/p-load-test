@@ -11,57 +11,63 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
     item
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border border-border rounded-lg bg-card">
-      {/* Left Column - Image */}
-      <div className="flex items-center justify-center">
-        {image && typeof image === 'object' ? (
-          <Media resource={image} imgClassName="w-full h-auto object-cover rounded-lg" />
-        ) : (
-          <div className="w-full aspect-square bg-muted rounded-lg flex items-center justify-center">
-            <span className="text-muted-foreground">No image</span>
-          </div>
-        )}
-      </div>
+    <div className="flex flex-col border border-border rounded-lg bg-card overflow-hidden hover:shadow-lg transition-shadow">
+      {/* Image section with overlaid title and price - fixed height container */}
+      {image && typeof image === 'object' ? (
+        <div className="relative w-full aspect-5/6 overflow-hidden">
+          <Media resource={image} imgClassName="w-full h-full object-cover" />
 
-      {/* Right Column - Info */}
-      <div className="flex flex-col justify-between">
-        {/* Header */}
-        <div>
-          <div className="flex items-start justify-between gap-4 mb-2">
-            <h3 className="text-2xl font-semibold">{name}</h3>
-            <span className="text-2xl font-bold text-primary whitespace-nowrap">{price} kr</span>
-          </div>
+          {/* Overlay gradient for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent" />
 
+          {/* Title - top left */}
+          <h3 className="absolute top-4 left-4 text-2xl font-bold text-white drop-shadow-lg pr-24">
+            {name}
+          </h3>
+
+          {/* Price - top right */}
+          <span className="absolute top-4 right-4 text-xl font-bold text-white bg-primary/90 px-3 py-1.5 rounded-md shadow-lg">
+            {price} kr
+          </span>
+
+          {/* Temperature - bottom left */}
           {temperature && (
-            <span className="inline-block text-sm text-muted-foreground mb-3 capitalize">
-              {temperature === 'varm' && '🔥 Varm'}
-              {temperature === 'kald' && '❄️ Kald'}
-              {temperature === 'begge' && '🔥❄️ Varm eller kald'}
-            </span>
+            <div className="absolute bottom-4 left-4">
+              <span className="inline-block text-sm px-2 py-1 rounded-md bg-black/50 text-white backdrop-blur-sm">
+                {temperature === 'varm' && '🔥 Varm'}
+                {temperature === 'kald' && '❄️ Kald'}
+                {temperature === 'begge' && '🔥❄️ Varm eller kald'}
+              </span>
+            </div>
           )}
-
-          {description && <p className="text-base text-foreground mb-4">{description}</p>}
         </div>
+      ) : (
+        <div className="relative w-full aspect-5/6 bg-muted flex items-center justify-center">
+          <h3 className="absolute top-4 left-4 text-2xl font-bold pr-24">{name}</h3>
+          <span className="absolute top-4 right-4 text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg">
+            {price} kr
+          </span>
+          {/* Temperature - bottom left */}
+          {temperature && (
+            <div className="absolute bottom-4 left-4">
+              <span className="inline-block text-sm px-2 py-1 rounded-md bg-muted">
+                {temperature === 'varm' && '🔥 Varm'}
+                {temperature === 'kald' && '❄️ Kald'}
+                {temperature === 'begge' && '🔥❄️ Varm eller kald'}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
 
-        {/* Optional Extras */}
-        {optionalExtras && optionalExtras.length > 0 && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold mb-2">Tillegg:</h4>
-            <ul className="space-y-1">
-              {optionalExtras.map((extra, index) => (
-                <li key={index} className="text-sm flex justify-between">
-                  <span>{extra.label}</span>
-                  <span className="text-muted-foreground">+{extra.price} kr</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      {/* Content section below image */}
+      <div className="p-4 flex flex-col">
+        {description && <p className="text-sm text-foreground mb-3 line-clamp-2">{description}</p>}
 
-        {/* Footer - Allergens & Ingredients */}
-        <div className="space-y-2 text-xs text-muted-foreground">
+        {/* Ingredients & Allergens */}
+        <div className="space-y-1 text-xs text-muted-foreground">
           {ingredients && ingredients.length > 0 && (
-            <div>
+            <div className="line-clamp-1">
               <span className="font-semibold">Ingredienser: </span>
               {ingredients.map((ingredient, index) => (
                 <span key={index}>
@@ -73,7 +79,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           )}
 
           {allergens && allergens.length > 0 && (
-            <div>
+            <div className="line-clamp-1">
               <span className="font-semibold">Allergener: </span>
               {allergens.map((allergen, index) => (
                 <span key={index}>
