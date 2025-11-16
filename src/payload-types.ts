@@ -75,6 +75,7 @@ export interface Config {
     'menu-categories': MenuCategory;
     allergens: Allergen;
     ingredients: Ingredient;
+    inspiration: Inspiration;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -95,6 +96,7 @@ export interface Config {
     'menu-categories': MenuCategoriesSelect<false> | MenuCategoriesSelect<true>;
     allergens: AllergensSelect<false> | AllergensSelect<true>;
     ingredients: IngredientsSelect<false> | IngredientsSelect<true>;
+    inspiration: InspirationSelect<false> | InspirationSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -216,7 +218,7 @@ export interface Page {
       overlayOpacity?: number | null;
     };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | MenuBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | InspirationBlock | MenuBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -712,6 +714,27 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InspirationBlock".
+ */
+export interface InspirationBlock {
+  /**
+   * Valgfri overskrift over galleriet
+   */
+  heading?: string | null;
+  /**
+   * Skal karusellen automatisk bla gjennom bildene?
+   */
+  autoplay?: boolean | null;
+  /**
+   * Tid mellom hvert bilde i millisekunder
+   */
+  autoplayDelay?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'inspirationBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MenuBlock".
  */
 export interface MenuBlock {
@@ -836,6 +859,31 @@ export interface Ingredient {
    * Name of the ingredient (e.g., Espresso, Milk, Flour)
    */
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inspiration".
+ */
+export interface Inspiration {
+  id: number;
+  /**
+   * En beskrivende tittel for bildet (vises ikke på frontend)
+   */
+  title: string;
+  /**
+   * Bildet som vises i karusellen
+   */
+  image: number | Media;
+  /**
+   * Alternativ tekst for bildet (tilgjengelighet)
+   */
+  altText?: string | null;
+  /**
+   * Rekkefølgen bildet vises i karusellen
+   */
+  order: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -1045,6 +1093,10 @@ export interface PayloadLockedDocument {
         value: number | Ingredient;
       } | null)
     | ({
+        relationTo: 'inspiration';
+        value: number | Inspiration;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
@@ -1152,6 +1204,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        inspirationBlock?: T | InspirationBlockSelect<T>;
         menuBlock?: T | MenuBlockSelect<T>;
       };
   meta?:
@@ -1249,6 +1302,17 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InspirationBlock_select".
+ */
+export interface InspirationBlockSelect<T extends boolean = true> {
+  heading?: T;
+  autoplay?: T;
+  autoplayDelay?: T;
   id?: T;
   blockName?: T;
 }
@@ -1386,6 +1450,18 @@ export interface AllergensSelect<T extends boolean = true> {
  */
 export interface IngredientsSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inspiration_select".
+ */
+export interface InspirationSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  altText?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }

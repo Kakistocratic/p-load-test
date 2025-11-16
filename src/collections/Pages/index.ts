@@ -6,6 +6,7 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
+import { InspirationBlock } from '../../blocks/InspirationBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MenuBlock } from '../../blocks/MenuBlock/config'
 import { hero } from '@/heros/config'
@@ -76,7 +77,15 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, MenuBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                InspirationBlock,
+                MenuBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

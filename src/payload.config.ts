@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Allergens } from './collections/Allergens'
 import { Ingredients } from './collections/Ingredients'
+import { Inspiration } from './collections/Inspiration'
 import { Media } from './collections/Media'
 import { Menu } from './collections/Menu'
 import { MenuCategories } from './collections/MenuCategories'
@@ -80,6 +81,7 @@ export default buildConfig({
     MenuCategories,
     Allergens,
     Ingredients,
+    Inspiration,
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
