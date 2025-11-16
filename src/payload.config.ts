@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Allergens } from './collections/Allergens'
+import { Bookings } from './collections/Bookings'
 import { Ingredients } from './collections/Ingredients'
 import { Inspiration } from './collections/Inspiration'
 import { Media } from './collections/Media'
@@ -17,6 +18,7 @@ import { MenuCategories } from './collections/MenuCategories'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { BookingSettings } from './globals/BookingSettings'
 import { ContactInfo } from './globals/ContactInfo'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -80,12 +82,13 @@ export default buildConfig({
     Menu,
     MenuCategories,
     Allergens,
+    Bookings,
     Ingredients,
     Inspiration,
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, OpeningHours, ContactInfo],
+  globals: [Header, Footer, OpeningHours, ContactInfo, BookingSettings],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

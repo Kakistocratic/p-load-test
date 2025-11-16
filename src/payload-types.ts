@@ -74,6 +74,7 @@ export interface Config {
     menu: Menu;
     'menu-categories': MenuCategory;
     allergens: Allergen;
+    bookings: Booking;
     ingredients: Ingredient;
     inspiration: Inspiration;
     users: User;
@@ -95,6 +96,7 @@ export interface Config {
     menu: MenuSelect<false> | MenuSelect<true>;
     'menu-categories': MenuCategoriesSelect<false> | MenuCategoriesSelect<true>;
     allergens: AllergensSelect<false> | AllergensSelect<true>;
+    bookings: BookingsSelect<false> | BookingsSelect<true>;
     ingredients: IngredientsSelect<false> | IngredientsSelect<true>;
     inspiration: InspirationSelect<false> | InspirationSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -115,12 +117,14 @@ export interface Config {
     footer: Footer;
     'opening-hours': OpeningHour;
     'contact-info': ContactInfo;
+    'booking-settings': BookingSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'opening-hours': OpeningHoursSelect<false> | OpeningHoursSelect<true>;
     'contact-info': ContactInfoSelect<false> | ContactInfoSelect<true>;
+    'booking-settings': BookingSettingsSelect<false> | BookingSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -223,6 +227,7 @@ export interface Page {
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
+    | BookingBlock
     | FormBlock
     | FeaturedMenuBlock
     | InspirationBlock
@@ -520,6 +525,20 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BookingBlock".
+ */
+export interface BookingBlock {
+  heading: string;
+  /**
+   * Kort beskrivelse som vises over bookingskjemaet
+   */
+  description?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bookingBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -890,6 +909,26 @@ export interface MenuBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings".
+ */
+export interface Booking {
+  id: number;
+  date: string;
+  /**
+   * F.eks. "12:00"
+   */
+  timeSlot: string;
+  partySize: number;
+  name: string;
+  email: string;
+  phone: string;
+  notes?: string | null;
+  status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "inspiration".
  */
 export interface Inspiration {
@@ -1115,6 +1154,10 @@ export interface PayloadLockedDocument {
         value: number | Allergen;
       } | null)
     | ({
+        relationTo: 'bookings';
+        value: number | Booking;
+      } | null)
+    | ({
         relationTo: 'ingredients';
         value: number | Ingredient;
       } | null)
@@ -1229,6 +1272,7 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
+        bookingBlock?: T | BookingBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         featuredMenuBlock?: T | FeaturedMenuBlockSelect<T>;
         inspirationBlock?: T | InspirationBlockSelect<T>;
@@ -1318,6 +1362,16 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   categories?: T;
   limit?: T;
   selectedDocs?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BookingBlock_select".
+ */
+export interface BookingBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1480,6 +1534,22 @@ export interface AllergensSelect<T extends boolean = true> {
   name?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings_select".
+ */
+export interface BookingsSelect<T extends boolean = true> {
+  date?: T;
+  timeSlot?: T;
+  partySize?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  notes?: T;
+  status?: T;
+  createdAt?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1896,6 +1966,48 @@ export interface ContactInfo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "booking-settings".
+ */
+export interface BookingSetting {
+  id: number;
+  /**
+   * Maksimum antall personer som kan reservere bord i en booking
+   */
+  maxPartySize: number;
+  /**
+   * Hvor lenge hver tidsluke varer (f.eks. 30 eller 60 minutter)
+   */
+  timeSlotDuration: number;
+  /**
+   * Totalt antall seter tilgjengelig per tidsluke
+   */
+  maxSeatsPerSlot: number;
+  /**
+   * Hvor langt frem i tid kan kunder reservere bord
+   */
+  advanceBookingDays: number;
+  /**
+   * Datoer hvor det ikke er mulig å reservere bord
+   */
+  blackoutDates?:
+    | {
+        date: string;
+        /**
+         * F.eks. "Jul", "Påske", "Privat arrangement"
+         */
+        reason?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Velg ukedager kafeen er stengt (f.eks. søndager)
+   */
+  closedWeekdays?: ('1' | '2' | '3' | '4' | '5' | '6' | '0')[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1974,6 +2086,27 @@ export interface ContactInfoSelect<T extends boolean = true> {
   streetAddress?: T;
   city?: T;
   postalCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "booking-settings_select".
+ */
+export interface BookingSettingsSelect<T extends boolean = true> {
+  maxPartySize?: T;
+  timeSlotDuration?: T;
+  maxSeatsPerSlot?: T;
+  advanceBookingDays?: T;
+  blackoutDates?:
+    | T
+    | {
+        date?: T;
+        reason?: T;
+        id?: T;
+      };
+  closedWeekdays?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

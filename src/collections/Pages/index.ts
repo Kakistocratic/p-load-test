@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
+import { BookingBlock } from '../../blocks/BookingBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FeaturedMenuBlock } from '../../blocks/FeaturedMenuBlock/config'
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Content,
                 MediaBlock,
                 Archive,
+                BookingBlock,
                 FormBlock,
                 FeaturedMenuBlock,
                 InspirationBlock,
