@@ -218,7 +218,16 @@ export interface Page {
       overlayOpacity?: number | null;
     };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | InspirationBlock | MenuBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | FeaturedMenuBlock
+    | InspirationBlock
+    | MenuBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -714,41 +723,20 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InspirationBlock".
+ * via the `definition` "FeaturedMenuBlock".
  */
-export interface InspirationBlock {
+export interface FeaturedMenuBlock {
   /**
-   * Valgfri overskrift over galleriet
+   * Overskrift som vises over produktene
    */
   heading?: string | null;
   /**
-   * Skal karusellen automatisk bla gjennom bildene?
+   * Velg menyprodukter som skal vises
    */
-  autoplay?: boolean | null;
-  /**
-   * Tid mellom hvert bilde i millisekunder
-   */
-  autoplayDelay?: number | null;
+  menuItems: (number | Menu)[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'inspirationBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuBlock".
- */
-export interface MenuBlock {
-  /**
-   * Optional heading for the menu section
-   */
-  heading?: string | null;
-  /**
-   * Show category, temperature, and type filters
-   */
-  showFilters?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'menuBlock';
+  blockType: 'featuredMenuBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -861,6 +849,44 @@ export interface Ingredient {
   name: string;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InspirationBlock".
+ */
+export interface InspirationBlock {
+  /**
+   * Valgfri overskrift over galleriet
+   */
+  heading?: string | null;
+  /**
+   * Skal karusellen automatisk bla gjennom bildene?
+   */
+  autoplay?: boolean | null;
+  /**
+   * Tid mellom hvert bilde i millisekunder
+   */
+  autoplayDelay?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'inspirationBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuBlock".
+ */
+export interface MenuBlock {
+  /**
+   * Optional heading for the menu section
+   */
+  heading?: string | null;
+  /**
+   * Show category, temperature, and type filters
+   */
+  showFilters?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'menuBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1204,6 +1230,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        featuredMenuBlock?: T | FeaturedMenuBlockSelect<T>;
         inspirationBlock?: T | InspirationBlockSelect<T>;
         menuBlock?: T | MenuBlockSelect<T>;
       };
@@ -1302,6 +1329,16 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedMenuBlock_select".
+ */
+export interface FeaturedMenuBlockSelect<T extends boolean = true> {
+  heading?: T;
+  menuItems?: T;
   id?: T;
   blockName?: T;
 }
