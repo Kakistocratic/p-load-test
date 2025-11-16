@@ -6,10 +6,9 @@ import 'react-day-picker/style.css'
 
 interface BookingFormProps {
   bookingSettings: any
-  openingHours: any
 }
 
-export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings, openingHours }) => {
+export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => {
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [partySize, setPartySize] = useState<number>(2)
   const [timeSlot, setTimeSlot] = useState<string>('')
@@ -35,11 +34,14 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings, openi
       disabled.push({ after: maxDate })
     }
 
-    // Add closed weekdays
-    if (bookingSettings?.closedWeekdays && bookingSettings.closedWeekdays.length > 0) {
-      disabled.push({
-        dayOfWeek: bookingSettings.closedWeekdays.map((day: string) => parseInt(day)),
-      })
+    // Add closed weekdays from bookingHours
+    if (bookingSettings?.bookingHours && bookingSettings.bookingHours.length > 0) {
+      const closedDays = bookingSettings.bookingHours
+        .filter((h: any) => h.isClosed)
+        .map((h: any) => parseInt(h.dayOfWeek))
+      if (closedDays.length > 0) {
+        disabled.push({ dayOfWeek: closedDays })
+      }
     }
 
     // Add blackout dates
@@ -54,57 +56,45 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings, openi
     return disabled
   }, [bookingSettings])
 
-  // Generate time slots based on opening hours
+  // Generate time slots based on booking hours
   const availableTimeSlots = useMemo(() => {
-    if (!selectedDate || !openingHours?.hours) return []
+    if (!selectedDate || !bookingSettings?.bookingHours) return []
 
     const dayOfWeek = selectedDate.getDay()
     const slots: string[] = []
 
-    // Find matching opening hours for the selected day
-    for (const hourEntry of openingHours.hours) {
-      if (hourEntry.isClosed) continue
+    // Find booking hours for the selected day
+    const dayHours = bookingSettings.bookingHours.find(
+      (h: any) => parseInt(h.dayOfWeek) === dayOfWeek,
+    )
 
-      // Parse day range (e.g., "Mandag-Fredag")
-      const dayRange = hourEntry.dayRange?.toLowerCase() || ''
-      const matchesDay =
-        (dayRange.includes('mandag-fredag') && dayOfWeek >= 1 && dayOfWeek <= 5) ||
-        (dayRange.includes('mandag') && dayOfWeek === 1) ||
-        (dayRange.includes('tirsdag') && dayOfWeek === 2) ||
-        (dayRange.includes('onsdag') && dayOfWeek === 3) ||
-        (dayRange.includes('torsdag') && dayOfWeek === 4) ||
-        (dayRange.includes('fredag') && dayOfWeek === 5) ||
-        (dayRange.includes('lørdag') && dayOfWeek === 6) ||
-        (dayRange.includes('søndag') && dayOfWeek === 0)
+    if (!dayHours || dayHours.isClosed || !dayHours.openingTime || !dayHours.closingTime) {
+      return []
+    }
 
-      if (matchesDay && hourEntry.openingTime && hourEntry.closingTime) {
-        // Parse opening and closing times
-        const [openHour, openMin] = hourEntry.openingTime.split(':').map(Number)
-        const [closeHour, closeMin] = hourEntry.closingTime.split(':').map(Number)
+    // Parse opening and closing times
+    const [openHour, openMin] = dayHours.openingTime.split(':').map(Number)
+    const [closeHour, closeMin] = dayHours.closingTime.split(':').map(Number)
 
-        const slotDuration = bookingSettings?.timeSlotDuration || 30
+    const slotDuration = bookingSettings?.timeSlotDuration || 30
 
-        let currentHour = openHour
-        let currentMin = openMin
+    let currentHour = openHour
+    let currentMin = openMin
 
-        while (currentHour < closeHour || (currentHour === closeHour && currentMin < closeMin)) {
-          const timeString = `${String(currentHour).padStart(2, '0')}:${String(currentMin).padStart(2, '0')}`
-          slots.push(timeString)
+    while (currentHour < closeHour || (currentHour === closeHour && currentMin < closeMin)) {
+      const timeString = `${String(currentHour).padStart(2, '0')}:${String(currentMin).padStart(2, '0')}`
+      slots.push(timeString)
 
-          // Add slot duration
-          currentMin += slotDuration
-          if (currentMin >= 60) {
-            currentHour += Math.floor(currentMin / 60)
-            currentMin = currentMin % 60
-          }
-        }
-
-        break // Use first matching entry
+      // Add slot duration
+      currentMin += slotDuration
+      if (currentMin >= 60) {
+        currentHour += Math.floor(currentMin / 60)
+        currentMin = currentMin % 60
       }
     }
 
     return slots
-  }, [selectedDate, openingHours, bookingSettings])
+  }, [selectedDate, bookingSettings])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

@@ -5,7 +5,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { unstable_cache } from 'next/cache'
 
-const getCachedGlobal = cache(async (slug: 'booking-settings' | 'opening-hours', depth = 0) => {
+const getCachedGlobal = cache(async (slug: 'booking-settings', depth = 0) => {
   const getGlobal = unstable_cache(
     async () => {
       const payload = await getPayload({ config })
@@ -22,9 +22,8 @@ const getCachedGlobal = cache(async (slug: 'booking-settings' | 'opening-hours',
 })
 
 export const BookingBlock: React.FC<BookingBlockProps> = async ({ heading, description }) => {
-  // Fetch booking settings and opening hours
+  // Fetch booking settings
   const bookingSettings = await getCachedGlobal('booking-settings')
-  const openingHours = await getCachedGlobal('opening-hours')
 
   return (
     <div className="container my-16">
@@ -34,7 +33,7 @@ export const BookingBlock: React.FC<BookingBlockProps> = async ({ heading, descr
           <p className="text-center text-muted-foreground mb-8 text-lg">{description}</p>
         )}
 
-        <BookingForm bookingSettings={bookingSettings} openingHours={openingHours} />
+        <BookingForm bookingSettings={bookingSettings} />
       </div>
     </div>
   )

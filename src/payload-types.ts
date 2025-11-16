@@ -1971,6 +1971,69 @@ export interface ContactInfo {
 export interface BookingSetting {
   id: number;
   /**
+   * Definer hvilke dager og klokkeslett man kan reservere bord
+   */
+  bookingHours?:
+    | {
+        dayOfWeek: '1' | '2' | '3' | '4' | '5' | '6' | '0';
+        openingTime:
+          | '00:00'
+          | '01:00'
+          | '02:00'
+          | '03:00'
+          | '04:00'
+          | '05:00'
+          | '06:00'
+          | '07:00'
+          | '08:00'
+          | '09:00'
+          | '10:00'
+          | '11:00'
+          | '12:00'
+          | '13:00'
+          | '14:00'
+          | '15:00'
+          | '16:00'
+          | '17:00'
+          | '18:00'
+          | '19:00'
+          | '20:00'
+          | '21:00'
+          | '22:00'
+          | '23:00';
+        closingTime:
+          | '00:00'
+          | '01:00'
+          | '02:00'
+          | '03:00'
+          | '04:00'
+          | '05:00'
+          | '06:00'
+          | '07:00'
+          | '08:00'
+          | '09:00'
+          | '10:00'
+          | '11:00'
+          | '12:00'
+          | '13:00'
+          | '14:00'
+          | '15:00'
+          | '16:00'
+          | '17:00'
+          | '18:00'
+          | '19:00'
+          | '20:00'
+          | '21:00'
+          | '22:00'
+          | '23:00';
+        /**
+         * Kryss av hvis kafeen er stengt denne dagen
+         */
+        isClosed?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Maksimum antall personer som kan reservere bord i en booking
    */
   maxPartySize: number;
@@ -1999,10 +2062,6 @@ export interface BookingSetting {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Velg ukedager kafeen er stengt (f.eks. søndager)
-   */
-  closedWeekdays?: ('1' | '2' | '3' | '4' | '5' | '6' | '0')[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2095,6 +2154,15 @@ export interface ContactInfoSelect<T extends boolean = true> {
  * via the `definition` "booking-settings_select".
  */
 export interface BookingSettingsSelect<T extends boolean = true> {
+  bookingHours?:
+    | T
+    | {
+        dayOfWeek?: T;
+        openingTime?: T;
+        closingTime?: T;
+        isClosed?: T;
+        id?: T;
+      };
   maxPartySize?: T;
   timeSlotDuration?: T;
   maxSeatsPerSlot?: T;
@@ -2106,7 +2174,6 @@ export interface BookingSettingsSelect<T extends boolean = true> {
         reason?: T;
         id?: T;
       };
-  closedWeekdays?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
