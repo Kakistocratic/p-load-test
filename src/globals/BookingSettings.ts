@@ -125,24 +125,41 @@ export const BookingSettings: GlobalConfig = {
       },
     },
     {
-      name: 'timeSlotDuration',
-      type: 'number',
-      label: 'Lengde på tidsluke (minutter)',
-      defaultValue: 30,
+      name: 'timeSlotInterval',
+      type: 'select',
+      label: 'Tidsintervall for reservasjoner',
+      defaultValue: '15',
       required: true,
+      options: [
+        { label: '15 minutter', value: '15' },
+        { label: '30 minutter', value: '30' },
+        { label: '60 minutter', value: '60' },
+      ],
       admin: {
-        description: 'Hvor lenge hver tidsluke varer (f.eks. 30 eller 60 minutter)',
+        description: 'Hvor ofte kunder kan velge tidspunkter (f.eks. 10:00, 10:15, 10:30)',
       },
     },
     {
-      name: 'maxSeatsPerSlot',
+      name: 'tableOccupancyDuration',
       type: 'number',
-      label: 'Maks antall seter per tidsluke',
+      label: 'Bordopphold - varighet (minutter)',
+      defaultValue: 120,
+      required: true,
+      min: 30,
+      admin: {
+        description:
+          'Hvor lenge et bord er opptatt etter en reservasjon (seter blokkeres i denne perioden)',
+      },
+    },
+    {
+      name: 'totalSeatingCapacity',
+      type: 'number',
+      label: 'Total setekapasitet',
       defaultValue: 40,
       required: true,
       min: 1,
       admin: {
-        description: 'Totalt antall seter tilgjengelig per tidsluke',
+        description: 'Totalt antall seter i restauranten',
       },
     },
     {

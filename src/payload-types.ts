@@ -2038,13 +2038,17 @@ export interface BookingSetting {
    */
   maxPartySize: number;
   /**
-   * Hvor lenge hver tidsluke varer (f.eks. 30 eller 60 minutter)
+   * Hvor ofte kunder kan velge tidspunkter (f.eks. 10:00, 10:15, 10:30)
    */
-  timeSlotDuration: number;
+  timeSlotInterval: '15' | '30' | '60';
   /**
-   * Totalt antall seter tilgjengelig per tidsluke
+   * Hvor lenge et bord er opptatt etter en reservasjon (seter blokkeres i denne perioden)
    */
-  maxSeatsPerSlot: number;
+  tableOccupancyDuration: number;
+  /**
+   * Totalt antall seter i restauranten
+   */
+  totalSeatingCapacity: number;
   /**
    * Hvor langt frem i tid kan kunder reservere bord
    */
@@ -2164,8 +2168,9 @@ export interface BookingSettingsSelect<T extends boolean = true> {
         id?: T;
       };
   maxPartySize?: T;
-  timeSlotDuration?: T;
-  maxSeatsPerSlot?: T;
+  timeSlotInterval?: T;
+  tableOccupancyDuration?: T;
+  totalSeatingCapacity?: T;
   advanceBookingDays?: T;
   blackoutDates?:
     | T

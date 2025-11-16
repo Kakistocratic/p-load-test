@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { DayPicker, getDefaultClassNames } from 'react-day-picker'
 import 'react-day-picker/style.css'
 
@@ -12,6 +12,11 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [partySize, setPartySize] = useState<number>(2)
   const [timeSlot, setTimeSlot] = useState<string>('')
+  const [availableSeats, setAvailableSeats] = useState<number | null>(null)
+  const [checkingAvailability, setCheckingAvailability] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +25,40 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
   })
 
   const defaultClassNames = getDefaultClassNames()
+
+  // Check availability when date, time slot, or party size changes
+  useEffect(() => {
+    const checkAvailability = async () => {
+      if (!selectedDate || !timeSlot) {
+        setAvailableSeats(null)
+        return
+      }
+
+      setCheckingAvailability(true)
+      try {
+        const response = await fetch('/api/bookings/check-availability', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            date: selectedDate.toISOString(),
+            timeSlot,
+            partySize,
+          }),
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          setAvailableSeats(data.availableSeats)
+        }
+      } catch (error) {
+        console.error('Error checking availability:', error)
+      } finally {
+        setCheckingAvailability(false)
+      }
+    }
+
+    checkAvailability()
+  }, [selectedDate, timeSlot, partySize])
 
   // Generate disabled days based on settings
   const disabledDays = useMemo(() => {
@@ -76,7 +115,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
     const [openHour, openMin] = dayHours.openingTime.split(':').map(Number)
     const [closeHour, closeMin] = dayHours.closingTime.split(':').map(Number)
 
-    const slotDuration = bookingSettings?.timeSlotDuration || 30
+    const slotInterval = parseInt(bookingSettings?.timeSlotInterval || '15')
 
     let currentHour = openHour
     let currentMin = openMin
@@ -85,8 +124,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
       const timeString = `${String(currentHour).padStart(2, '0')}:${String(currentMin).padStart(2, '0')}`
       slots.push(timeString)
 
-      // Add slot duration
-      currentMin += slotDuration
+      // Add slot interval
+      currentMin += slotInterval
       if (currentMin >= 60) {
         currentHour += Math.floor(currentMin / 60)
         currentMin = currentMin % 60
@@ -98,13 +137,54 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement booking submission logic
-    console.log({
-      date: selectedDate,
-      time: timeSlot,
-      partySize,
-      ...formData,
-    })
+    setSubmitError(null)
+
+    if (!selectedDate || !timeSlot) {
+      setSubmitError('Vennligst velg dato og tidspunkt')
+      return
+    }
+
+    if (availableSeats !== null && availableSeats < partySize) {
+      setSubmitError('Ikke nok ledig kapasitet for dette tidspunktet')
+      return
+    }
+
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('/api/bookings/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date: selectedDate.toISOString(),
+          timeSlot,
+          partySize,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          notes: formData.notes,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitSuccess(true)
+        // Reset form
+        setSelectedDate(undefined)
+        setTimeSlot('')
+        setPartySize(2)
+        setFormData({ name: '', email: '', phone: '', notes: '' })
+        setAvailableSeats(null)
+      } else {
+        setSubmitError(data.error || 'Kunne ikke opprette reservasjon')
+      }
+    } catch (error) {
+      console.error('Error submitting booking:', error)
+      setSubmitError('Det oppstod en feil. Vennligst prøv igjen.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const maxPartySize = bookingSettings?.maxPartySize || 8
@@ -178,6 +258,26 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
                 </option>
               ))}
             </select>
+            {timeSlot && availableSeats !== null && (
+              <div className="mt-2 text-sm">
+                {checkingAvailability ? (
+                  <span className="text-muted-foreground">Sjekker tilgjengelighet...</span>
+                ) : availableSeats >= partySize ? (
+                  <span className="text-green-600">
+                    ✓ {availableSeats} {availableSeats === 1 ? 'plass' : 'plasser'} tilgjengelig
+                  </span>
+                ) : availableSeats > 0 ? (
+                  <span className="text-orange-600">
+                    Kun {availableSeats} {availableSeats === 1 ? 'plass' : 'plasser'} tilgjengelig
+                    (du valgte {partySize})
+                  </span>
+                ) : (
+                  <span className="text-red-600">
+                    Fullbooket - vennligst velg et annet tidspunkt
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Name */}
@@ -239,13 +339,34 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
             />
           </div>
 
+          {/* Success Message */}
+          {submitSuccess && (
+            <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+              <p className="text-green-800 font-medium">
+                ✓ Reservasjonen er mottatt! Du vil motta en bekreftelse på e-post.
+              </p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {submitError && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-red-800">{submitError}</p>
+            </div>
+          )}
+
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={!selectedDate || !timeSlot}
+            disabled={
+              !selectedDate ||
+              !timeSlot ||
+              submitting ||
+              (availableSeats !== null && availableSeats < partySize)
+            }
             className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Reserver bord
+            {submitting ? 'Behandler...' : 'Reserver bord'}
           </button>
         </form>
       </div>
