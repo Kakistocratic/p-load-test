@@ -23,12 +23,8 @@ export const InspirationBlock: React.FC<InspirationBlockProps> = async ({
   }
 
   return (
-    <div className="my-16">
-      {heading && (
-        <div className="container mb-8">
-          <h2 className="text-4xl font-bold">{heading}</h2>
-        </div>
-      )}
+    <div className="my-20">
+      {heading && <h2 className="text-4xl font-bold text-center mb-12">{heading}</h2>}
       <InspirationCarousel
         images={images}
         autoplay={autoplay ?? true}

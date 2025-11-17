@@ -32,7 +32,7 @@ export const FeaturedMenuBlock: React.FC<FeaturedMenuBlockProps> = async ({
   }
 
   return (
-    <div className="container my-16">
+    <div className="container my-20">
       {heading && <h2 className="text-4xl font-bold text-center mb-12">{heading}</h2>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

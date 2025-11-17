@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
+import { cn } from '@/utilities/ui'
+
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
@@ -20,6 +22,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
+  const [scrolled, setScrolled] = useState(false)
+
   useEffect(() => {
     setHeaderTheme(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,17 +34,53 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  useEffect(() => {
+    const onScroll = () => {
+      // treat any scroll away from top as scrolled; small threshold to avoid jitter
+      setScrolled(window.scrollY > 10)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Always keep the header wrapper sticky so the layout doesn't jump when toggling
+  const outerClass = cn(
+    'w-full sticky top-0 z-20 transition-colors duration-300',
+    scrolled ? 'bg-background/95 shadow-sm' : 'bg-transparent',
+  )
+
+  const logoImgClass = 'w-auto h-auto transition-all duration-300'
+
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="flex justify-between">
-        <Link href="/">
-          {data?.logo && typeof data.logo === 'object' ? (
-            <Media resource={data.logo} imgClassName="max-w-[130px] max-h-[130px] w-auto h-auto" />
-          ) : (
-            <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-          )}
-        </Link>
-        <HeaderNav data={data} />
+    <header className={outerClass} {...(theme ? { 'data-theme': theme } : {})}>
+      <div className={cn('container relative transition-all duration-300')}>
+        <div className="flex justify-between items-center">
+          <Link href="/">
+            {data?.logo && typeof data.logo === 'object' ? (
+              <Media
+                resource={data.logo}
+                // use inline max sizes but let padding change drive layout; keep smooth transition
+                imgClassName={cn(
+                  logoImgClass,
+                  scrolled ? 'max-w-[90px] max-h-[90px]' : 'max-w-[130px] max-h-[130px]',
+                )}
+              />
+            ) : (
+              <Logo
+                loading="eager"
+                priority="high"
+                className={cn(
+                  'invert dark:invert-0',
+                  logoImgClass,
+                  scrolled ? 'max-w-[90px] max-h-[90px]' : 'max-w-[130px] max-h-[130px]',
+                )}
+              />
+            )}
+          </Link>
+          <HeaderNav data={data} />
+        </div>
       </div>
     </header>
   )
