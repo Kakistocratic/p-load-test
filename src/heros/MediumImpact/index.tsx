@@ -7,36 +7,55 @@ import { ArtDirectedMedia } from '@/components/Media/ArtDirectedMedia'
 import RichText from '@/components/RichText'
 
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
-  return (
-    <div className="">
-      <div className="container mb-8">
-        {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+  // Get overlay opacity, default to 0.35 if not set
+  const overlayOpacity =
+    media && typeof media === 'object' && 'overlayOpacity' in media
+      ? (media.overlayOpacity ?? 0.35)
+      : 0.35
 
-        {Array.isArray(links) && links.length > 0 && (
-          <ul className="flex gap-4">
-            {links.map(({ link }, i) => {
-              return (
-                <li key={i}>
-                  <CMSLink {...link} />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </div>
-      <div className="container ">
+  return (
+    <div className="w-full -mt-[10.4rem]">
+      <div className="relative aspect-[5/2] md:aspect-[5/1]">
+        {/* Image layer */}
         {media && typeof media === 'object' && (
-          <div>
-            <ArtDirectedMedia
-              landscapeImage={media.landscape}
-              portraitImage={media.portrait}
-              className="-mx-4 md:-mx-8 2xl:-mx-16"
-              imgClassName=""
-              priority
+          <>
+            <div className="absolute inset-0">
+              <ArtDirectedMedia
+                landscapeImage={media.landscape}
+                portraitImage={media.portrait}
+                fill
+                imgClassName="object-cover"
+                priority
+              />
+            </div>
+            {/* Black overlay between image and text */}
+            <div
+              className="absolute inset-0 bg-black pointer-events-none"
+              style={{ opacity: overlayOpacity }}
             />
-            {/* Note: Caption functionality would need to be added to the media group if needed */}
-          </div>
+          </>
         )}
+
+        {/* Text layer */}
+        <div
+          className="relative z-10 h-full flex items-center justify-center text-white"
+          data-theme="dark"
+        >
+          <div className="max-w-[40rem] text-center px-4">
+            {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+            {Array.isArray(links) && links.length > 0 && (
+              <ul className="flex justify-center gap-4">
+                {links.map(({ link }, i) => {
+                  return (
+                    <li key={i}>
+                      <CMSLink {...link} />
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
