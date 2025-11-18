@@ -135,6 +135,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Technology',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'Technology',
@@ -148,6 +149,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'News',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'News',
@@ -161,6 +163,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Finance',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'Finance',
@@ -173,6 +176,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Design',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'Design',
@@ -186,6 +190,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Software',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'Software',
@@ -199,6 +204,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Engineering',
+        type: 'post',
         breadcrumbs: [
           {
             label: 'Engineering',
