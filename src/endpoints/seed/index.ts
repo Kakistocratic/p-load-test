@@ -40,21 +40,27 @@ export const seed = async ({
   // the custom `/api/seed` endpoint does not
   payload.logger.info(`— Clearing collections and globals...`)
 
-  // clear the database
-  await Promise.all(
-    globals.map((global) =>
-      payload.updateGlobal({
-        slug: global,
-        data: {
-          navItems: [],
-        },
-        depth: 0,
-        context: {
-          disableRevalidate: true,
-        },
-      }),
-    ),
-  )
+  // clear the database - only clear navItems for header
+  await payload.updateGlobal({
+    slug: 'header',
+    data: {
+      navItems: [],
+    },
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+  })
+
+  // Clear footer without navItems
+  await payload.updateGlobal({
+    slug: 'footer',
+    data: {},
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+  })
 
   await Promise.all(
     collections.map((collection) => payload.db.deleteMany({ collection, req, where: {} })),
