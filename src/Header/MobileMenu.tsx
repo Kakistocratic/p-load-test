@@ -13,13 +13,13 @@ import {
 } from '@/components/ui/sheet'
 import { MenuIcon } from 'lucide-react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 interface Props {
   menu: Header['navItems']
 }
 
-export function MobileMenu({ menu }: Props) {
+function MobileMenuContent({ menu }: Props) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isOpen, setIsOpen] = useState(false)
@@ -65,5 +65,19 @@ export function MobileMenu({ menu }: Props) {
         </div>
       </SheetContent>
     </Sheet>
+  )
+}
+
+export function MobileMenu({ menu }: Props) {
+  return (
+    <Suspense
+      fallback={
+        <button className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:bg-black dark:text-white">
+          <MenuIcon className="h-4" />
+        </button>
+      }
+    >
+      <MobileMenuContent menu={menu} />
+    </Suspense>
   )
 }
