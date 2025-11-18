@@ -64,7 +64,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 // use inline max sizes but let padding change drive layout; keep smooth transition
                 imgClassName={cn(
                   logoImgClass,
-                  scrolled ? 'max-w-[90px] max-h-[90px]' : 'max-w-[130px] max-h-[130px]',
+                  scrolled ? 'max-w-[90px] max-h-[100px] my-2' : 'max-w-[130px] max-h-[130px]',
                 )}
               />
             ) : (
