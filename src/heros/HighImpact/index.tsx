@@ -13,8 +13,9 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
+    // Set to 'dark' so the dark logo shows up against the dark hero image at top
     setHeaderTheme('dark')
-  })
+  }, [setHeaderTheme])
 
   // Get overlay opacity, default to 0.15 if not set
   const overlayOpacity =
@@ -23,7 +24,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       : 0.35
 
   return (
-    <div className="relative -mt-[10.4rem] min-h-[100vh] text-white" data-theme="dark">
+    <div className="relative -mt-[11.4rem] min-h-[100vh] text-white" data-theme="dark">
       {/* Image layer */}
       {media && typeof media === 'object' && (
         <>

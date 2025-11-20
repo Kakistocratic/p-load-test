@@ -49,7 +49,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
               {hasLogo ? (
                 <Media
                   resource={currentLogo}
-                  imgClassName="max-w-[170px] max-h-[130px] w-auto h-auto"
+                  imgClassName="max-w-[170px] max-h-[170px] w-auto h-auto"
                 />
               ) : (
                 <Logo />

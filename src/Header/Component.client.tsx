@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
 import type { Header } from '@/payload-types'
+import type { Theme } from '@/providers/Theme/types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { Media } from '@/components/Media'
@@ -48,19 +49,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [])
 
   // Always keep the header wrapper sticky so the layout doesn't jump when toggling
+  // Use theme-dependent background colors when scrolled
+  // When NOT scrolled and headerTheme is set (e.g., 'dark' for HighImpact hero), use it for logo
+  // When scrolled, always use currentTheme for both background and logo
+  const logoTheme = !scrolled && theme ? theme : currentTheme
+
   const outerClass = cn(
     'w-full sticky top-0 z-20 transition-colors duration-300',
-    scrolled ? 'bg-background/95 shadow-sm' : 'bg-transparent',
+    scrolled
+      ? currentTheme === 'dark'
+        ? 'bg-black/95 shadow-sm'
+        : 'bg-tertiary/95 shadow-sm'
+      : 'bg-transparent',
   )
 
   const logoImgClass = 'w-auto h-auto transition-all duration-300'
 
-  // Select the appropriate logo based on the current theme
-  const currentLogo = currentTheme === 'dark' ? data?.logoDark : data?.logoLight
+  // Select the appropriate logo based on logoTheme
+  const currentLogo = logoTheme === 'dark' ? data?.logoDark : data?.logoLight
   const hasLogo = currentLogo && typeof currentLogo === 'object'
 
   return (
-    <header className={outerClass} {...(theme ? { 'data-theme': theme } : {})}>
+    <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
@@ -70,7 +80,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 // use inline max sizes but let padding change drive layout; keep smooth transition
                 imgClassName={cn(
                   logoImgClass,
-                  scrolled ? 'max-w-[90px] max-h-[100px] my-2' : 'max-w-[130px] max-h-[130px]',
+                  scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
                 )}
               />
             ) : (
@@ -85,7 +95,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               />
             )}
           </Link>
-          <HeaderNav data={data} />
+          <HeaderNav data={data} logoTheme={logoTheme as Theme | undefined} />
         </div>
       </div>
     </header>
