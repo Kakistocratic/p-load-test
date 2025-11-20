@@ -34,13 +34,15 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let height: number | undefined
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
+  let isSvg = false
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
+    const { alt: altFromResource, height: fullHeight, url, width: fullWidth, mimeType } = resource
 
     width = fullWidth!
     height = fullHeight!
     alt = altFromResource || ''
+    isSvg = mimeType?.includes('svg') || false
 
     const cacheTag = resource.updatedAt
     src = getMediaUrl(url, cacheTag)
@@ -54,6 +56,16 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     : Object.entries(breakpoints)
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
+
+  // For SVG images, use a regular img tag instead of Next Image
+  // because Next Image has issues with SVGs (no intrinsic dimensions)
+  if (isSvg) {
+    return (
+      <picture className={cn(pictureClassName)}>
+        <img alt={alt || ''} className={cn(imgClassName)} src={src as string} loading={loading} />
+      </picture>
+    )
+  }
 
   return (
     <picture className={cn(pictureClassName)}>
