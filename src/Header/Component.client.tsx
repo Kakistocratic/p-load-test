@@ -1,5 +1,6 @@
 'use client'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
+import { useTheme } from '@/providers/Theme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
+  const { theme: currentTheme } = useTheme()
   const pathname = usePathname()
 
   const [scrolled, setScrolled] = useState(false)
@@ -53,14 +55,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   const logoImgClass = 'w-auto h-auto transition-all duration-300'
 
+  // Select the appropriate logo based on the current theme
+  const currentLogo = currentTheme === 'dark' ? data?.logoDark : data?.logoLight
+  const hasLogo = currentLogo && typeof currentLogo === 'object'
+
   return (
     <header className={outerClass} {...(theme ? { 'data-theme': theme } : {})}>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
-            {data?.logo && typeof data.logo === 'object' ? (
+            {hasLogo ? (
               <Media
-                resource={data.logo}
+                resource={currentLogo}
                 // use inline max sizes but let padding change drive layout; keep smooth transition
                 imgClassName={cn(
                   logoImgClass,

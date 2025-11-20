@@ -10,12 +10,21 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'logo',
+      name: 'logoLight',
       type: 'upload',
       relationTo: 'media',
       required: false,
       admin: {
-        description: 'Upload a logo for the footer. Recommended size: 170x130px',
+        description: 'Upload a logo for light mode. Recommended size: 170x130px',
+      },
+    },
+    {
+      name: 'logoDark',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description: 'Upload a logo for dark mode. Recommended size: 170x130px',
       },
     },
     {

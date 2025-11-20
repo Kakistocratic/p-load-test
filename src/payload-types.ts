@@ -1857,9 +1857,13 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: number;
   /**
-   * Upload a logo for the header. Recommended size: 170x130px
+   * Upload a logo for light mode. Recommended size: 170x130px
    */
-  logo?: (number | null) | Media;
+  logoLight?: (number | null) | Media;
+  /**
+   * Upload a logo for dark mode. Recommended size: 170x130px
+   */
+  logoDark?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -1890,9 +1894,13 @@ export interface Header {
 export interface Footer {
   id: number;
   /**
-   * Upload a logo for the footer. Recommended size: 170x130px
+   * Upload a logo for light mode. Recommended size: 170x130px
    */
-  logo?: (number | null) | Media;
+  logoLight?: (number | null) | Media;
+  /**
+   * Upload a logo for dark mode. Recommended size: 170x130px
+   */
+  logoDark?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -2074,7 +2082,8 @@ export interface BookingSetting {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  logo?: T;
+  logoLight?: T;
+  logoDark?: T;
   navItems?:
     | T
     | {
@@ -2098,7 +2107,8 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  logo?: T;
+  logoLight?: T;
+  logoDark?: T;
   navItems?:
     | T
     | {
