@@ -83,7 +83,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
         <div className="flex justify-between items-center">
           <Link href="/">
             {hasBothLogos ? (
-              // Render both logos and toggle visibility with CSS for instant switching
+              // Always render both logos and toggle visibility with CSS for instant switching
+              // This avoids hydration issues by keeping the DOM structure consistent
               <div className="relative">
                 <Media
                   resource={data.logoDark}
@@ -92,7 +93,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme === 'dark' ? 'opacity-100' : 'opacity-0 absolute inset-0',
+                    logoTheme === 'dark' ? 'opacity-100 relative' : 'opacity-0 absolute inset-0 pointer-events-none',
                   )}
                   priority
                 />
@@ -103,13 +104,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme !== 'dark' ? 'opacity-100' : 'opacity-0 absolute inset-0',
+                    logoTheme !== 'dark' ? 'opacity-100 relative' : 'opacity-0 absolute inset-0 pointer-events-none',
                   )}
                   priority
                 />
               </div>
             ) : hasLogo ? (
-              // Fallback to single logo if only one is available
+              // For SVGs or single logo, conditionally render the appropriate one
               <Media
                 resource={currentLogo}
                 imgClassName={cn(
