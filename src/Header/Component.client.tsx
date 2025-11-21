@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/utilities/ui'
 
-import type { Header } from '@/payload-types'
+import type { Header, ContactInfo } from '@/payload-types'
 import type { Theme } from '@/providers/Theme/types'
 
 import { Logo } from '@/components/Logo/Logo'
@@ -16,9 +16,10 @@ import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Header
+  contactData?: ContactInfo | null
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -69,19 +70,53 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const currentLogo = logoTheme === 'dark' ? data?.logoDark : data?.logoLight
   const hasLogo = currentLogo && typeof currentLogo === 'object'
 
+  // Check if we have both logos for optimized switching
+  const hasBothLogos =
+    data?.logoDark &&
+    typeof data.logoDark === 'object' &&
+    data?.logoLight &&
+    typeof data.logoLight === 'object'
+
   return (
     <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
-            {hasLogo ? (
+            {hasBothLogos ? (
+              // Render both logos and toggle visibility with CSS for instant switching
+              <div className="relative">
+                <Media
+                  resource={data.logoDark}
+                  imgClassName={cn(
+                    logoImgClass,
+                    scrolled
+                      ? 'max-w-[90px] max-h-[90px] my-2'
+                      : 'max-w-[130px] max-h-[130px] pt-1',
+                    logoTheme === 'dark' ? 'opacity-100' : 'opacity-0 absolute inset-0',
+                  )}
+                  priority
+                />
+                <Media
+                  resource={data.logoLight}
+                  imgClassName={cn(
+                    logoImgClass,
+                    scrolled
+                      ? 'max-w-[90px] max-h-[90px] my-2'
+                      : 'max-w-[130px] max-h-[130px] pt-1',
+                    logoTheme !== 'dark' ? 'opacity-100' : 'opacity-0 absolute inset-0',
+                  )}
+                  priority
+                />
+              </div>
+            ) : hasLogo ? (
+              // Fallback to single logo if only one is available
               <Media
                 resource={currentLogo}
-                // use inline max sizes but let padding change drive layout; keep smooth transition
                 imgClassName={cn(
                   logoImgClass,
                   scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
                 )}
+                priority
               />
             ) : (
               <Logo
@@ -95,7 +130,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               />
             )}
           </Link>
-          <HeaderNav data={data} logoTheme={logoTheme as Theme | undefined} />
+          <HeaderNav
+            data={data}
+            logoTheme={logoTheme as Theme | undefined}
+            contactData={contactData}
+          />
         </div>
       </div>
     </header>

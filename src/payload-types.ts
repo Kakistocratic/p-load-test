@@ -1884,6 +1884,10 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Show Facebook and Instagram icons in the header (fetched from Contact Info)
+   */
+  showSocialMedia?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2098,6 +2102,7 @@ export interface HeaderSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  showSocialMedia?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

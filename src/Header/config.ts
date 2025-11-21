@@ -43,6 +43,15 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'showSocialMedia',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Show Facebook and Instagram icons in the header (fetched from Contact Info)',
+        position: 'sidebar',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],
