@@ -26,7 +26,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const { theme: currentTheme } = useTheme()
   const pathname = usePathname()
 
+  // Initialize as false to match server render, then update on mount
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -53,7 +59,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   // Use theme-dependent background colors when scrolled
   // When NOT scrolled and headerTheme is set (e.g., 'dark' for HighImpact hero), use it for logo
   // When scrolled, always use currentTheme for both background and logo
-  const logoTheme = !scrolled && theme ? theme : currentTheme
+  // During SSR/initial render, default to currentTheme to avoid hydration mismatch
+  const logoTheme = mounted && !scrolled && theme ? theme : currentTheme
 
   const outerClass = cn(
     'w-full sticky top-0 z-20 transition-colors duration-300',
