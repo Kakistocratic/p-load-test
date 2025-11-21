@@ -26,13 +26,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const { theme: currentTheme } = useTheme()
   const pathname = usePathname()
 
-  // Initialize as false to match server render, then update on mount
   const [scrolled, setScrolled] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -59,8 +53,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   // Use theme-dependent background colors when scrolled
   // When NOT scrolled and headerTheme is set (e.g., 'dark' for HighImpact hero), use it for logo
   // When scrolled, always use currentTheme for both background and logo
-  // During SSR/initial render, default to currentTheme to avoid hydration mismatch
-  const logoTheme = mounted && !scrolled && theme ? theme : currentTheme
+  const logoTheme = !scrolled && theme ? theme : currentTheme
 
   const outerClass = cn(
     'w-full sticky top-0 z-20 transition-colors duration-300',
@@ -98,11 +91,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    mounted && logoTheme === 'dark'
-                      ? 'opacity-100 relative'
-                      : mounted && logoTheme !== 'dark'
-                        ? 'opacity-0 absolute inset-0 pointer-events-none'
-                        : 'opacity-0',
+                    logoTheme === 'dark' ? 'block' : 'hidden',
                   )}
                   priority
                 />
@@ -113,17 +102,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    mounted && logoTheme !== 'dark'
-                      ? 'opacity-100 relative'
-                      : mounted && logoTheme === 'dark'
-                        ? 'opacity-0 absolute inset-0 pointer-events-none'
-                        : 'opacity-0',
+                    logoTheme !== 'dark' ? 'block' : 'hidden',
                   )}
                   priority
                 />
               </div>
             ) : hasLogo ? (
-              // For SVGs or single logo, conditionally render the appropriate one
               <Media
                 resource={currentLogo}
                 imgClassName={cn(
