@@ -85,14 +85,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
     typeof data.logoLight === 'object'
 
   return (
-    <header className={outerClass} suppressHydrationWarning>
+    <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
-          <Link href="/" suppressHydrationWarning>
+          <Link href="/">
             {hasBothLogos ? (
-              // Always render both logos and toggle visibility with CSS for instant switching
-              // This avoids hydration issues by keeping the DOM structure consistent
-              <div className="relative" suppressHydrationWarning>
+              <div className="relative">
                 <Media
                   resource={data.logoDark}
                   imgClassName={cn(
@@ -100,9 +98,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme === 'dark'
+                    mounted && logoTheme === 'dark'
                       ? 'opacity-100 relative'
-                      : 'opacity-0 absolute inset-0 pointer-events-none',
+                      : mounted && logoTheme !== 'dark'
+                        ? 'opacity-0 absolute inset-0 pointer-events-none'
+                        : 'opacity-0',
                   )}
                   priority
                 />
@@ -113,9 +113,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme !== 'dark'
+                    mounted && logoTheme !== 'dark'
                       ? 'opacity-100 relative'
-                      : 'opacity-0 absolute inset-0 pointer-events-none',
+                      : mounted && logoTheme === 'dark'
+                        ? 'opacity-0 absolute inset-0 pointer-events-none'
+                        : 'opacity-0',
                   )}
                   priority
                 />
