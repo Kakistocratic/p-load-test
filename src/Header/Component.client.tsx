@@ -78,14 +78,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
     typeof data.logoLight === 'object'
 
   return (
-    <header className={outerClass}>
+    <header className={outerClass} suppressHydrationWarning>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
-          <Link href="/">
+          <Link href="/" suppressHydrationWarning>
             {hasBothLogos ? (
               // Always render both logos and toggle visibility with CSS for instant switching
               // This avoids hydration issues by keeping the DOM structure consistent
-              <div className="relative">
+              <div className="relative" suppressHydrationWarning>
                 <Media
                   resource={data.logoDark}
                   imgClassName={cn(
