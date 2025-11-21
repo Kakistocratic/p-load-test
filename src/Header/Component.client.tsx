@@ -93,7 +93,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme === 'dark' ? 'opacity-100 relative' : 'opacity-0 absolute inset-0 pointer-events-none',
+                    logoTheme === 'dark'
+                      ? 'opacity-100 relative'
+                      : 'opacity-0 absolute inset-0 pointer-events-none',
                   )}
                   priority
                 />
@@ -104,7 +106,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme !== 'dark' ? 'opacity-100 relative' : 'opacity-0 absolute inset-0 pointer-events-none',
+                    logoTheme !== 'dark'
+                      ? 'opacity-100 relative'
+                      : 'opacity-0 absolute inset-0 pointer-events-none',
                   )}
                   priority
                 />
