@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
 import { MobileMenu } from '../MobileMenu'
 import { cn } from '@/utilities/ui'
+import { Button } from '@/components/ui/button'
 
 export const HeaderNav: React.FC<{
   data: HeaderType
@@ -51,7 +52,7 @@ export const HeaderNav: React.FC<{
                 aria-label="Facebook"
               >
                 <svg
-                  className="w-5 h-5 fill-current"
+                  className="w-5 h-5 fill-current ml-4"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -78,13 +79,24 @@ export const HeaderNav: React.FC<{
             )}
           </>
         )}
-
         <Link href="/search">
           <span className="sr-only">Search</span>
           <SearchIcon className={cn('w-5', textColorClass)} />
         </Link>
-      </nav>
-
+        {/* Booking Button */}
+        {data?.bookingButton?.enabled && data?.bookingButton?.link && (
+          <Button
+            asChild
+            variant="ghost"
+            size="default"
+            className={cn('ml-2 text-xl border-2 border-current', textColorClass)}
+          >
+            <CMSLink {...data.bookingButton.link}>
+              {data.bookingButton.label || 'Book a Table'}
+            </CMSLink>
+          </Button>
+        )}
+      </nav>{' '}
       {/* Mobile Navigation */}
       <div className="flex md:hidden gap-3 items-center">
         <Link href="/search">

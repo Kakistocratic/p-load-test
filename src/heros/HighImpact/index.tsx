@@ -24,7 +24,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       : 0.35
 
   return (
-    <div className="relative -mt-[11.4rem] min-h-[100vh] text-white" data-theme="dark">
+    <div className="relative -mt-[11.4rem] min-h-[100vh]" data-theme="dark">
       {/* Image layer */}
       {media && typeof media === 'object' && (
         <>
@@ -50,7 +50,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         <div className="max-w-[40rem] md:text-center mb-8">
           {richText && (
             <RichText
-              className="mb-6 [&_h1]:text-9xl md:[&_h1]:text-8xl [&_p]:text-lg md:[&_p]:text-2xl"
+              className="mb-6 [&_h1]:text-9xl md:[&_h1]:text-8xl [&_p]:text-lg md:[&_p]:text-2xl [&_h1]:text-foreground text-foreground"
               data={richText}
               enableGutter={false}
             />

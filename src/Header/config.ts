@@ -52,6 +52,37 @@ export const Header: GlobalConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'bookingButton',
+      type: 'group',
+      admin: {
+        description: 'Optional booking button that appears in the header after social media icons',
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description: 'Show booking button in header',
+          },
+        },
+        {
+          name: 'label',
+          type: 'text',
+          required: false,
+          admin: {
+            description: 'Button text (e.g., "Book a Table", "Reservasjon")',
+            placeholder: 'Book a Table',
+          },
+        },
+        link({
+          appearances: false,
+          disableLabel: true,
+        }),
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],

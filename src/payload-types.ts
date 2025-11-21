@@ -1888,6 +1888,33 @@ export interface Header {
    * Show Facebook and Instagram icons in the header (fetched from Contact Info)
    */
   showSocialMedia?: boolean | null;
+  /**
+   * Optional booking button that appears in the header after social media icons
+   */
+  bookingButton?: {
+    /**
+     * Show booking button in header
+     */
+    enabled?: boolean | null;
+    /**
+     * Button text (e.g., "Book a Table", "Reservasjon")
+     */
+    label?: string | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2103,6 +2130,20 @@ export interface HeaderSelect<T extends boolean = true> {
         id?: T;
       };
   showSocialMedia?: T;
+  bookingButton?:
+    | T
+    | {
+        enabled?: T;
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
