@@ -75,15 +75,26 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
-            {/* Temporarily disabled logos for debugging */}
-            <div
-              className={cn(
-                logoImgClass,
-                scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
-              )}
-            >
-              Logo
-            </div>
+            {hasLogo ? (
+              <Media
+                resource={currentLogo}
+                imgClassName={cn(
+                  logoImgClass,
+                  scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
+                )}
+                priority
+              />
+            ) : (
+              <Logo
+                loading="eager"
+                priority="high"
+                className={cn(
+                  'invert dark:invert-0',
+                  logoImgClass,
+                  scrolled ? 'max-w-[90px] max-h-[90px]' : 'max-w-[130px] max-h-[130px]',
+                )}
+              />
+            )}
           </Link>
           <HeaderNav
             data={data}

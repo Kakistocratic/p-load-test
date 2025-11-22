@@ -28,15 +28,15 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
   const currentLogo = currentTheme === 'dark' ? footerData?.logoDark : footerData?.logoLight
   const hasLogo = currentLogo && typeof currentLogo === 'object'
 
-  // Helper function to format time in Norwegian format
+  // Helper function to format time - using simple string manipulation to avoid locale issues
   const formatTime = (timeString: string | null | undefined) => {
     if (!timeString) return ''
-    const date = new Date(timeString)
-    return date.toLocaleTimeString('nb-NO', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    })
+    // Extract HH:MM from ISO string or time string
+    const timeMatch = timeString.match(/(\d{2}):(\d{2})/)
+    if (timeMatch) {
+      return `${timeMatch[1]}:${timeMatch[2]}`
+    }
+    return timeString
   }
 
   return (
@@ -46,8 +46,14 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           {/* Logo Column */}
           <div className="flex items-start">
             <Link className="flex items-center" href="/">
-              {/* Temporarily disabled logos for debugging */}
-              <div className="max-w-[170px] max-h-[170px] w-auto h-auto">Footer Logo</div>
+              {hasLogo ? (
+                <Media
+                  resource={currentLogo}
+                  imgClassName="max-w-[170px] max-h-[170px] w-auto h-auto"
+                />
+              ) : (
+                <Logo />
+              )}
             </Link>
           </div>
 

@@ -6,10 +6,6 @@ import type { Footer, OpeningHour, ContactInfo } from '@/payload-types'
 import { FooterClient } from './Component.client'
 
 export async function Footer() {
-  // Temporarily disabled for debugging
-  return <footer className="bg-black text-white py-4">Footer disabled for debugging</footer>
-
-  /*
   let footerData: Footer | null = null
   let openingHoursData: OpeningHour | null = null
   let contactData: ContactInfo | null = null
@@ -39,5 +35,4 @@ export async function Footer() {
       contactData={contactData}
     />
   )
-  */
 }
