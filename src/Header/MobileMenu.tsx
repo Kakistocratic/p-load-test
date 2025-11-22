@@ -69,6 +69,20 @@ function MobileMenuContent({ menu }: Props) {
 }
 
 export function MobileMenu({ menu }: Props) {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) {
+    return (
+      <button className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:bg-black dark:text-white">
+        <MenuIcon className="h-4" />
+      </button>
+    )
+  }
+
   return (
     <Suspense
       fallback={
