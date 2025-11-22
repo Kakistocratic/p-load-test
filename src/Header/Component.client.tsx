@@ -70,12 +70,44 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const currentLogo = logoTheme === 'dark' ? data?.logoDark : data?.logoLight
   const hasLogo = currentLogo && typeof currentLogo === 'object'
 
+  // Check if we have both logos for optimized switching
+  const hasBothLogos =
+    data?.logoDark &&
+    typeof data.logoDark === 'object' &&
+    data?.logoLight &&
+    typeof data.logoLight === 'object'
+
   return (
     <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
-            {hasLogo ? (
+            {hasBothLogos ? (
+              <div className="relative">
+                <Media
+                  resource={data.logoDark}
+                  imgClassName={cn(
+                    logoImgClass,
+                    scrolled
+                      ? 'max-w-[90px] max-h-[90px] my-2'
+                      : 'max-w-[130px] max-h-[130px] pt-1',
+                    logoTheme === 'dark' ? 'block' : 'hidden',
+                  )}
+                  priority
+                />
+                <Media
+                  resource={data.logoLight}
+                  imgClassName={cn(
+                    logoImgClass,
+                    scrolled
+                      ? 'max-w-[90px] max-h-[90px] my-2'
+                      : 'max-w-[130px] max-h-[130px] pt-1',
+                    logoTheme !== 'dark' ? 'block' : 'hidden',
+                  )}
+                  priority
+                />
+              </div>
+            ) : hasLogo ? (
               <Media
                 resource={currentLogo}
                 imgClassName={cn(
