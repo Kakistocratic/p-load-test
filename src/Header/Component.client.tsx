@@ -27,6 +27,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const pathname = usePathname()
 
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -92,7 +97,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme === 'dark' ? 'block' : 'hidden',
+                    !mounted ? 'hidden' : logoTheme === 'dark' ? 'block' : 'hidden',
                   )}
                   priority
                 />
@@ -103,7 +108,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     scrolled
                       ? 'max-w-[90px] max-h-[90px] my-2'
                       : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme !== 'dark' ? 'block' : 'hidden',
+                    !mounted ? 'block' : logoTheme !== 'dark' ? 'block' : 'hidden',
                   )}
                   priority
                 />
