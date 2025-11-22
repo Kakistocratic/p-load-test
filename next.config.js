@@ -43,6 +43,11 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  // Temporarily disable minification to see full error messages
+  productionBrowserSourceMaps: true,
+  compiler: {
+    removeConsole: false,
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
