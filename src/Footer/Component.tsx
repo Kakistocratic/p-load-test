@@ -8,7 +8,7 @@ import { FooterClient } from './Component.client'
 export async function Footer() {
   // Temporarily disabled for debugging
   return <footer className="bg-black text-white py-4">Footer disabled for debugging</footer>
-  
+
   /*
   let footerData: Footer | null = null
   let openingHoursData: OpeningHour | null = null
