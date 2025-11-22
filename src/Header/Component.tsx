@@ -5,6 +5,10 @@ import React from 'react'
 import type { Header, ContactInfo } from '@/payload-types'
 
 export async function Header() {
+  // Temporarily disabled for debugging
+  return <header className="w-full sticky top-0 z-20 h-20">Header disabled for debugging</header>
+
+  /*
   let headerData: Header | null = null
   let contactData: ContactInfo | null = null
 
@@ -24,4 +28,5 @@ export async function Header() {
   }
 
   return <HeaderClient data={headerData} contactData={contactData} />
+  */
 }
