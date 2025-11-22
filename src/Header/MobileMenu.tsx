@@ -55,8 +55,8 @@ function MobileMenuContent({ menu }: Props) {
         <div className="py-4">
           {menu?.length ? (
             <ul className="flex w-full flex-col">
-              {menu.map((item) => (
-                <li className="py-2" key={item?.id || Math.random()}>
+              {menu.map((item, index) => (
+                <li className="py-2" key={item?.id || `menu-item-${index}`}>
                   {item?.link && <CMSLink {...item.link} appearance="link" />}
                 </li>
               ))}
