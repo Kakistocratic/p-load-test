@@ -76,7 +76,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
         <div className="flex justify-between items-center">
           <Link href="/">
             {/* Temporarily disabled logos for debugging */}
-            <div className={cn(logoImgClass, scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1')}>
+            <div
+              className={cn(
+                logoImgClass,
+                scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
+              )}
+            >
               Logo
             </div>
           </Link>
