@@ -4,10 +4,13 @@ import dynamic from 'next/dynamic'
 
 import type { Header, ContactInfo } from '@/payload-types'
 
-const HeaderClient = dynamic(() => import('./Component.client').then(mod => ({ default: mod.HeaderClient })), {
-  ssr: false,
-  loading: () => <header className="w-full sticky top-0 z-20 h-20" />
-})
+const HeaderClient = dynamic(
+  () => import('./Component.client').then((mod) => ({ default: mod.HeaderClient })),
+  {
+    ssr: false,
+    loading: () => <header className="w-full sticky top-0 z-20 h-20" />,
+  },
+)
 
 export async function Header() {
   let headerData: Header | null = null
