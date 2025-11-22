@@ -27,6 +27,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const pathname = usePathname()
 
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -82,7 +87,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
       <div className={cn('container relative transition-all duration-300')}>
         <div className="flex justify-between items-center">
           <Link href="/">
-            {hasBothLogos ? (
+            {hasBothLogos && mounted ? (
               <div className="relative">
                 <Media
                   resource={data.logoDark}
