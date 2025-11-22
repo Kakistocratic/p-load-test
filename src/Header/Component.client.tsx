@@ -53,7 +53,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   // Use theme-dependent background colors when scrolled
   // When NOT scrolled and headerTheme is set (e.g., 'dark' for HighImpact hero), use it for logo
   // When scrolled, always use currentTheme for both background and logo
-  const logoTheme = !scrolled && theme ? theme : currentTheme
+  // Default to 'light' if both are undefined (SSR case) to match client initial render
+  const logoTheme = !scrolled && theme ? theme : currentTheme || 'light'
 
   const outerClass = cn(
     'w-full sticky top-0 z-20 transition-colors duration-300',
