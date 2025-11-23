@@ -1,4 +1,10 @@
 import type { GlobalConfig } from 'payload'
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 import { revalidateBookingSettings } from './hooks/revalidateBookingSettings'
 
 export const BookingSettings: GlobalConfig = {
@@ -172,6 +178,24 @@ export const BookingSettings: GlobalConfig = {
       max: 365,
       admin: {
         description: 'Hvor langt frem i tid kan kunder reservere bord',
+      },
+    },
+    {
+      name: 'bookingInstructions',
+      type: 'richText',
+      label: 'Booking instruksjoner og tips',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+      admin: {
+        description: 'Tips og instruksjoner som vises ved siden av kalenderen',
       },
     },
     {

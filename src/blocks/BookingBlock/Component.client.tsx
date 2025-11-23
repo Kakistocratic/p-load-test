@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { DayPicker, getDefaultClassNames } from 'react-day-picker'
 import 'react-day-picker/style.css'
+import RichText from '@/components/RichText'
 
 interface BookingFormProps {
   bookingSettings: any
@@ -191,23 +192,42 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
   const minPartySize = 1
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="flex flex-col gap-8 max-w-5xl mx-auto">
       {/* Calendar Section */}
       <div className="bg-card border border-border rounded-lg p-6">
-        <h3 className="text-xl font-semibold mb-4">Velg dato</h3>
-        <DayPicker
-          mode="single"
-          selected={selectedDate}
-          onSelect={setSelectedDate}
-          disabled={disabledDays}
-          classNames={{
-            today: 'border-primary',
-            selected: 'bg-primary border-primary text-primary-foreground',
-            root: `${defaultClassNames.root} mx-auto`,
-            chevron: `${defaultClassNames.chevron} fill-primary`,
-            day_button: 'hover:bg-muted rounded-md',
-          }}
-        />
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex-1 flex flex-col">
+            <h3 className="text-xl font-semibold mb-4">Velg dato</h3>
+            <div className="flex-1 flex items-center justify-center">
+              <DayPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                disabled={disabledDays}
+                style={
+                  {
+                    '--rdp-day-height': '3rem',
+                    '--rdp-day-width': '3rem',
+                    '--rdp-day_button-height': '2.75rem',
+                    '--rdp-day_button-width': '2.75rem',
+                  } as React.CSSProperties
+                }
+                classNames={{
+                  today: 'border-primary',
+                  selected: 'bg-primary border-primary text-primary-foreground',
+                  root: `${defaultClassNames.root}`,
+                  chevron: `${defaultClassNames.chevron} fill-primary`,
+                  day_button: 'hover:bg-muted rounded-md',
+                }}
+              />
+            </div>
+          </div>
+          {bookingSettings?.bookingInstructions && (
+            <div className="flex-1 flex flex-col">
+              <RichText data={bookingSettings.bookingInstructions} enableGutter={false} />
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Booking Form Section */}

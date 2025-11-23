@@ -2098,6 +2098,24 @@ export interface BookingSetting {
    */
   advanceBookingDays: number;
   /**
+   * Tips og instruksjoner som vises ved siden av kalenderen
+   */
+  bookingInstructions?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
    * Datoer hvor det ikke er mulig å reservere bord
    */
   blackoutDates?:
@@ -2233,6 +2251,7 @@ export interface BookingSettingsSelect<T extends boolean = true> {
   tableOccupancyDuration?: T;
   totalSeatingCapacity?: T;
   advanceBookingDays?: T;
+  bookingInstructions?: T;
   blackoutDates?:
     | T
     | {
