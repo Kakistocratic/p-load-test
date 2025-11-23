@@ -50,7 +50,7 @@ export const hero: Field = {
         description:
           'Controls the color of the header logo and nav items when at the top of the page. Choose "Dark" for light backgrounds, "Light" for dark backgrounds/images.',
         condition: (_, { type } = {}) =>
-          ['highImpact', 'mediumImpact', 'logoMediumImpact'].includes(type),
+          ['highImpact', 'mediumImpact', 'logoMediumImpact', 'lowImpact'].includes(type),
       },
       defaultValue: 'dark',
       options: [
