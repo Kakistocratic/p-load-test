@@ -15,16 +15,16 @@ import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export const HeaderNav: React.FC<{
   data: HeaderType
-  logoTheme?: Theme
   contactData?: ContactInfo | null
-}> = ({ data, logoTheme, contactData }) => {
+  atTop: boolean
+  heroBackground: 'dark' | 'light' | null
+}> = ({ data, contactData, atTop, heroBackground }) => {
   const navItems = data?.navItems || []
   const showSocialMedia = data?.showSocialMedia || false
 
-  // When logoTheme is 'dark', we're showing dark logo (at top of HighImpact hero)
-  // So use light text color (foreground) to contrast against dark background
-  // When logoTheme is not 'dark', use the primary color (which adapts to theme)
-  const textColorClass = logoTheme === 'dark' ? 'text-foreground' : 'text-primary'
+  // At top with dark hero: use white text
+  // Otherwise: use theme-aware text-primary (dark green in light mode, beige in dark mode)
+  const textColorClass = atTop && heroBackground === 'dark' ? 'text-white' : 'text-primary'
 
   return (
     <>

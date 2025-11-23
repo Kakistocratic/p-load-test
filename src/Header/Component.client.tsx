@@ -40,7 +40,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
 
   useEffect(() => {
     const onScroll = () => {
-      // treat any scroll away from top as scrolled; small threshold to avoid jitter
       setScrolled(window.scrollY > 10)
     }
 
@@ -48,12 +47,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  // Always keep the header wrapper sticky so the layout doesn't jump when toggling
-  // Use theme-dependent background colors when scrolled
-  // When NOT scrolled and headerTheme is set (e.g., 'dark' for HighImpact hero), use it for logo
-  // When scrolled, always use currentTheme for both background and logo
-  const logoTheme = !scrolled && theme ? theme : currentTheme
 
   const outerClass = cn(
     'w-full sticky top-0 z-20 transition-colors duration-300',
@@ -64,8 +57,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
       : 'bg-transparent',
   )
 
-  // Select the appropriate logo based on logoTheme
-  const currentLogo = logoTheme === 'dark' ? data?.logoDark : data?.logoLight
+  // Logo logic: mirror the text logic
+  // At top with dark hero: show light logo (like white text)
+  // Otherwise: use theme default
+  const atTop = !scrolled
+  const shouldShowLightLogo = atTop && theme === 'dark' ? true : currentTheme === 'dark'
+
+  const currentLogo = shouldShowLightLogo ? data?.logoLight : data?.logoDark
   const hasLogo = currentLogo && typeof currentLogo === 'object'
 
   // Check if we have both logos for optimized switching
@@ -93,18 +91,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                 }}
               >
                 <Media
-                  resource={data.logoDark}
+                  resource={data.logoLight}
                   imgClassName={cn(
                     'absolute inset-0 transition-opacity duration-300',
-                    logoTheme === 'dark' ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                    shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
                 />
                 <Media
-                  resource={data.logoLight}
+                  resource={data.logoDark}
                   imgClassName={cn(
                     'absolute inset-0 transition-opacity duration-300',
-                    logoTheme !== 'dark' ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                    !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
                 />
@@ -132,8 +130,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
           </Link>
           <HeaderNav
             data={data}
-            logoTheme={logoTheme as Theme | undefined}
             contactData={contactData}
+            atTop={!scrolled}
+            heroBackground={theme as 'dark' | 'light' | null}
           />
         </div>
       </div>

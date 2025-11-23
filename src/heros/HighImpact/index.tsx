@@ -8,14 +8,18 @@ import { CMSLink } from '@/components/Link'
 import { cn } from '@/utilities/ui'
 import { ArtDirectedMedia } from '@/components/Media/ArtDirectedMedia'
 import RichText from '@/components/RichText'
+import type { Theme } from '@/providers/Theme/types'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText, headerTheme }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
-    // Set to 'dark' so the dark logo shows up against the dark hero image at top
-    setHeaderTheme('dark')
-  }, [setHeaderTheme])
+    console.log('HighImpact hero headerTheme prop:', headerTheme)
+    // Use the headerTheme from CMS, defaulting to 'dark' for dark hero backgrounds
+    const themeToSet = (headerTheme as Theme) || 'dark'
+    console.log('HighImpact hero setting headerTheme to:', themeToSet)
+    setHeaderTheme(themeToSet)
+  }, [setHeaderTheme, headerTheme])
 
   // Get overlay opacity, default to 0.15 if not set
   const overlayOpacity =

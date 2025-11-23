@@ -168,6 +168,10 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'logoMediumImpact' | 'lowImpact';
+    /**
+     * Controls the color of the header logo and nav items when at the top of the page. Choose "Dark" for light backgrounds, "Light" for dark backgrounds/images.
+     */
+    headerTheme?: ('dark' | 'light') | null;
     richText?: {
       root: {
         type: string;
@@ -1245,6 +1249,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
+        headerTheme?: T;
         richText?: T;
         links?:
           | T

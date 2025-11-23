@@ -43,6 +43,28 @@ export const hero: Field = {
       required: true,
     },
     {
+      name: 'headerTheme',
+      type: 'select',
+      label: 'Header Theme',
+      admin: {
+        description:
+          'Controls the color of the header logo and nav items when at the top of the page. Choose "Dark" for light backgrounds, "Light" for dark backgrounds/images.',
+        condition: (_, { type } = {}) =>
+          ['highImpact', 'mediumImpact', 'logoMediumImpact'].includes(type),
+      },
+      defaultValue: 'dark',
+      options: [
+        {
+          label: 'Dark (dark hero background)',
+          value: 'dark',
+        },
+        {
+          label: 'Light (light hero background)',
+          value: 'light',
+        },
+      ],
+    },
+    {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({
