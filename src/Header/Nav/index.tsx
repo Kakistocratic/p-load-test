@@ -22,9 +22,9 @@ export const HeaderNav: React.FC<{
   const navItems = data?.navItems || []
   const showSocialMedia = data?.showSocialMedia || false
 
-  // At top with dark hero: use white text
+  // At top with dark hero: use header-light (white)
   // Otherwise: use theme-aware text-primary (dark green in light mode, beige in dark mode)
-  const textColorClass = atTop && heroBackground === 'dark' ? 'text-background' : 'text-primary'
+  const textColorClass = atTop && heroBackground === 'dark' ? 'text-header-light' : 'text-primary'
 
   return (
     <>

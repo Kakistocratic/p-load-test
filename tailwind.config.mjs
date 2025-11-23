@@ -93,6 +93,10 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        header: {
+          light: 'hsl(var(--header-light))',
+          dark: 'hsl(var(--header-dark))',
+        },
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
