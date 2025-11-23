@@ -64,8 +64,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
       : 'bg-transparent',
   )
 
-  const logoImgClass = 'w-auto h-auto transition-all duration-300'
-
   // Select the appropriate logo based on logoTheme
   const currentLogo = logoTheme === 'dark' ? data?.logoDark : data?.logoLight
   const hasLogo = currentLogo && typeof currentLogo === 'object'
@@ -77,54 +75,58 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
     data?.logoLight &&
     typeof data.logoLight === 'object'
 
+  // Explicit dimensions for logo sizing (width x height)
+  const logoWidth = scrolled ? 90 : 130
+  const logoHeight = scrolled ? 64 : 92
+
   return (
     <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center my-1">
           <Link href="/">
             {hasBothLogos ? (
-              <div className="relative">
+              <div
+                className="relative transition-all duration-300"
+                style={{
+                  width: `${logoWidth}px`,
+                  height: `${logoHeight}px`,
+                }}
+              >
                 <Media
                   resource={data.logoDark}
                   imgClassName={cn(
-                    logoImgClass,
-                    scrolled
-                      ? 'max-w-[90px] max-h-[90px] my-2'
-                      : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme === 'dark' ? 'block' : 'hidden',
+                    'absolute inset-0 transition-opacity duration-300',
+                    logoTheme === 'dark' ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
                 />
                 <Media
                   resource={data.logoLight}
                   imgClassName={cn(
-                    logoImgClass,
-                    scrolled
-                      ? 'max-w-[90px] max-h-[90px] my-2'
-                      : 'max-w-[130px] max-h-[130px] pt-1',
-                    logoTheme !== 'dark' ? 'block' : 'hidden',
+                    'absolute inset-0 transition-opacity duration-300',
+                    logoTheme !== 'dark' ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
                 />
               </div>
             ) : hasLogo ? (
-              <Media
-                resource={currentLogo}
-                imgClassName={cn(
-                  logoImgClass,
-                  scrolled ? 'max-w-[90px] max-h-[90px] my-2' : 'max-w-[130px] max-h-[130px] pt-1',
-                )}
-                priority
-              />
+              <div
+                style={{
+                  width: `${logoWidth}px`,
+                  height: `${logoHeight}px`,
+                }}
+              >
+                <Media
+                  resource={currentLogo}
+                  imgClassName="w-full h-full transition-all duration-300"
+                  priority
+                />
+              </div>
             ) : (
               <Logo
                 loading="eager"
                 priority="high"
-                className={cn(
-                  'invert dark:invert-0',
-                  logoImgClass,
-                  scrolled ? 'max-w-[90px] max-h-[90px]' : 'max-w-[130px] max-h-[130px]',
-                )}
+                className={cn('invert dark:invert-0', 'transition-all duration-300')}
               />
             )}
           </Link>

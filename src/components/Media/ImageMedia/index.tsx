@@ -59,20 +59,15 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   // For SVG images, use a regular img tag instead of Next Image
   // because Next Image has issues with SVGs (no intrinsic dimensions)
-  // Set explicit width/height to make SVG fill the container properly
   if (isSvg) {
     return (
-      <picture className={cn(pictureClassName)}>
-        <img
-          alt={alt || ''}
-          className={cn(imgClassName)}
-          src={src as string}
-          loading={loading}
-          width={width || undefined}
-          height={height || undefined}
-          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        />
-      </picture>
+      <img
+        alt={alt || ''}
+        className={cn(imgClassName)}
+        src={src as string}
+        loading={loading}
+        style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
+      />
     )
   }
 

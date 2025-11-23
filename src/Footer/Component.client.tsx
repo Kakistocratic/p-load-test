@@ -46,14 +46,9 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           {/* Logo Column */}
           <div className="flex items-start">
             <Link className="flex items-center" href="/">
-              {hasLogo ? (
-                <Media
-                  resource={currentLogo}
-                  imgClassName="max-w-[170px] max-h-[170px] w-auto h-auto"
-                />
-              ) : (
-                <Logo />
-              )}
+              <div style={{ width: '170px', height: '170px' }}>
+                {hasLogo ? <Media resource={currentLogo} imgClassName="w-auto h-auto" /> : <Logo />}
+              </div>
             </Link>
           </div>
 
