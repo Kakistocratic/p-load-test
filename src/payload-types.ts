@@ -167,7 +167,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'logoMediumImpact' | 'lowImpact';
     richText?: {
       root: {
         type: string;
@@ -221,6 +221,10 @@ export interface Page {
        */
       overlayOpacity?: number | null;
     };
+    /**
+     * Logo to display centered in the hero
+     */
+    logo?: (number | null) | Media;
   };
   layout: (
     | CallToActionBlock
@@ -1264,6 +1268,7 @@ export interface PagesSelect<T extends boolean = true> {
               portrait?: T;
               overlayOpacity?: T;
             };
+        logo?: T;
       };
   layout?:
     | T

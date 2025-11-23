@@ -32,6 +32,10 @@ export const hero: Field = {
           value: 'mediumImpact',
         },
         {
+          label: 'Logo Medium Impact',
+          value: 'logoMediumImpact',
+        },
+        {
           label: 'Low Impact',
           value: 'lowImpact',
         },
@@ -63,7 +67,8 @@ export const hero: Field = {
       name: 'media',
       type: 'group',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) =>
+          ['highImpact', 'mediumImpact', 'logoMediumImpact'].includes(type),
       },
       fields: [
         {
@@ -101,6 +106,16 @@ export const hero: Field = {
         },
       ],
       label: 'Hero Images',
+    },
+    {
+      name: 'logo',
+      type: 'upload',
+      label: 'Logo',
+      admin: {
+        condition: (_, { type } = {}) => type === 'logoMediumImpact',
+        description: 'Logo to display centered in the hero',
+      },
+      relationTo: 'media',
     },
   ],
   label: false,
