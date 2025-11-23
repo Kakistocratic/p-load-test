@@ -18,7 +18,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           <Media resource={image} imgClassName="w-full h-full object-cover" />
 
           {/* Overlay gradient for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent via-20% to-transparent" />
 
           {/* Title - top left */}
           <h3 className="absolute top-4 left-4 text-2xl font-bold text-white drop-shadow-lg pr-24">

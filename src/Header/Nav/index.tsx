@@ -11,6 +11,7 @@ import { SearchIcon } from 'lucide-react'
 import { MobileMenu } from '../MobileMenu'
 import { cn } from '@/utilities/ui'
 import { Button } from '@/components/ui/button'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export const HeaderNav: React.FC<{
   data: HeaderType
@@ -96,6 +97,8 @@ export const HeaderNav: React.FC<{
             </CMSLink>
           </Button>
         )}
+        {/* Theme Switcher */}
+        <ThemeSelector />
       </nav>{' '}
       {/* Mobile Navigation */}
       <div className="flex md:hidden gap-3 items-center">
