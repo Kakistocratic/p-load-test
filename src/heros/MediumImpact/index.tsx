@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
+import React, { useEffect } from 'react'
 
 import type { Page } from '@/payload-types'
 
@@ -7,6 +9,12 @@ import { ArtDirectedMedia } from '@/components/Media/ArtDirectedMedia'
 import RichText from '@/components/RichText'
 
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+  const { setHeaderTheme } = useHeaderTheme()
+
+  useEffect(() => {
+    // Set to 'dark' so the dark logo shows up against the dark hero image at top
+    setHeaderTheme('dark')
+  }, [setHeaderTheme])
   // Get overlay opacity, default to 0.35 if not set
   const overlayOpacity =
     media && typeof media === 'object' && 'overlayOpacity' in media
@@ -14,7 +22,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
       : 0.35
 
   return (
-    <div className="w-full -mt-[10.4rem]">
+    <div className="w-full -mt-[10.4rem]" data-theme="dark">
       <div className="relative aspect-[5/2] md:aspect-[5/1]">
         {/* Image layer */}
         {media && typeof media === 'object' && (
