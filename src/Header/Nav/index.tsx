@@ -24,7 +24,7 @@ export const HeaderNav: React.FC<{
 
   // At top with dark hero: use white text
   // Otherwise: use theme-aware text-primary (dark green in light mode, beige in dark mode)
-  const textColorClass = atTop && heroBackground === 'dark' ? 'text-white' : 'text-primary'
+  const textColorClass = atTop && heroBackground === 'dark' ? 'text-background' : 'text-primary'
 
   return (
     <>
@@ -97,8 +97,6 @@ export const HeaderNav: React.FC<{
             </CMSLink>
           </Button>
         )}
-        {/* Theme Switcher */}
-        <ThemeSelector />
       </nav>{' '}
       {/* Mobile Navigation */}
       <div className="flex md:hidden gap-3 items-center">
