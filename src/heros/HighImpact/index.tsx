@@ -14,11 +14,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
-    console.log('HighImpact hero headerTheme prop:', headerTheme)
     // Use the headerTheme from CMS, defaulting to 'dark' for dark hero backgrounds
-    const themeToSet = (headerTheme as Theme) || 'dark'
-    console.log('HighImpact hero setting headerTheme to:', themeToSet)
-    setHeaderTheme(themeToSet)
+    setHeaderTheme((headerTheme as Theme) || 'dark')
   }, [setHeaderTheme, headerTheme])
 
   // Get overlay opacity, default to 0.15 if not set

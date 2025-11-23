@@ -91,7 +91,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                 }}
               >
                 <Media
-                  resource={data.logoLight}
+                  resource={data.logoDark}
                   imgClassName={cn(
                     'absolute inset-0 transition-opacity duration-300',
                     shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
@@ -99,7 +99,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                   priority
                 />
                 <Media
-                  resource={data.logoDark}
+                  resource={data.logoLight}
                   imgClassName={cn(
                     'absolute inset-0 transition-opacity duration-300',
                     !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
