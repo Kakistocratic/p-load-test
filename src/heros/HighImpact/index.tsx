@@ -24,7 +24,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       : 0.35
 
   return (
-    <div className="relative -mt-[11.4rem] min-h-[100vh]" data-theme="dark">
+    <div className="relative -mt-[10.4rem] min-h-[100vh]" data-theme="dark">
       {/* Image layer */}
       {media && typeof media === 'object' && (
         <>

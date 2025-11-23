@@ -26,7 +26,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           </h3>
 
           {/* Price - top right */}
-          <span className="absolute top-4 right-4 text-xl font-bold text-white bg-primary/90 px-3 py-1.5 rounded-md shadow-lg">
+          <span className="absolute top-4 right-4 text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg">
             {price} kr
           </span>
 

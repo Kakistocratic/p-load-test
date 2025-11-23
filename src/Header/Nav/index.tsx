@@ -23,7 +23,7 @@ export const HeaderNav: React.FC<{
   // When logoTheme is 'dark', we're showing dark logo (at top of HighImpact hero)
   // So use light text color (foreground) to contrast against dark background
   // When logoTheme is not 'dark', use the primary color (which adapts to theme)
-  const textColorClass = logoTheme === 'dark' ? 'text-background' : 'text-primary'
+  const textColorClass = logoTheme === 'dark' ? 'text-foreground' : 'text-primary'
 
   return (
     <>

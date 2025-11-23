@@ -40,7 +40,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
   }
 
   return (
-    <footer className="mt-auto border-t border-border bg-secondary dark:bg-card text-white">
+    <footer className="mt-auto border-t border-border bg-secondary dark:bg-tertiary text-white">
       <div className="container py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Logo Column */}
@@ -54,17 +54,27 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
 
           {/* Navigation Column */}
           <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background">Sidekart</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+              Sidekart
+            </h3>
             <nav className="flex flex-col gap-2">
               {navItems.map(({ link }, i) => {
-                return <CMSLink className="text-background hover:text-gray-300" key={i} {...link} />
+                return (
+                  <CMSLink
+                    className="text-background dark:text-primary hover:text-gray-300"
+                    key={i}
+                    {...link}
+                  />
+                )
               })}
             </nav>
           </div>
 
           {/* Opening Hours Column */}
           <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background">{openingHoursTitle}</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+              {openingHoursTitle}
+            </h3>
             <div className="flex flex-col gap-3">
               {openingHoursData?.hours && openingHoursData.hours.length > 0 ? (
                 openingHoursData.hours.map((hours, index) => (
@@ -74,8 +84,10 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                       aria-hidden="true"
                     ></div>
                     <div className="flex flex-col">
-                      <div className="font-medium text-background">{hours.dayRange}</div>
-                      <div className="text-sm text-background">
+                      <div className="font-medium text-background dark:text-primary">
+                        {hours.dayRange}
+                      </div>
+                      <div className="text-sm text-background dark:text-primary">
                         {hours.isClosed
                           ? 'Closed'
                           : `${formatTime(hours.openingTime)} - ${formatTime(hours.closingTime)}`}
@@ -84,20 +96,24 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-background">No opening hours available</p>
+                <p className="text-sm text-background dark:text-primary">
+                  No opening hours available
+                </p>
               )}
             </div>
           </div>
 
           {/* Contact Info Column */}
           <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background">{contactTitle}</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+              {contactTitle}
+            </h3>
             {contactData && (
               <div className="flex flex-col gap-2">
                 {/* Address */}
                 {(contactData.streetAddress || contactData.city || contactData.postalCode) && (
                   <div className="mb-2">
-                    <span className="font-bold text-background">
+                    <span className="font-bold text-background dark:text-primary">
                       {[contactData.streetAddress, contactData.postalCode, contactData.city]
                         .filter(Boolean)
                         .join(', ')}
@@ -108,10 +124,10 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                 {/* Phone */}
                 {contactData.phoneNumber && (
                   <div className="flex gap-2">
-                    <span className="text-background">Telefon:</span>
+                    <span className="text-background dark:text-primary">Telefon:</span>
                     <a
                       href={`tel:${contactData.phoneNumber}`}
-                      className="font-bold text-background hover:text-foreground"
+                      className="font-bold text-background dark:text-primary hover:text-foreground"
                     >
                       {contactData.phoneNumber}
                     </a>
@@ -121,10 +137,10 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                 {/* Email */}
                 {contactData.email && (
                   <div className="flex gap-2">
-                    <span className="text-background">E-post:</span>
+                    <span className="text-background dark:text-primary">E-post:</span>
                     <a
                       href={`mailto:${contactData.email}`}
-                      className="font-bold text-background hover:text-foreground"
+                      className="font-bold text-background dark:text-primary hover:text-foreground"
                     >
                       {contactData.email}
                     </a>
@@ -139,7 +155,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                         href={contactData.facebookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:opacity-80 transition-opacity text-background"
+                        className="hover:opacity-80 transition-opacity text-background dark:text-primary"
                         aria-label="Facebook"
                       >
                         <svg
@@ -156,7 +172,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                         href={contactData.instagramUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-background hover:opacity-80 transition-opacity"
+                        className="text-background dark:text-primary hover:opacity-80 transition-opacity"
                         aria-label="Instagram"
                       >
                         <svg

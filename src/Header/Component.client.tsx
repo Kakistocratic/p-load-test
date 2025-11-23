@@ -59,7 +59,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
     'w-full sticky top-0 z-20 transition-colors duration-300',
     scrolled
       ? currentTheme === 'dark'
-        ? 'bg-black/95 shadow-sm'
+        ? 'bg-tertiary/95 shadow-sm'
         : 'bg-tertiary/95 shadow-sm'
       : 'bg-transparent',
   )
