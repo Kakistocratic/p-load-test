@@ -13,6 +13,15 @@
     font-weight: unset;
   }
 
+  /** HSL TO HEX 
+  
+  36 72% 89% = #f7e7cf
+  120 25% 14% = #1b2d1b
+  39 30% 9% = #100e09
+  
+  **/
+
+
   :root {
     --background: 36 72% 89%;
     --foreground: 120 25% 14%;

@@ -436,6 +436,20 @@ export interface CallToActionBlock {
         id?: string | null;
       }[]
     | null;
+  media?: {
+    /**
+     * Image used for wide screens (landscape orientation, 3:1 aspect ratio)
+     */
+    landscape?: (number | null) | Media;
+    /**
+     * Optional image for narrow screens (portrait/mobile, 4:5 aspect ratio). If not provided, landscape image will be used.
+     */
+    portrait?: (number | null) | Media;
+    /**
+     * Dark overlay opacity between image and text (0-1). Default is 0.15 (15% opaque). Higher values make text more readable.
+     */
+    overlayOpacity?: number | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -1322,6 +1336,13 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               appearance?: T;
             };
         id?: T;
+      };
+  media?:
+    | T
+    | {
+        landscape?: T;
+        portrait?: T;
+        overlayOpacity?: T;
       };
   id?: T;
   blockName?: T;
