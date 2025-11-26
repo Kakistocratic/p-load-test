@@ -9,6 +9,7 @@ import { Content } from '../../blocks/Content/config'
 import { FeaturedMenuBlock } from '../../blocks/FeaturedMenuBlock/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { InspirationBlock } from '../../blocks/InspirationBlock/config'
+import { MapBlock } from '../../blocks/MapBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MenuBlock } from '../../blocks/MenuBlock/config'
 import { hero } from '@/heros/config'
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CallToAction,
                 Content,
                 MediaBlock,
+                MapBlock,
                 Archive,
                 BookingBlock,
                 FormBlock,

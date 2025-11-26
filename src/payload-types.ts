@@ -234,6 +234,7 @@ export interface Page {
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
+    | MapBlock
     | ArchiveBlock
     | BookingBlock
     | FormBlock
@@ -513,6 +514,27 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock".
+ */
+export interface MapBlock {
+  /**
+   * Optional title to display above the map
+   */
+  blockTitle?: string | null;
+  /**
+   * Height of the map
+   */
+  height?: ('small' | 'medium' | 'large') | null;
+  /**
+   * Add container padding around the map
+   */
+  enableGutter?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mapBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1295,6 +1317,7 @@ export interface PagesSelect<T extends boolean = true> {
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        mapBlock?: T | MapBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         bookingBlock?: T | BookingBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
@@ -1379,6 +1402,17 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock_select".
+ */
+export interface MapBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  height?: T;
+  enableGutter?: T;
   id?: T;
   blockName?: T;
 }
@@ -2031,6 +2065,48 @@ export interface ContactInfo {
   streetAddress?: string | null;
   city?: string | null;
   postalCode?: string | null;
+  googleMapsConfig?: {
+    /**
+     * Your Google Maps API key (restricted to Maps JavaScript API)
+     */
+    apiKey?: string | null;
+    /**
+     * Your Google Map ID
+     */
+    mapId?: string | null;
+    /**
+     * Style ID for light theme (e.g., edc47589a16083b321f5c16d)
+     */
+    styleIdLight?: string | null;
+    /**
+     * Style ID for dark theme (e.g., edc47589a16083b32dbae02f)
+     */
+    styleIdDark?: string | null;
+    /**
+     * Latitude coordinate for the map marker
+     */
+    latitude?: number | null;
+    /**
+     * Longitude coordinate for the map marker
+     */
+    longitude?: number | null;
+    /**
+     * Map zoom level (1-20, default: 15)
+     */
+    zoomLevel?: number | null;
+    /**
+     * Title to display on the map marker
+     */
+    markerTitle?: string | null;
+    /**
+     * Map placeholder image for desktop (aspect ratio 3:1)
+     */
+    placeholderImageDesktop?: (number | null) | Media;
+    /**
+     * Map placeholder image for mobile (aspect ratio 4:5)
+     */
+    placeholderImageMobile?: (number | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2254,6 +2330,20 @@ export interface ContactInfoSelect<T extends boolean = true> {
   streetAddress?: T;
   city?: T;
   postalCode?: T;
+  googleMapsConfig?:
+    | T
+    | {
+        apiKey?: T;
+        mapId?: T;
+        styleIdLight?: T;
+        styleIdDark?: T;
+        latitude?: T;
+        longitude?: T;
+        zoomLevel?: T;
+        markerTitle?: T;
+        placeholderImageDesktop?: T;
+        placeholderImageMobile?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

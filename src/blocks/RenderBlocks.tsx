@@ -9,6 +9,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FeaturedMenuBlock } from '@/blocks/FeaturedMenuBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { InspirationBlock } from '@/blocks/InspirationBlock/Component'
+import { MapBlock } from '@/blocks/MapBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MenuBlock } from '@/blocks/MenuBlock/Component'
 
@@ -20,6 +21,7 @@ const blockComponents = {
   featuredMenuBlock: FeaturedMenuBlock,
   formBlock: FormBlock,
   inspirationBlock: InspirationBlock,
+  mapBlock: MapBlock,
   mediaBlock: MediaBlock,
   menuBlock: MenuBlock,
 }
