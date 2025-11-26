@@ -25,6 +25,6 @@ export const blockSpacing: Field = {
 
 export const blockSpacingClasses = {
   none: '',
-  small: 'my-8 lg:my-10',
-  medium: 'my-16 lg:my-18',
+  small: 'my-8 lg:my-12',
+  medium: 'my-16 lg:my-20',
 }
