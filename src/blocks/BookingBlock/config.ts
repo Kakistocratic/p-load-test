@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockSpacing } from '@/fields/blockSpacing'
+
 export const BookingBlock: Block = {
   slug: 'bookingBlock',
   interfaceName: 'BookingBlock',
@@ -8,6 +10,7 @@ export const BookingBlock: Block = {
     plural: 'Bordreservasjoner',
   },
   fields: [
+    blockSpacing,
     {
       name: 'heading',
       type: 'text',

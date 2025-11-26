@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockSpacing } from '@/fields/blockSpacing'
+
 export const InspirationBlock: Block = {
   slug: 'inspirationBlock',
   interfaceName: 'InspirationBlock',
@@ -8,6 +10,7 @@ export const InspirationBlock: Block = {
     plural: 'Inspirasjonsgallerier',
   },
   fields: [
+    blockSpacing,
     {
       name: 'heading',
       type: 'text',

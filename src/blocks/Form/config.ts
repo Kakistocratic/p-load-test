@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockSpacing } from '@/fields/blockSpacing'
+
 import {
   FixedToolbarFeature,
   HeadingFeature,
@@ -11,6 +13,7 @@ export const FormBlock: Block = {
   slug: 'formBlock',
   interfaceName: 'FormBlock',
   fields: [
+    blockSpacing,
     {
       name: 'form',
       type: 'relationship',

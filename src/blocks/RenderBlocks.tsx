@@ -12,6 +12,7 @@ import { InspirationBlock } from '@/blocks/InspirationBlock/Component'
 import { MapBlock } from '@/blocks/MapBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MenuBlock } from '@/blocks/MenuBlock/Component'
+import { blockSpacingClasses } from '@/fields/blockSpacing'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -43,8 +44,10 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
+              const spacingClass = blockSpacingClasses[block.blockSpacing || 'medium']
+
               return (
-                <div className="my-16" key={index}>
+                <div className={spacingClass} key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockSpacing } from '@/fields/blockSpacing'
+
 export const MapBlock: Block = {
   slug: 'mapBlock',
   interfaceName: 'MapBlock',
@@ -8,6 +10,7 @@ export const MapBlock: Block = {
     plural: 'Map Blocks',
   },
   fields: [
+    blockSpacing,
     {
       name: 'blockTitle',
       type: 'text',

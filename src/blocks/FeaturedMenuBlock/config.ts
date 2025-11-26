@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockSpacing } from '@/fields/blockSpacing'
+
 export const FeaturedMenuBlock: Block = {
   slug: 'featuredMenuBlock',
   interfaceName: 'FeaturedMenuBlock',
@@ -8,6 +10,7 @@ export const FeaturedMenuBlock: Block = {
     plural: 'Utvalgte Menyprodukter',
   },
   fields: [
+    blockSpacing,
     {
       name: 'heading',
       type: 'text',

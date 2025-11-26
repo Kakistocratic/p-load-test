@@ -398,6 +398,10 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   richText?: {
     root: {
       type: string;
@@ -460,6 +464,10 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -510,6 +518,10 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
@@ -520,6 +532,10 @@ export interface MediaBlock {
  * via the `definition` "MapBlock".
  */
 export interface MapBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   /**
    * Optional title to display above the map
    */
@@ -541,6 +557,10 @@ export interface MapBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   introContent?: {
     root: {
       type: string;
@@ -575,6 +595,10 @@ export interface ArchiveBlock {
  * via the `definition` "BookingBlock".
  */
 export interface BookingBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   heading: string;
   /**
    * Kort beskrivelse som vises over bookingskjemaet
@@ -589,6 +613,10 @@ export interface BookingBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -790,6 +818,10 @@ export interface Form {
  */
 export interface FeaturedMenuBlock {
   /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
+  /**
    * Overskrift som vises over produktene
    */
   heading?: string | null;
@@ -919,6 +951,10 @@ export interface Ingredient {
  */
 export interface InspirationBlock {
   /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
+  /**
    * Valgfri overskrift over galleriet
    */
   heading?: string | null;
@@ -939,6 +975,10 @@ export interface InspirationBlock {
  * via the `definition` "MenuBlock".
  */
 export interface MenuBlock {
+  /**
+   * Controls the vertical spacing (margin) around this block
+   */
+  blockSpacing?: ('none' | 'small' | 'medium') | null;
   /**
    * Optional heading for the menu section
    */
@@ -1344,6 +1384,7 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   richText?: T;
   links?:
     | T
@@ -1375,6 +1416,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   columns?:
     | T
     | {
@@ -1401,6 +1443,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   media?: T;
   id?: T;
   blockName?: T;
@@ -1410,6 +1453,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "MapBlock_select".
  */
 export interface MapBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   blockTitle?: T;
   height?: T;
   enableGutter?: T;
@@ -1421,6 +1465,7 @@ export interface MapBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
@@ -1435,6 +1480,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "BookingBlock_select".
  */
 export interface BookingBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   heading?: T;
   description?: T;
   id?: T;
@@ -1445,6 +1491,7 @@ export interface BookingBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   form?: T;
   enableIntro?: T;
   introContent?: T;
@@ -1456,6 +1503,7 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "FeaturedMenuBlock_select".
  */
 export interface FeaturedMenuBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   heading?: T;
   menuItems?: T;
   id?: T;
@@ -1466,6 +1514,7 @@ export interface FeaturedMenuBlockSelect<T extends boolean = true> {
  * via the `definition` "InspirationBlock_select".
  */
 export interface InspirationBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   heading?: T;
   autoplay?: T;
   autoplayDelay?: T;
@@ -1477,6 +1526,7 @@ export interface InspirationBlockSelect<T extends boolean = true> {
  * via the `definition` "MenuBlock_select".
  */
 export interface MenuBlockSelect<T extends boolean = true> {
+  blockSpacing?: T;
   heading?: T;
   showFilters?: T;
   id?: T;

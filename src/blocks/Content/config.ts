@@ -7,6 +7,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import { blockSpacing } from '@/fields/blockSpacing'
 import { link } from '@/fields/link'
 
 const columnFields: Field[] = [
@@ -67,6 +68,7 @@ export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
   fields: [
+    blockSpacing,
     {
       name: 'columns',
       type: 'array',
