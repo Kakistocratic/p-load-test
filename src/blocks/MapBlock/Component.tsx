@@ -37,7 +37,7 @@ export const MapBlock: React.FC<Props> = (props) => {
   const heightMap: Record<'small' | 'medium' | 'large', string> = {
     small: '300px',
     medium: '450px',
-    large: '800px',
+    large: '600px',
   }
 
   // Fetch placeholder images
