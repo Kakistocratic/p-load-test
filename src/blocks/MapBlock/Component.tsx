@@ -200,10 +200,13 @@ export const MapBlock: React.FC<Props> = (props) => {
     >
       {blockTitle && <h2 className="mb-6 text-3xl font-bold">{blockTitle}</h2>}
       {!isLoaded && placeholderImages && (
-        <button
+        <div
           onClick={() => setIsLoaded(true)}
-          className="relative w-full border border-border rounded-[0.8rem] overflow-hidden cursor-pointer group"
+          className="relative w-full border border-border overflow-hidden cursor-pointer group block leading-[0]"
           style={{ height: heightMap[height || 'medium'] }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && setIsLoaded(true)}
           aria-label="Load interactive map"
         >
           {/* Desktop placeholder */}
@@ -223,17 +226,17 @@ export const MapBlock: React.FC<Props> = (props) => {
             />
           )}
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center leading-normal">
             <div className="bg-white dark:bg-gray-800 px-6 py-3 rounded-lg shadow-lg">
               <span className="text-lg font-semibold">Load Interactive Map</span>
             </div>
           </div>
-        </button>
+        </div>
       )}
       {!isLoaded && !placeholderImages && (
         <button
           onClick={() => setIsLoaded(true)}
-          className="w-full border-2 border-dashed border-border rounded-[0.8rem] hover:border-gray-400 transition-colors cursor-pointer flex items-center justify-center"
+          className="w-full border-2 border-dashed border-border hover:border-gray-400 transition-colors cursor-pointer flex items-center justify-center"
           style={{ height: heightMap[height || 'medium'] }}
           aria-label="Load interactive map"
         >
@@ -245,7 +248,7 @@ export const MapBlock: React.FC<Props> = (props) => {
       )}
       {error ? (
         <div
-          className="w-full border border-red-500 bg-red-50 rounded-[0.8rem] p-8 flex items-center justify-center"
+          className="w-full border border-red-500 bg-red-50 p-8 flex items-center justify-center"
           style={{ height: heightMap[height || 'medium'] }}
         >
           <div className="text-center">
@@ -256,7 +259,7 @@ export const MapBlock: React.FC<Props> = (props) => {
       ) : isLoaded ? (
         <div
           ref={mapRef}
-          className="w-full border border-border rounded-[0.8rem] overflow-hidden"
+          className="w-full border border-border overflow-hidden"
           style={{ height: heightMap[height || 'medium'] }}
         />
       ) : null}
