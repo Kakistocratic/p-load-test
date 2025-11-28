@@ -15,9 +15,9 @@
 
   /** HSL TO HEX 
   
-  36 72% 89% = #f7e7cf
-  120 25% 14% = #1b2d1b
-  39 30% 9% = #100e09
+  36 72% 89% = #f7e7cf light caramel
+  120 25% 14% = #1b2d1b Dark Green
+  39 30% 9% = #100e09 black
   
   **/
 
@@ -129,4 +129,13 @@ html[data-theme='light'] {
 .opening-hours-item .clock-icon::before {
   content: '🕐';
   display: block;
+}
+
+/* DayPicker Chevron Override */
+.rdp-chevron {
+  fill: hsl(var(--primary)) !important;
+}
+
+[data-theme='dark'] .rdp-chevron {
+  fill: hsl(var(--primary)) !important;
 }

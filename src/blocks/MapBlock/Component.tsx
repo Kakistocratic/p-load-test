@@ -227,8 +227,8 @@ export const MapBlock: React.FC<Props> = (props) => {
           )}
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center leading-normal">
-            <div className="bg-white dark:bg-gray-800 px-6 py-3 rounded-lg shadow-lg">
-              <span className="text-lg font-semibold">Load Interactive Map</span>
+            <div className="bg-primary dark:bg-tertiary text-tertiary px-6 py-3 rounded-lg shadow-lg">
+              <span className="text-lg font-semibold">Last Google Kart</span>
             </div>
           </div>
         </div>
@@ -241,8 +241,8 @@ export const MapBlock: React.FC<Props> = (props) => {
           aria-label="Load interactive map"
         >
           <div className="text-center">
-            <p className="text-lg font-semibold mb-2">Click to Load Map</p>
-            <p className="text-sm text-gray-500">Interactive Google Maps</p>
+            <p className="text-lg font-semibold mb-2">Trykk for å laste</p>
+            <p className="text-sm text-gray-500">Interaktivt Google Kart</p>
           </div>
         </button>
       )}
