@@ -227,7 +227,7 @@ export const MapBlock: React.FC<Props> = (props) => {
           )}
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center leading-normal">
-            <div className="bg-primary dark:bg-tertiary text-tertiary px-6 py-3 rounded-lg shadow-lg">
+            <div className="bg-primary dark:bg-tertiary text-tertiary dark:text-foreground px-6 py-3 rounded-lg shadow-lg">
               <span className="text-lg font-semibold">Last Google Kart</span>
             </div>
           </div>

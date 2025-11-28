@@ -32,7 +32,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
 
   return (
     <div className="w-full -mt-[10.4rem]" data-theme="dark">
-      <div className="relative aspect-[5/2] md:aspect-[5/1]">
+      <div className="relative aspect-[4/2] md:aspect-[4/2] lg:aspect-[5/2] xl:aspect-[5/1]">
         {/* Image layer - full width */}
         {media && typeof media === 'object' && (
           <>

@@ -104,7 +104,14 @@ export const HeaderNav: React.FC<{
           <span className="sr-only">Search</span>
           <SearchIcon className={cn('w-5', textColorClass)} />
         </Link>
-        <MobileMenu menu={navItems} />
+        <MobileMenu
+          menu={navItems}
+          atTop={atTop}
+          heroBackground={heroBackground}
+          headerData={data}
+          scrolled={!atTop}
+          contactData={contactData}
+        />
       </div>
     </>
   )
