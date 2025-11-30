@@ -35,19 +35,32 @@ const BookingConfirmationEmail = ({
   <Html lang="no">
     <Head />
     <Preview>Din bordreservasjon er bekreftet - {formattedDate}</Preview>
-    <Tailwind>
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              purple: {
+                600: '#9333ea',
+                800: '#6b21a8',
+              },
+            },
+          },
+        },
+      }}
+    >
       <Body className="bg-gray-100 font-sans">
         <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
           {/* Header */}
-          <Section className="rounded-t-lg bg-gradient-to-br from-purple-600 to-purple-800 px-10 py-8 text-center">
+          <Section className="rounded-t-lg bg-blue-950 px-10 py-8 text-center">
             <Img
               src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
               alt="Coffee Shop Logo"
-              width="120"
-              height="120"
+              width="280"
+              height="195"
               className="mx-auto mb-4"
             />
-            <Heading className="m-0 text-3xl font-semibold text-white">
+            <Heading className="m-0 text-3xl font-semibold text-black">
               ✓ Bordreservasjon Bekreftet
             </Heading>
           </Section>
@@ -150,7 +163,29 @@ const BookingNotificationEmail = ({
     <Preview>
       Ny bordreservasjon: {name} - {formattedDate} kl. {timeSlot}
     </Preview>
-    <Tailwind>
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              red: {
+                500: '#ef4444',
+              },
+              yellow: {
+                50: '#fefce8',
+                300: '#fde047',
+                400: '#facc15',
+                800: '#854d0e',
+              },
+              blue: {
+                50: '#eff6ff',
+                600: '#2563eb',
+              },
+            },
+          },
+        },
+      }}
+    >
       <Body className="bg-gray-100 font-sans">
         <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
           {/* Header */}
