@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { sendBookingEmails } from './Bookings/hooks/sendBookingEmails'
 
 export const Bookings: CollectionConfig = {
   slug: 'bookings',
@@ -16,6 +17,9 @@ export const Bookings: CollectionConfig = {
     create: () => true,
     update: () => true,
     delete: () => true,
+  },
+  hooks: {
+    afterChange: [sendBookingEmails],
   },
   fields: [
     {

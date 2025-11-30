@@ -80,6 +80,8 @@ export const plugins: Plugin[] = [
         })
       },
     },
+    // The form builder will automatically use the email adapter configured in payload.config.ts
+    // Emails can be configured per-form in the admin panel under the "Emails" tab
   }),
   searchPlugin({
     collections: ['posts'],

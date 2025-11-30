@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -73,6 +74,11 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+  }),
+  email: resendAdapter({
+    defaultFromAddress: process.env.RESEND_DEFAULT_EMAIL || 'onboarding@resend.dev',
+    defaultFromName: process.env.RESEND_DEFAULT_NAME || 'Coffee Shop',
+    apiKey: process.env.RESEND_API_KEY || '',
   }),
   collections: [
     Pages,

@@ -40,7 +40,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 10)
+      const currentScrollY = window.scrollY
+      // Use hysteresis: different thresholds for scrolling up vs down
+      // This prevents flickering when hovering around the threshold
+      if (currentScrollY > 20) {
+        setScrolled(true)
+      } else if (currentScrollY < 5) {
+        setScrolled(false)
+      }
+      // Between 5-20px, maintain current state
     }
 
     onScroll()
