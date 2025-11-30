@@ -42,11 +42,11 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
   return (
     <footer className="mt-auto border-t border-border bg-secondary dark:bg-tertiary text-white">
       <div className="container py-8">
-        <div className="grid grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
-          {/* Empty cell on left for mobile/tablet */}
-          <div className="lg:hidden"></div>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
+          {/* Empty cell on left for tablet */}
+          <div className="hidden md:block lg:hidden"></div>
 
-          {/* Logo Column - middle cell on mobile/tablet, first column on desktop */}
+          {/* Logo Column - centered on mobile, middle on tablet, first column on desktop */}
           <div className="flex items-start justify-center lg:justify-start lg:col-start-1 lg:row-start-1">
             <Link className="flex items-center" href="/">
               <div style={{ width: '170px', height: '170px' }}>
@@ -55,8 +55,8 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
             </Link>
           </div>
 
-          {/* Empty cell on right for mobile/tablet */}
-          <div className="lg:hidden"></div>
+          {/* Empty cell on right for tablet */}
+          <div className="hidden md:block lg:hidden"></div>
 
           {/* Navigation Column */}
           <div className="flex flex-col">
@@ -146,7 +146,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
                     <span className="text-nowrap text-background dark:text-primary">E-post:</span>
                     <a
                       href={`mailto:${contactData.email}`}
-                      className="font-bold text-background dark:text-primary hover:text-foreground"
+                      className="font-bold text-wrap text-background dark:text-primary hover:text-foreground"
                     >
                       {contactData.email}
                     </a>

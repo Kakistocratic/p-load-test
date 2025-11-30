@@ -51,7 +51,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
         <div className="max-w-[40rem] md:text-center mb-8">
           {richText && (
             <RichText
-              className="mb-6 [&_h1]:text-9xl md:[&_h1]:text-8xl [&_p]:text-lg md:[&_p]:text-2xl [&_h1]:text-foreground text-foreground"
+              className="mb-6 [&_h1]:text-7xl md:[&_h1]:text-8xl [&_p]:text-lg md:[&_p]:text-2xl [&_h1]:text-foreground text-foreground"
               data={richText}
               enableGutter={false}
             />
@@ -69,7 +69,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
                         link?.className,
-                        'text-lg md:text-xl px-6 py-3 md:px-8 md:py-4',
+                        'text-lg md:text-xl px-8 py-4 md:px-8 md:py-4',
                       )}
                     />
                   </li>
