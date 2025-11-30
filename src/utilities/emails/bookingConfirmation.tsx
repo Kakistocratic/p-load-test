@@ -12,7 +12,6 @@ import {
   Row,
   Column,
 } from '@react-email/components'
-import { Tailwind } from '@react-email/tailwind'
 import { render } from '@react-email/render'
 
 /**
@@ -35,111 +34,158 @@ const BookingConfirmationEmail = ({
   <Html lang="no">
     <Head />
     <Preview>Din bordreservasjon er bekreftet - {formattedDate}</Preview>
-    <Tailwind
-      config={{
-        theme: {
-          extend: {
-            colors: {
-              purple: {
-                600: '#9333ea',
-                800: '#6b21a8',
-              },
-            },
-          },
-        },
+    <Body
+      style={{
+        margin: 0,
+        padding: 0,
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        backgroundColor: '#f5f5f5',
       }}
     >
-      <Body className="bg-gray-100 font-sans">
-        <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
-          {/* Header */}
-          <Section className="rounded-t-lg bg-[#f7e7cf] px-10 py-8 text-center">
-            <Img
-              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
-              alt="Coffee Shop Logo"
-              width="280"
-              height="195"
-              className="mx-auto mb-4"
-            />
-            <Heading className="my-2 text-3xl font-semibold text-[#1b2d1b]">
-              ✓ Bordreservasjon Bekreftet
-            </Heading>
-          </Section>
+      <Container
+        style={{
+          margin: '40px auto',
+          maxWidth: '600px',
+          borderRadius: '8px',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        }}
+      >
+        {/* Header */}
+        <Section
+          style={{
+            borderRadius: '8px 8px 0 0',
+            backgroundColor: '#f7e7cf',
+            padding: '32px 40px',
+            textAlign: 'center',
+          }}
+        >
+          <Img
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
+            alt="Coffee Shop Logo"
+            width="280"
+            height="195"
+            style={{ margin: '0 auto 16px', display: 'block' }}
+          />
+          <Heading style={{ margin: '8px 0', color: '#1b2d1b', fontSize: '28px', fontWeight: 600 }}>
+            ✓ Bordreservasjon Bekreftet
+          </Heading>
+        </Section>
 
-          {/* Content */}
-          <Section className="px-10 py-8" style={{ padding: '32px 40px' }}>
-            <Text className="mb-5 text-base leading-relaxed text-[#1b2d1b]">Hei {name},</Text>
-
-            <Text className="mb-8 text-base leading-relaxed text-[#1b2d1b]">
-              Takk for din bordreservasjon! Vi ser frem til å ta imot deg.
-            </Text>
-
-            {/* Booking Details Box */}
-            <Section
-              className="mb-8 rounded-md border-2 border-gray-200 bg-gray-50 p-5"
-              style={{ padding: '20px', margin: '0 0 32px' }}
-            >
-              <Text className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#1b2d1b]">
-                Reservasjonsdetaljer
-              </Text>
-              <Hr className="my-4 border-gray-300" />
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">📅 Dato:</Column>
-                <Column className="text-right text-sm font-semibold text-[#1b2d1b]">
-                  {formattedDate}
-                </Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">🕐 Tid:</Column>
-                <Column className="text-right text-sm font-semibold text-[#1b2d1b]">
-                  {timeSlot}
-                </Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">👥 Antall personer:</Column>
-                <Column className="text-right text-sm font-semibold text-[#1b2d1b]">
-                  {partySize}
-                </Column>
-              </Row>
-
-              {notes && (
-                <>
-                  <Hr className="my-4 border-gray-300" />
-                  <Text className="mb-2 text-sm text-[#1b2d1b]">💬 Dine notater:</Text>
-                  <Text className="m-0 text-sm italic text-gray-900">{notes}</Text>
-                </>
-              )}
-            </Section>
-
-            <Text className="mb-5 text-base leading-relaxed text-gray-800">
-              Dersom du trenger å endre eller kansellere reservasjonen, vennligst kontakt oss så
-              snart som mulig.
-            </Text>
-
-            <Text className="m-0 text-base leading-relaxed text-[#1b2d1b]">
-              Hilsen,
-              <br />
-              <strong>Cardamom Bar & Cafe Teamet</strong>
-            </Text>
-          </Section>
-
-          {/* Footer */}
-          <Section
-            className="rounded-b-lg border-t border-gray-200 bg-gray-50 px-10 py-8 text-center"
-            style={{ padding: '32px 40px' }}
+        {/* Content */}
+        <Section style={{ padding: '32px 40px' }}>
+          <Text
+            style={{ margin: '0 0 20px', fontSize: '16px', lineHeight: '1.6', color: '#1b2d1b' }}
           >
-            <Text className="mb-3 text-sm text-gray-600">
-              Denne e-posten ble sendt automatisk. Ikke svar på denne e-posten.
+            Hei {name},
+          </Text>
+
+          <Text
+            style={{ margin: '0 0 32px', fontSize: '16px', lineHeight: '1.6', color: '#1b2d1b' }}
+          >
+            Takk for din bordreservasjon! Vi ser frem til å ta imot deg.
+          </Text>
+
+          {/* Booking Details Box */}
+          <Section
+            style={{
+              margin: '0 0 32px',
+              borderRadius: '6px',
+              border: '2px solid #e5e7eb',
+              backgroundColor: '#f9fafb',
+              padding: '20px',
+            }}
+          >
+            <Text
+              style={{
+                margin: '0 0 16px',
+                fontSize: '14px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                color: '#1b2d1b',
+              }}
+            >
+              Reservasjonsdetaljer
             </Text>
-            <Text className="m-0 text-sm text-gray-600">
-              &copy; {new Date().getFullYear()} Coffee Shop. Alle rettigheter reservert.
-            </Text>
+            <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>📅 Dato:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#1b2d1b' }}
+              >
+                {formattedDate}
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>🕐 Tid:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#1b2d1b' }}
+              >
+                {timeSlot}
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>👥 Antall personer:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#1b2d1b' }}
+              >
+                {partySize}
+              </Column>
+            </Row>
+
+            {notes && (
+              <>
+                <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
+                <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#6b7280' }}>
+                  💬 Dine notater:
+                </Text>
+                <Text
+                  style={{ margin: 0, fontSize: '14px', fontStyle: 'italic', color: '#1b2d1b' }}
+                >
+                  {notes}
+                </Text>
+              </>
+            )}
           </Section>
-        </Container>
-      </Body>
-    </Tailwind>
+
+          <Text
+            style={{ margin: '0 0 20px', fontSize: '16px', lineHeight: '1.6', color: '#1b2d1b' }}
+          >
+            Dersom du trenger å endre eller kansellere reservasjonen, vennligst kontakt oss så snart
+            som mulig.
+          </Text>
+
+          <Text style={{ margin: 0, fontSize: '16px', lineHeight: '1.6', color: '#1b2d1b' }}>
+            Hilsen,
+            <br />
+            <strong>Coffee Shop Teamet</strong>
+          </Text>
+        </Section>
+
+        {/* Footer */}
+        <Section
+          style={{
+            borderRadius: '0 0 8px 8px',
+            borderTop: '1px solid #e5e7eb',
+            backgroundColor: '#f9fafb',
+            padding: '32px 40px',
+            textAlign: 'center',
+          }}
+        >
+          <Text style={{ margin: '0 0 12px', fontSize: '14px', color: '#6b7280' }}>
+            Denne e-posten ble sendt automatisk. Ikke svar på denne e-posten.
+          </Text>
+          <Text style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
+            &copy; {new Date().getFullYear()} Coffee Shop. Alle rettigheter reservert.
+          </Text>
+        </Section>
+      </Container>
+    </Body>
   </Html>
 )
 
@@ -169,150 +215,210 @@ const BookingNotificationEmail = ({
     <Preview>
       Ny bordreservasjon: {name} - {formattedDate} kl. {timeSlot}
     </Preview>
-    <Tailwind
-      config={{
-        theme: {
-          extend: {
-            colors: {
-              red: {
-                500: '#ef4444',
-              },
-              yellow: {
-                50: '#fefce8',
-                300: '#fde047',
-                400: '#facc15',
-                800: '#854d0e',
-              },
-              blue: {
-                50: '#eff6ff',
-                600: '#2563eb',
-              },
-            },
-          },
-        },
+    <Body
+      style={{
+        margin: 0,
+        padding: 0,
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        backgroundColor: '#f5f5f5',
       }}
     >
-      <Body className="bg-gray-100 font-sans">
-        <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
-          {/* Header */}
-          <Section className="rounded-t-lg bg-red-500 px-10 py-8 text-center">
-            <Img
-              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
-              alt="Coffee Shop Logo"
-              width="120"
-              height="120"
-              className="mx-auto mb-4"
-            />
-            <Heading className="m-0 text-3xl font-semibold text-white">
-              🔔 Ny Bordreservasjon
-            </Heading>
-          </Section>
+      <Container
+        style={{
+          margin: '40px auto',
+          maxWidth: '600px',
+          borderRadius: '8px',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        }}
+      >
+        {/* Header */}
+        <Section
+          style={{
+            borderRadius: '8px 8px 0 0',
+            backgroundColor: '#ef4444',
+            padding: '32px 40px',
+            textAlign: 'center',
+          }}
+        >
+          <Img
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
+            alt="Coffee Shop Logo"
+            width="120"
+            height="120"
+            style={{ margin: '0 auto 16px', display: 'block' }}
+          />
+          <Heading style={{ margin: 0, color: '#ffffff', fontSize: '28px', fontWeight: 600 }}>
+            🔔 Ny Bordreservasjon
+          </Heading>
+        </Section>
 
-          {/* Content */}
-          <Section className="px-10 py-8" style={{ padding: '32px 40px' }}>
-            <Text className="mb-8 text-base leading-relaxed text-gray-800">
-              En ny bordreservasjon er registrert i systemet:
-            </Text>
-
-            {/* Customer Details */}
-            <Section
-              className="mb-5 rounded-md border-2 border-gray-200 bg-gray-50 p-5"
-              style={{ padding: '20px', margin: '0 0 20px' }}
-            >
-              <Text className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-700">
-                Kundeinformasjon
-              </Text>
-              <Hr className="my-4 border-gray-300" />
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">👤 Navn:</Column>
-                <Column className="text-right text-sm font-semibold text-gray-900">{name}</Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">📧 E-post:</Column>
-                <Column className="text-right text-sm font-semibold">
-                  <a href={`mailto:${email}`} className="text-purple-600 no-underline">
-                    {email}
-                  </a>
-                </Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-gray-600">📱 Telefon:</Column>
-                <Column className="text-right text-sm font-semibold">
-                  <a href={`tel:${phone}`} className="text-purple-600 no-underline">
-                    {phone}
-                  </a>
-                </Column>
-              </Row>
-            </Section>
-
-            {/* Booking Details */}
-            <Section
-              className="mb-8 rounded-md border-2 border-yellow-400 bg-yellow-50 p-5"
-              style={{ padding: '20px', margin: '0 0 32px' }}
-            >
-              <Text className="mb-4 text-sm font-semibold uppercase tracking-wide text-yellow-800">
-                Reservasjonsdetaljer
-              </Text>
-              <Hr className="my-4 border-yellow-300" />
-
-              <Row className="py-2">
-                <Column className="text-sm text-yellow-800">📅 Dato:</Column>
-                <Column className="text-right text-sm font-semibold text-gray-900">
-                  {formattedDate}
-                </Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-yellow-800">🕐 Tid:</Column>
-                <Column className="text-right text-sm font-semibold text-gray-900">
-                  {timeSlot}
-                </Column>
-              </Row>
-
-              <Row className="py-2">
-                <Column className="text-sm text-yellow-800">👥 Antall personer:</Column>
-                <Column className="text-right text-sm font-semibold text-gray-900">
-                  {partySize}
-                </Column>
-              </Row>
-
-              {notes && (
-                <>
-                  <Hr className="my-4 border-yellow-300" />
-                  <Text className="mb-2 text-sm text-yellow-800">💬 Spesielle ønsker:</Text>
-                  <Text className="m-0 rounded bg-white p-2 text-sm italic text-gray-900">
-                    {notes}
-                  </Text>
-                </>
-              )}
-            </Section>
-
-            <Section
-              className="rounded border-l-4 border-blue-600 bg-blue-50 p-4"
-              style={{ padding: '16px' }}
-            >
-              <Text className="m-0 text-sm leading-relaxed text-gray-700">
-                <strong className="text-blue-600">💡 Påminnelse:</strong> Logg inn i admin-panelet
-                for å bekrefte eller administrere denne reservasjonen.
-              </Text>
-            </Section>
-          </Section>
-
-          {/* Footer */}
-          <Section
-            className="rounded-b-lg border-t border-gray-200 bg-gray-50 px-10 py-8 text-center"
-            style={{ padding: '32px 40px' }}
+        {/* Content */}
+        <Section style={{ padding: '32px 40px' }}>
+          <Text
+            style={{ margin: '0 0 32px', fontSize: '16px', lineHeight: '1.6', color: '#1f2937' }}
           >
-            <Text className="m-0 text-sm text-gray-600">
-              Automatisk varsling fra reservasjonssystemet
+            En ny bordreservasjon er registrert i systemet:
+          </Text>
+
+          {/* Customer Details */}
+          <Section
+            style={{
+              margin: '0 0 20px',
+              borderRadius: '6px',
+              border: '2px solid #e5e7eb',
+              backgroundColor: '#f9fafb',
+              padding: '20px',
+            }}
+          >
+            <Text
+              style={{
+                margin: '0 0 16px',
+                fontSize: '14px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                color: '#6b7280',
+              }}
+            >
+              Kundeinformasjon
+            </Text>
+            <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>👤 Navn:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#111827' }}
+              >
+                {name}
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>📧 E-post:</Column>
+              <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
+                <a href={`mailto:${email}`} style={{ color: '#9333ea', textDecoration: 'none' }}>
+                  {email}
+                </a>
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
+              <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
+                <a href={`tel:${phone}`} style={{ color: '#9333ea', textDecoration: 'none' }}>
+                  {phone}
+                </a>
+              </Column>
+            </Row>
+          </Section>
+
+          {/* Booking Details */}
+          <Section
+            style={{
+              margin: '0 0 32px',
+              borderRadius: '6px',
+              border: '2px solid #facc15',
+              backgroundColor: '#fefce8',
+              padding: '20px',
+            }}
+          >
+            <Text
+              style={{
+                margin: '0 0 16px',
+                fontSize: '14px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                color: '#854d0e',
+              }}
+            >
+              Reservasjonsdetaljer
+            </Text>
+            <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }} />
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#854d0e' }}>📅 Dato:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#111827' }}
+              >
+                {formattedDate}
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#854d0e' }}>🕐 Tid:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#111827' }}
+              >
+                {timeSlot}
+              </Column>
+            </Row>
+
+            <Row style={{ padding: '8px 0' }}>
+              <Column style={{ fontSize: '14px', color: '#854d0e' }}>👥 Antall personer:</Column>
+              <Column
+                style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600, color: '#111827' }}
+              >
+                {partySize}
+              </Column>
+            </Row>
+
+            {notes && (
+              <>
+                <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }} />
+                <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#854d0e' }}>
+                  💬 Spesielle ønsker:
+                </Text>
+                <Text
+                  style={{
+                    margin: 0,
+                    borderRadius: '4px',
+                    backgroundColor: '#ffffff',
+                    padding: '10px',
+                    fontSize: '14px',
+                    fontStyle: 'italic',
+                    color: '#111827',
+                  }}
+                >
+                  {notes}
+                </Text>
+              </>
+            )}
+          </Section>
+
+          <Section
+            style={{
+              borderRadius: '4px',
+              borderLeft: '4px solid #2563eb',
+              backgroundColor: '#eff6ff',
+              padding: '16px',
+            }}
+          >
+            <Text style={{ margin: 0, fontSize: '14px', lineHeight: '1.6', color: '#374151' }}>
+              <strong style={{ color: '#2563eb' }}>💡 Påminnelse:</strong> Logg inn i admin-panelet
+              for å bekrefte eller administrere denne reservasjonen.
             </Text>
           </Section>
-        </Container>
-      </Body>
-    </Tailwind>
+        </Section>
+
+        {/* Footer */}
+        <Section
+          style={{
+            borderRadius: '0 0 8px 8px',
+            borderTop: '1px solid #e5e7eb',
+            backgroundColor: '#f9fafb',
+            padding: '32px 40px',
+            textAlign: 'center',
+          }}
+        >
+          <Text style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
+            Automatisk varsling fra reservasjonssystemet
+          </Text>
+        </Section>
+      </Container>
+    </Body>
   </Html>
 )
 
