@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Create the booking
+    // Create the booking with confirmed status since availability was already checked
     const newBooking = await payload.create({
       collection: 'bookings',
       data: {
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
         email,
         phone,
         notes: notes || '',
-        status: 'pending',
+        status: 'confirmed',
       },
     })
 
