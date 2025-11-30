@@ -22,7 +22,7 @@ export const sendBookingEmails: CollectionAfterChangeHook<Booking> = async ({
 
   try {
     // Generate customer confirmation email
-    const customerEmail = generateBookingConfirmationEmail({
+    const customerEmail = await generateBookingConfirmationEmail({
       name: doc.name,
       date: doc.date,
       timeSlot: doc.timeSlot,
@@ -31,7 +31,7 @@ export const sendBookingEmails: CollectionAfterChangeHook<Booking> = async ({
     })
 
     // Generate staff notification email
-    const staffEmail = generateBookingNotificationEmail({
+    const staffEmail = await generateBookingNotificationEmail({
       name: doc.name,
       email: doc.email,
       phone: doc.phone,

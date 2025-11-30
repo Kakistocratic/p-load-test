@@ -241,7 +241,7 @@ const BookingNotificationEmail = ({
  * Generate HTML email for booking confirmation
  * This is sent to customers when they create a booking
  */
-export const generateBookingConfirmationEmail = ({
+export const generateBookingConfirmationEmail = async ({
   name,
   date,
   timeSlot,
@@ -261,7 +261,7 @@ export const generateBookingConfirmationEmail = ({
     day: 'numeric',
   })
 
-  const html = render(
+  const html = await render(
     <BookingConfirmationEmail
       name={name}
       formattedDate={formattedDate}
@@ -302,7 +302,7 @@ Coffee Shop Teamet
  * Generate HTML email for internal booking notification
  * This is sent to the restaurant staff when a new booking is created
  */
-export const generateBookingNotificationEmail = ({
+export const generateBookingNotificationEmail = async ({
   name,
   email,
   phone,
@@ -326,7 +326,7 @@ export const generateBookingNotificationEmail = ({
     day: 'numeric',
   })
 
-  const html = render(
+  const html = await render(
     <BookingNotificationEmail
       name={name}
       email={email}
