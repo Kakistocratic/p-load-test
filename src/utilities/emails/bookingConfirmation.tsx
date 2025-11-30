@@ -5,6 +5,7 @@ import {
   Heading,
   Hr,
   Html,
+  Img,
   Preview,
   Section,
   Text,
@@ -37,6 +38,13 @@ const BookingConfirmationEmail = ({
       <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
         {/* Header */}
         <Section className="rounded-t-lg bg-gradient-to-br from-purple-600 to-purple-800 px-10 py-8 text-center">
+          <Img
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
+            alt="Coffee Shop Logo"
+            width="120"
+            height="120"
+            className="mx-auto mb-4"
+          />
           <Heading className="m-0 text-3xl font-semibold text-white">
             ✓ Bordreservasjon Bekreftet
           </Heading>
@@ -141,6 +149,13 @@ const BookingNotificationEmail = ({
       <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white shadow-lg">
         {/* Header */}
         <Section className="rounded-t-lg bg-red-500 px-10 py-8 text-center">
+          <Img
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/EmailLogo.png`}
+            alt="Coffee Shop Logo"
+            width="120"
+            height="120"
+            className="mx-auto mb-4"
+          />
           <Heading className="m-0 text-3xl font-semibold text-white">🔔 Ny Bordreservasjon</Heading>
         </Section>
 
