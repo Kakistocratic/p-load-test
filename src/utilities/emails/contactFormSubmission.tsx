@@ -15,25 +15,19 @@ import {
 import { render } from '@react-email/render'
 
 /**
- * React Email component for booking confirmation
- * This is sent to customers when they create a booking
+ * React Email component for contact form customer confirmation
+ * This is sent to customers when they submit a contact form
  */
-const BookingConfirmationEmail = ({
-  name,
-  formattedDate,
-  timeSlot,
-  partySize,
-  notes,
+const ContactFormConfirmationEmail = ({
+  fullName,
+  message,
 }: {
-  name: string
-  formattedDate: string
-  timeSlot: string
-  partySize: number
-  notes?: string
+  fullName: string
+  message: string
 }) => (
   <Html lang="no">
     <Head />
-    <Preview>Din bordreservasjon er bekreftet - {formattedDate}</Preview>
+    <Preview>Takk for din henvendelse - Vi kommer tilbake til deg snart</Preview>
     <Body
       style={{
         margin: 0,
@@ -77,7 +71,7 @@ const BookingConfirmationEmail = ({
               fontWeight: 600,
             }}
           >
-            ✓ Bordreservasjon Bekreftet
+            ✓ Takk for din henvendelse
           </Heading>
         </Section>
 
@@ -93,7 +87,7 @@ const BookingConfirmationEmail = ({
                   color: '#1b2d1b',
                 }}
               >
-                Hei {name},
+                Hei {fullName},
               </Text>
 
               <Text
@@ -104,10 +98,11 @@ const BookingConfirmationEmail = ({
                   color: '#1b2d1b',
                 }}
               >
-                Takk for din bordreservasjon! Vi ser frem til å ta imot deg.
+                Takk for din henvendelse! Vi har mottatt din melding og vil komme tilbake til deg så
+                snart som mulig.
               </Text>
 
-              {/* Booking Details Box */}
+              {/* Message Summary Box */}
               <table
                 role="presentation"
                 style={{
@@ -131,80 +126,22 @@ const BookingConfirmationEmail = ({
                         color: '#1b2d1b',
                       }}
                     >
-                      Reservasjonsdetaljer
+                      Din melding
                     </Text>
                     <Hr
                       style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }}
                     />
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>📅 Dato:</Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#1b2d1b',
-                        }}
-                      >
-                        {formattedDate}
-                      </Column>
-                    </Row>
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>🕐 Tid:</Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#1b2d1b',
-                        }}
-                      >
-                        {timeSlot}
-                      </Column>
-                    </Row>
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>
-                        👥 Antall personer:
-                      </Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#1b2d1b',
-                        }}
-                      >
-                        {partySize}
-                      </Column>
-                    </Row>
-
-                    {notes && (
-                      <>
-                        <Hr
-                          style={{
-                            margin: '16px 0',
-                            border: 'none',
-                            borderTop: '1px solid #d1d5db',
-                          }}
-                        />
-                        <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#6b7280' }}>
-                          💬 Dine notater:
-                        </Text>
-                        <Text
-                          style={{
-                            margin: 0,
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                            color: '#1b2d1b',
-                          }}
-                        >
-                          {notes}
-                        </Text>
-                      </>
-                    )}
+                    <Text
+                      style={{
+                        margin: 0,
+                        fontSize: '14px',
+                        lineHeight: '1.6',
+                        color: '#1b2d1b',
+                        whiteSpace: 'pre-wrap',
+                      }}
+                    >
+                      {message}
+                    </Text>
                   </td>
                 </tr>
               </table>
@@ -217,12 +154,12 @@ const BookingConfirmationEmail = ({
                   color: '#1b2d1b',
                 }}
               >
-                Dersom du trenger å endre eller kansellere reservasjonen, vennligst kontakt oss så
-                snart som mulig.
+                Vi setter pris på at du tok kontakt med oss og vil gjøre vårt beste for å svare deg
+                innen 24 timer.
               </Text>
 
               <Text style={{ margin: 0, fontSize: '16px', lineHeight: '1.6', color: '#1b2d1b' }}>
-                Hilsen,
+                Vennlig hilsen,
                 <br />
                 <strong>Cardamom Bar & Cafe Teamet</strong>
               </Text>
@@ -253,30 +190,24 @@ const BookingConfirmationEmail = ({
 )
 
 /**
- * React Email component for staff booking notification
- * This is sent to restaurant staff when a new booking is created
+ * React Email component for admin contact form notification
+ * This is sent to admin/staff when a new contact form is submitted
  */
-const BookingNotificationEmail = ({
-  name,
+const ContactFormNotificationEmail = ({
+  fullName,
   email,
   phone,
-  formattedDate,
-  timeSlot,
-  partySize,
-  notes,
+  message,
 }: {
-  name: string
+  fullName: string
   email: string
-  phone: string
-  formattedDate: string
-  timeSlot: string
-  partySize: number
-  notes?: string
+  phone?: string
+  message: string
 }) => (
   <Html lang="no">
     <Head />
     <Preview>
-      Ny bordreservasjon: {name} - {formattedDate} kl. {timeSlot}
+      Ny kontaktskjema: {fullName} - {email}
     </Preview>
     <Body
       style={{
@@ -300,7 +231,7 @@ const BookingNotificationEmail = ({
         <Section
           style={{
             borderRadius: '8px 8px 0 0',
-            backgroundColor: '#ef4444',
+            backgroundColor: '#3b82f6',
             padding: '32px 40px',
             textAlign: 'center',
           }}
@@ -313,7 +244,7 @@ const BookingNotificationEmail = ({
             style={{ margin: '0 auto 16px', display: 'block' }}
           />
           <Heading style={{ margin: 0, color: '#ffffff', fontSize: '28px', fontWeight: 600 }}>
-            🔔 Ny Bordreservasjon
+            📬 Ny Kontaktskjema
           </Heading>
         </Section>
 
@@ -329,7 +260,7 @@ const BookingNotificationEmail = ({
                   color: '#1f2937',
                 }}
               >
-                En ny bordreservasjon er registrert i systemet:
+                En ny henvendelse er mottatt via kontaktskjemaet:
               </Text>
 
               {/* Customer Details */}
@@ -356,7 +287,7 @@ const BookingNotificationEmail = ({
                         color: '#6b7280',
                       }}
                     >
-                      Kundeinformasjon
+                      Kontaktinformasjon
                     </Text>
                     <Hr
                       style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }}
@@ -372,7 +303,7 @@ const BookingNotificationEmail = ({
                           color: '#111827',
                         }}
                       >
-                        {name}
+                        {fullName}
                       </Column>
                     </Row>
 
@@ -381,37 +312,39 @@ const BookingNotificationEmail = ({
                       <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
                         <a
                           href={`mailto:${email}`}
-                          style={{ color: '#9333ea', textDecoration: 'none' }}
+                          style={{ color: '#3b82f6', textDecoration: 'none' }}
                         >
                           {email}
                         </a>
                       </Column>
                     </Row>
 
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
-                      <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
-                        <a
-                          href={`tel:${phone}`}
-                          style={{ color: '#9333ea', textDecoration: 'none' }}
-                        >
-                          {phone}
-                        </a>
-                      </Column>
-                    </Row>
+                    {phone && (
+                      <Row style={{ padding: '8px 12px' }}>
+                        <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
+                        <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
+                          <a
+                            href={`tel:${phone}`}
+                            style={{ color: '#3b82f6', textDecoration: 'none' }}
+                          >
+                            {phone}
+                          </a>
+                        </Column>
+                      </Row>
+                    )}
                   </td>
                 </tr>
               </table>
 
-              {/* Booking Details */}
+              {/* Message */}
               <table
                 role="presentation"
                 style={{
                   width: '100%',
                   margin: '0 0 32px',
                   borderRadius: '6px',
-                  border: '2px solid #facc15',
-                  backgroundColor: '#fefce8',
+                  border: '2px solid #dbeafe',
+                  backgroundColor: '#eff6ff',
                   borderCollapse: 'separate',
                 }}
               >
@@ -424,86 +357,25 @@ const BookingNotificationEmail = ({
                         fontWeight: 600,
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        color: '#854d0e',
+                        color: '#1e40af',
                       }}
                     >
-                      Reservasjonsdetaljer
+                      Melding
                     </Text>
                     <Hr
-                      style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }}
+                      style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #93c5fd' }}
                     />
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>📅 Dato:</Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#111827',
-                        }}
-                      >
-                        {formattedDate}
-                      </Column>
-                    </Row>
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>🕐 Tid:</Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#111827',
-                        }}
-                      >
-                        {timeSlot}
-                      </Column>
-                    </Row>
-
-                    <Row style={{ padding: '8px 12px' }}>
-                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>
-                        👥 Antall personer:
-                      </Column>
-                      <Column
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          color: '#111827',
-                        }}
-                      >
-                        {partySize}
-                      </Column>
-                    </Row>
-
-                    {notes && (
-                      <>
-                        <Hr
-                          style={{
-                            margin: '16px 0',
-                            border: 'none',
-                            borderTop: '1px solid #fde047',
-                          }}
-                        />
-                        <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#854d0e' }}>
-                          💬 Spesielle ønsker:
-                        </Text>
-                        <Text
-                          style={{
-                            margin: 0,
-                            borderRadius: '4px',
-                            backgroundColor: '#ffffff',
-                            padding: '10px',
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                            color: '#111827',
-                          }}
-                        >
-                          {notes}
-                        </Text>
-                      </>
-                    )}
+                    <Text
+                      style={{
+                        margin: 0,
+                        fontSize: '14px',
+                        lineHeight: '1.6',
+                        color: '#111827',
+                        whiteSpace: 'pre-wrap',
+                      }}
+                    >
+                      {message}
+                    </Text>
                   </td>
                 </tr>
               </table>
@@ -514,8 +386,8 @@ const BookingNotificationEmail = ({
                 style={{
                   width: '100%',
                   borderRadius: '4px',
-                  borderLeft: '4px solid #2563eb',
-                  backgroundColor: '#eff6ff',
+                  borderLeft: '4px solid #f59e0b',
+                  backgroundColor: '#fffbeb',
                   borderCollapse: 'separate',
                 }}
               >
@@ -524,8 +396,8 @@ const BookingNotificationEmail = ({
                     <Text
                       style={{ margin: 0, fontSize: '14px', lineHeight: '1.6', color: '#374151' }}
                     >
-                      <strong style={{ color: '#2563eb' }}>💡 Påminnelse:</strong> Logg inn i
-                      admin-panelet for å bekrefte eller administrere denne reservasjonen.
+                      <strong style={{ color: '#f59e0b' }}>💡 Påminnelse:</strong> Vennligst svar
+                      kunden innen 24 timer for best kundeservice.
                     </Text>
                   </td>
                 </tr>
@@ -545,7 +417,7 @@ const BookingNotificationEmail = ({
           }}
         >
           <Text style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
-            Automatisk varsling fra reservasjonssystemet
+            Automatisk varsling fra kontaktskjemaet
           </Text>
         </Section>
       </Container>
@@ -554,126 +426,85 @@ const BookingNotificationEmail = ({
 )
 
 /**
- * Generate HTML email for booking confirmation
- * This is sent to customers when they create a booking
+ * Generate HTML email for contact form customer confirmation
+ * This is sent to customers when they submit a contact form
  */
-export const generateBookingConfirmationEmail = async ({
-  name,
-  date,
-  timeSlot,
-  partySize,
-  notes,
+export const generateContactFormConfirmationEmail = async ({
+  fullName,
+  message,
 }: {
-  name: string
-  date: string
-  timeSlot: string
-  partySize: number
-  notes?: string
+  fullName: string
+  message: string
 }) => {
-  const formattedDate = new Date(date).toLocaleDateString('nb-NO', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-
   const html = await render(
-    <BookingConfirmationEmail
-      name={name}
-      formattedDate={formattedDate}
-      timeSlot={timeSlot}
-      partySize={partySize}
-      notes={notes}
-    />,
+    <ContactFormConfirmationEmail fullName={fullName} message={message} />,
     { pretty: true },
   )
 
   const text = `
-Bordreservasjon Bekreftet
+Takk for din henvendelse
 
-Hei ${name},
+Hei ${fullName},
 
-Takk for din bordreservasjon! Vi ser frem til å ta imot deg.
+Takk for din henvendelse! Vi har mottatt din melding og vil komme tilbake til deg så snart som mulig.
 
-RESERVASJONSDETALJER:
-- Dato: ${formattedDate}
-- Tid: ${timeSlot}
-- Antall personer: ${partySize}
-${notes ? `- Dine notater: ${notes}` : ''}
+DIN MELDING:
+${message}
 
-Dersom du trenger å endre eller kansellere reservasjonen, vennligst kontakt oss så snart som mulig.
+Vi setter pris på at du tok kontakt med oss og vil gjøre vårt beste for å svare deg innen 24 timer.
 
-Hilsen,
-Coffee Shop Teamet
+Vennlig hilsen,
+Cardamom Bar & Cafe Teamet
   `.trim()
 
   return {
-    subject: `Bordreservasjon bekreftet - ${formattedDate}`,
+    subject: 'Takk for din henvendelse - Vi kommer tilbake til deg snart',
     html,
     text,
   }
 }
 
 /**
- * Generate HTML email for internal booking notification
- * This is sent to the restaurant staff when a new booking is created
+ * Generate HTML email for internal contact form notification
+ * This is sent to admin/staff when a new contact form is submitted
  */
-export const generateBookingNotificationEmail = async ({
-  name,
+export const generateContactFormNotificationEmail = async ({
+  fullName,
   email,
   phone,
-  date,
-  timeSlot,
-  partySize,
-  notes,
+  message,
 }: {
-  name: string
+  fullName: string
   email: string
-  phone: string
-  date: string
-  timeSlot: string
-  partySize: number
-  notes?: string
+  phone?: string
+  message: string
 }) => {
-  const formattedDate = new Date(date).toLocaleDateString('nb-NO', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-
   const html = await render(
-    <BookingNotificationEmail
-      name={name}
+    <ContactFormNotificationEmail
+      fullName={fullName}
       email={email}
       phone={phone}
-      formattedDate={formattedDate}
-      timeSlot={timeSlot}
-      partySize={partySize}
-      notes={notes}
+      message={message}
     />,
     { pretty: true },
   )
 
   const text = `
-NY BORDRESERVASJON
+NY KONTAKTSKJEMA
 
-KUNDEINFORMASJON:
-- Navn: ${name}
+KONTAKTINFORMASJON:
+- Navn: ${fullName}
 - E-post: ${email}
-- Telefon: ${phone}
+${phone ? `- Telefon: ${phone}` : ''}
 
-RESERVASJONSDETALJER:
-- Dato: ${formattedDate}
-- Tid: ${timeSlot}
-- Antall personer: ${partySize}
-${notes ? `- Spesielle ønsker: ${notes}` : ''}
+MELDING:
+${message}
 
-Logg inn i admin-panelet for å bekrefte eller administrere denne reservasjonen.
+Vennligst svar kunden innen 24 timer for best kundeservice.
   `.trim()
 
   return {
-    subject: `Ny bordreservasjon: ${name} - ${formattedDate} kl. ${timeSlot}`,
+    subject: `Ny kontaktskjema: ${fullName} - ${email}`,
     html,
     text,
   }

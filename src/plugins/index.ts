@@ -10,6 +10,7 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
+import { sendContactFormEmails } from '@/collections/Forms/hooks/sendContactFormEmails'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -78,6 +79,11 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+      },
+    },
+    formSubmissionOverrides: {
+      hooks: {
+        afterChange: [sendContactFormEmails],
       },
     },
     // The form builder will automatically use the email adapter configured in payload.config.ts
