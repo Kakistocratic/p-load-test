@@ -43,6 +43,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
                 fill
                 imgClassName="object-cover"
                 priority
+                loading="eager"
               />
             </div>
             {/* Black overlay between image and text */}
@@ -82,7 +83,12 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
             {logo && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-[200px] md:w-[300px]">
-                  <Media resource={logo} imgClassName="w-full h-auto object-contain" priority />
+                  <Media
+                    resource={logo}
+                    imgClassName="w-full h-auto object-contain"
+                    priority
+                    loading="eager"
+                  />
                 </div>
               </div>
             )}

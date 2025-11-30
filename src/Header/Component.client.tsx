@@ -105,6 +105,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
+                  loading="eager"
                 />
                 <Media
                   resource={data.logoLight}
@@ -113,6 +114,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                     !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
                   )}
                   priority
+                  loading="eager"
                 />
               </div>
             ) : hasLogo ? (
@@ -126,6 +128,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                   resource={currentLogo}
                   imgClassName="w-full h-full transition-all duration-300"
                   priority
+                  loading="eager"
                 />
               </div>
             ) : (

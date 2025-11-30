@@ -40,6 +40,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({
                 fill
                 imgClassName="object-cover"
                 priority
+                loading="eager"
               />
             </div>
             {/* Black overlay between image and text */}

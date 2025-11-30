@@ -81,6 +81,7 @@ export const ArtDirectedMedia: React.FC<ArtDirectedMediaProps> = ({
         sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, (max-width: 1920px) 1920px, (max-width: 2560px) 2560px, (max-width: 3840px) 3840px, 5120px"
         src={activeImageData.src}
         width={!fill ? activeImageData.width : undefined}
+        fetchPriority={priority ? 'high' : undefined}
       />
     </>
   )

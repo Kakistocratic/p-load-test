@@ -36,6 +36,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
               fill
               imgClassName="object-cover"
               priority
+              loading="eager"
             />
           </div>
           {/* Black overlay between image and text */}
