@@ -123,7 +123,7 @@ const BookingConfirmationEmail = ({
                 </Text>
                 <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>📅 Dato:</Column>
                   <Column
                     style={{
@@ -137,7 +137,7 @@ const BookingConfirmationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>🕐 Tid:</Column>
                   <Column
                     style={{
@@ -151,7 +151,7 @@ const BookingConfirmationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>
                     👥 Antall personer:
                   </Column>
@@ -331,7 +331,7 @@ const BookingNotificationEmail = ({
                 </Text>
                 <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>👤 Navn:</Column>
                   <Column
                     style={{
@@ -345,7 +345,7 @@ const BookingNotificationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>📧 E-post:</Column>
                   <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
                     <a
@@ -357,7 +357,7 @@ const BookingNotificationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
                   <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
                     <a href={`tel:${phone}`} style={{ color: '#9333ea', textDecoration: 'none' }}>
@@ -391,7 +391,7 @@ const BookingNotificationEmail = ({
                 </Text>
                 <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }} />
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#854d0e' }}>📅 Dato:</Column>
                   <Column
                     style={{
@@ -405,7 +405,7 @@ const BookingNotificationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#854d0e' }}>🕐 Tid:</Column>
                   <Column
                     style={{
@@ -419,7 +419,7 @@ const BookingNotificationEmail = ({
                   </Column>
                 </Row>
 
-                <Row style={{ padding: '8px 0' }}>
+                <Row style={{ padding: '8px 12px' }}>
                   <Column style={{ fontSize: '14px', color: '#854d0e' }}>
                     👥 Antall personer:
                   </Column>
