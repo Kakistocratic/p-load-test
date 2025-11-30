@@ -100,89 +100,106 @@ const BookingConfirmationEmail = ({
               </Text>
 
               {/* Booking Details Box */}
-              <Section
+              <table
+                role="presentation"
                 style={{
+                  width: '100%',
                   margin: '0 0 32px',
                   borderRadius: '6px',
                   border: '2px solid #e5e7eb',
                   backgroundColor: '#f9fafb',
-                  padding: '20px',
+                  borderCollapse: 'separate',
                 }}
               >
-                <Text
-                  style={{
-                    margin: '0 0 16px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    color: '#1b2d1b',
-                  }}
-                >
-                  Reservasjonsdetaljer
-                </Text>
-                <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>📅 Dato:</Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#1b2d1b',
-                    }}
-                  >
-                    {formattedDate}
-                  </Column>
-                </Row>
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>🕐 Tid:</Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#1b2d1b',
-                    }}
-                  >
-                    {timeSlot}
-                  </Column>
-                </Row>
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>
-                    👥 Antall personer:
-                  </Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#1b2d1b',
-                    }}
-                  >
-                    {partySize}
-                  </Column>
-                </Row>
-
-                {notes && (
-                  <>
+                <tr>
+                  <td style={{ padding: '20px' }}>
+                    <Text
+                      style={{
+                        margin: '0 0 16px',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        color: '#1b2d1b',
+                      }}
+                    >
+                      Reservasjonsdetaljer
+                    </Text>
                     <Hr
                       style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }}
                     />
-                    <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#6b7280' }}>
-                      💬 Dine notater:
-                    </Text>
-                    <Text
-                      style={{ margin: 0, fontSize: '14px', fontStyle: 'italic', color: '#1b2d1b' }}
-                    >
-                      {notes}
-                    </Text>
-                  </>
-                )}
-              </Section>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>📅 Dato:</Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#1b2d1b',
+                        }}
+                      >
+                        {formattedDate}
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>🕐 Tid:</Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#1b2d1b',
+                        }}
+                      >
+                        {timeSlot}
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>
+                        👥 Antall personer:
+                      </Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#1b2d1b',
+                        }}
+                      >
+                        {partySize}
+                      </Column>
+                    </Row>
+
+                    {notes && (
+                      <>
+                        <Hr
+                          style={{
+                            margin: '16px 0',
+                            border: 'none',
+                            borderTop: '1px solid #d1d5db',
+                          }}
+                        />
+                        <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#6b7280' }}>
+                          💬 Dine notater:
+                        </Text>
+                        <Text
+                          style={{
+                            margin: 0,
+                            fontSize: '14px',
+                            fontStyle: 'italic',
+                            color: '#1b2d1b',
+                          }}
+                        >
+                          {notes}
+                        </Text>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              </table>
 
               <Text
                 style={{
@@ -308,171 +325,203 @@ const BookingNotificationEmail = ({
               </Text>
 
               {/* Customer Details */}
-              <Section
+              <table
+                role="presentation"
                 style={{
+                  width: '100%',
                   margin: '0 0 20px',
                   borderRadius: '6px',
                   border: '2px solid #e5e7eb',
                   backgroundColor: '#f9fafb',
-                  padding: '20px',
+                  borderCollapse: 'separate',
                 }}
               >
-                <Text
-                  style={{
-                    margin: '0 0 16px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    color: '#6b7280',
-                  }}
-                >
-                  Kundeinformasjon
-                </Text>
-                <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }} />
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>👤 Navn:</Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#111827',
-                    }}
-                  >
-                    {name}
-                  </Column>
-                </Row>
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>📧 E-post:</Column>
-                  <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
-                    <a
-                      href={`mailto:${email}`}
-                      style={{ color: '#9333ea', textDecoration: 'none' }}
+                <tr>
+                  <td style={{ padding: '20px' }}>
+                    <Text
+                      style={{
+                        margin: '0 0 16px',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        color: '#6b7280',
+                      }}
                     >
-                      {email}
-                    </a>
-                  </Column>
-                </Row>
+                      Kundeinformasjon
+                    </Text>
+                    <Hr
+                      style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #d1d5db' }}
+                    />
 
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
-                  <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
-                    <a href={`tel:${phone}`} style={{ color: '#9333ea', textDecoration: 'none' }}>
-                      {phone}
-                    </a>
-                  </Column>
-                </Row>
-              </Section>
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>👤 Navn:</Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#111827',
+                        }}
+                      >
+                        {name}
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>📧 E-post:</Column>
+                      <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
+                        <a
+                          href={`mailto:${email}`}
+                          style={{ color: '#9333ea', textDecoration: 'none' }}
+                        >
+                          {email}
+                        </a>
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#6b7280' }}>📱 Telefon:</Column>
+                      <Column style={{ textAlign: 'right', fontSize: '14px', fontWeight: 600 }}>
+                        <a
+                          href={`tel:${phone}`}
+                          style={{ color: '#9333ea', textDecoration: 'none' }}
+                        >
+                          {phone}
+                        </a>
+                      </Column>
+                    </Row>
+                  </td>
+                </tr>
+              </table>
 
               {/* Booking Details */}
-              <Section
+              <table
+                role="presentation"
                 style={{
+                  width: '100%',
                   margin: '0 0 32px',
                   borderRadius: '6px',
                   border: '2px solid #facc15',
                   backgroundColor: '#fefce8',
-                  padding: '20px',
+                  borderCollapse: 'separate',
                 }}
               >
-                <Text
-                  style={{
-                    margin: '0 0 16px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    color: '#854d0e',
-                  }}
-                >
-                  Reservasjonsdetaljer
-                </Text>
-                <Hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }} />
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#854d0e' }}>📅 Dato:</Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#111827',
-                    }}
-                  >
-                    {formattedDate}
-                  </Column>
-                </Row>
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#854d0e' }}>🕐 Tid:</Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#111827',
-                    }}
-                  >
-                    {timeSlot}
-                  </Column>
-                </Row>
-
-                <Row style={{ padding: '8px 12px' }}>
-                  <Column style={{ fontSize: '14px', color: '#854d0e' }}>
-                    👥 Antall personer:
-                  </Column>
-                  <Column
-                    style={{
-                      textAlign: 'right',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      color: '#111827',
-                    }}
-                  >
-                    {partySize}
-                  </Column>
-                </Row>
-
-                {notes && (
-                  <>
+                <tr>
+                  <td style={{ padding: '20px' }}>
+                    <Text
+                      style={{
+                        margin: '0 0 16px',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        color: '#854d0e',
+                      }}
+                    >
+                      Reservasjonsdetaljer
+                    </Text>
                     <Hr
                       style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #fde047' }}
                     />
-                    <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#854d0e' }}>
-                      💬 Spesielle ønsker:
-                    </Text>
-                    <Text
-                      style={{
-                        margin: 0,
-                        borderRadius: '4px',
-                        backgroundColor: '#ffffff',
-                        padding: '10px',
-                        fontSize: '14px',
-                        fontStyle: 'italic',
-                        color: '#111827',
-                      }}
-                    >
-                      {notes}
-                    </Text>
-                  </>
-                )}
-              </Section>
 
-              <Section
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>📅 Dato:</Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#111827',
+                        }}
+                      >
+                        {formattedDate}
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>🕐 Tid:</Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#111827',
+                        }}
+                      >
+                        {timeSlot}
+                      </Column>
+                    </Row>
+
+                    <Row style={{ padding: '8px 12px' }}>
+                      <Column style={{ fontSize: '14px', color: '#854d0e' }}>
+                        👥 Antall personer:
+                      </Column>
+                      <Column
+                        style={{
+                          textAlign: 'right',
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: '#111827',
+                        }}
+                      >
+                        {partySize}
+                      </Column>
+                    </Row>
+
+                    {notes && (
+                      <>
+                        <Hr
+                          style={{
+                            margin: '16px 0',
+                            border: 'none',
+                            borderTop: '1px solid #fde047',
+                          }}
+                        />
+                        <Text style={{ margin: '0 0 8px', fontSize: '14px', color: '#854d0e' }}>
+                          💬 Spesielle ønsker:
+                        </Text>
+                        <Text
+                          style={{
+                            margin: 0,
+                            borderRadius: '4px',
+                            backgroundColor: '#ffffff',
+                            padding: '10px',
+                            fontSize: '14px',
+                            fontStyle: 'italic',
+                            color: '#111827',
+                          }}
+                        >
+                          {notes}
+                        </Text>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              </table>
+
+              {/* Reminder Box */}
+              <table
+                role="presentation"
                 style={{
+                  width: '100%',
                   borderRadius: '4px',
                   borderLeft: '4px solid #2563eb',
                   backgroundColor: '#eff6ff',
-                  padding: '16px',
+                  borderCollapse: 'separate',
                 }}
               >
-                <Text style={{ margin: 0, fontSize: '14px', lineHeight: '1.6', color: '#374151' }}>
-                  <strong style={{ color: '#2563eb' }}>💡 Påminnelse:</strong> Logg inn i
-                  admin-panelet for å bekrefte eller administrere denne reservasjonen.
-                </Text>
-              </Section>
+                <tr>
+                  <td style={{ padding: '16px' }}>
+                    <Text
+                      style={{ margin: 0, fontSize: '14px', lineHeight: '1.6', color: '#374151' }}
+                    >
+                      <strong style={{ color: '#2563eb' }}>💡 Påminnelse:</strong> Logg inn i
+                      admin-panelet for å bekrefte eller administrere denne reservasjonen.
+                    </Text>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>
