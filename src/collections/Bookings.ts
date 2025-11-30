@@ -30,6 +30,7 @@ export const Bookings: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: 'dayOnly',
+          displayFormat: 'dd.MM.yyyy',
         },
       },
     },
@@ -77,9 +78,8 @@ export const Bookings: CollectionConfig = {
       type: 'select',
       label: 'Status',
       required: true,
-      defaultValue: 'pending',
+      defaultValue: 'confirmed',
       options: [
-        { label: 'Avventer bekreftelse', value: 'pending' },
         { label: 'Bekreftet', value: 'confirmed' },
         { label: 'Kansellert', value: 'cancelled' },
         { label: 'Fullført', value: 'completed' },
