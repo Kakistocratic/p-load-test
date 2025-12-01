@@ -24,7 +24,7 @@
   "dependencies": {
     "@payloadcms/admin-bar": "3.57.0",
     "@payloadcms/db-postgres": "3.57.0",
-    "@payloadcms/email-resend": "^3.65.0",
+    "@payloadcms/email-resend": "^3.57.0",
     "@payloadcms/live-preview-react": "3.57.0",
     "@payloadcms/next": "3.57.0",
     "@payloadcms/payload-cloud": "3.57.0",

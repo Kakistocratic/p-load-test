@@ -1007,7 +1007,7 @@ export interface Booking {
   email: string;
   phone: string;
   notes?: string | null;
-  status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
+  status: 'confirmed' | 'cancelled' | 'completed';
   createdAt: string;
   updatedAt: string;
 }

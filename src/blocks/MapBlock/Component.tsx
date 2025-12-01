@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import { cn } from '@/utilities/ui'
 import { useTheme } from '@/providers/Theme'
+import { Media } from '@/components/Media'
 
 type MapBlockProps = {
   blockType: 'mapBlock'
@@ -211,18 +212,16 @@ export const MapBlock: React.FC<Props> = (props) => {
         >
           {/* Desktop placeholder */}
           {placeholderImages.desktop && typeof placeholderImages.desktop === 'object' && (
-            <img
-              src={placeholderImages.desktop.url}
-              alt="Map preview"
-              className="hidden md:block w-full h-full object-cover"
+            <Media
+              resource={placeholderImages.desktop}
+              imgClassName="hidden md:block w-full h-full object-cover"
             />
           )}
           {/* Mobile placeholder */}
           {placeholderImages.mobile && typeof placeholderImages.mobile === 'object' && (
-            <img
-              src={placeholderImages.mobile.url}
-              alt="Map preview"
-              className="block md:hidden w-full h-full object-cover"
+            <Media
+              resource={placeholderImages.mobile}
+              imgClassName="block md:hidden w-full h-full object-cover"
             />
           )}
           {/* Overlay */}
