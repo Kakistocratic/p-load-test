@@ -41,33 +41,33 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
 
   return (
     <footer className="mt-auto border-t border-border bg-secondary dark:bg-tertiary text-white">
-      <div className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-8">
           {/* Empty cell on left for tablet */}
-          <div className="hidden md:block lg:hidden"></div>
+          <div className="hidden md:block xl:hidden"></div>
 
           {/* Logo Column - centered on mobile, middle on tablet, first column on desktop */}
-          <div className="flex items-start justify-center lg:justify-start lg:col-start-1 lg:row-start-1">
+          <div className="flex items-start justify-center xl:justify-start xl:col-start-1 xl:row-start-1">
             <Link className="flex items-center" href="/">
-              <div style={{ width: '170px', height: '170px' }}>
+              <div className="w-[230px] h-auto">
                 {hasLogo ? <Media resource={currentLogo} imgClassName="w-auto h-auto" /> : <Logo />}
               </div>
             </Link>
           </div>
 
           {/* Empty cell on right for tablet */}
-          <div className="hidden md:block lg:hidden"></div>
+          <div className="hidden md:block xl:hidden"></div>
 
           {/* Navigation Column */}
-          <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+          <div className="flex flex-col md:ml-0">
+            <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               Sidekart
             </h3>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col ml-20 md:ml-0 gap-2">
               {navItems.map(({ link }, i) => {
                 return (
                   <CMSLink
-                    className="text-background dark:text-primary hover:text-gray-300"
+                    className="text-background text-xl dark:text-primary hover:text-gray-300"
                     key={i}
                     {...link}
                   />
@@ -77,23 +77,23 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           </div>
 
           {/* Opening Hours Column */}
-          <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+          <div className="flex flex-col md:ml-0">
+            <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               {openingHoursTitle}
             </h3>
             <div className="flex flex-col gap-3">
               {openingHoursData?.hours && openingHoursData.hours.length > 0 ? (
                 openingHoursData.hours.map((hours, index) => (
-                  <div key={index} className="opening-hours-item flex gap-3">
+                  <div key={index} className="opening-hours-item flex gap-3 ml-20 md:ml-0">
                     <div
                       className="clock-icon flex-shrink-0 w-5 h-5 mt-0.5"
                       aria-hidden="true"
                     ></div>
                     <div className="flex flex-col">
-                      <div className="font-medium text-background dark:text-primary">
+                      <div className="text-lg font-medium text-background dark:text-primary">
                         {hours.dayRange}
                       </div>
-                      <div className="text-sm text-background dark:text-primary">
+                      <div className="text-lg text-background dark:text-primary">
                         {hours.isClosed
                           ? 'Closed'
                           : `${formatTime(hours.openingTime)} - ${formatTime(hours.closingTime)}`}
@@ -110,16 +110,16 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           </div>
 
           {/* Contact Info Column */}
-          <div className="flex flex-col">
-            <h3 className="text-2xl font-semibold mb-4 text-background dark:text-primary">
+          <div className="flex flex-col md:ml-0">
+            <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               {contactTitle}
             </h3>
             {contactData && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col ml-20 md:ml-0 gap-2">
                 {/* Address */}
                 {(contactData.streetAddress || contactData.city || contactData.postalCode) && (
                   <div className="mb-2">
-                    <span className="font-bold text-background dark:text-primary">
+                    <span className="text-lg font-bold text-background dark:text-primary">
                       {[contactData.streetAddress, contactData.postalCode, contactData.city]
                         .filter(Boolean)
                         .join(', ')}
@@ -129,11 +129,13 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
 
                 {/* Phone */}
                 {contactData.phoneNumber && (
-                  <div className="flex gap-2">
-                    <span className="text-background dark:text-primary">Telefon:</span>
+                  <div className="flex gap-2 flex-wrap items-center">
+                    <span className="text-lg whitespace-nowrap text-background dark:text-primary">
+                      Telefon:
+                    </span>
                     <a
                       href={`tel:${contactData.phoneNumber}`}
-                      className="font-bold text-background dark:text-primary hover:text-foreground"
+                      className="text-lg font-bold text-background dark:text-primary hover:text-foreground whitespace-nowrap"
                     >
                       {contactData.phoneNumber}
                     </a>
@@ -142,11 +144,13 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
 
                 {/* Email */}
                 {contactData.email && (
-                  <div className="flex gap-2">
-                    <span className="text-nowrap text-background dark:text-primary">E-post:</span>
+                  <div className="flex gap-2 flex-wrap items-center">
+                    <span className="text-lg whitespace-nowrap text-background dark:text-primary">
+                      E-post:
+                    </span>
                     <a
                       href={`mailto:${contactData.email}`}
-                      className="font-bold text-wrap text-background dark:text-primary hover:text-foreground"
+                      className="text-lg font-bold text-background dark:text-primary hover:text-foreground whitespace-nowrap"
                     >
                       {contactData.email}
                     </a>
