@@ -81,7 +81,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
 
             {/* Logo centered in the hero */}
             {logo && (
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 hidden sm:flex items-center justify-center">
                 <div className="w-[200px] md:w-[300px]">
                   <Media
                     resource={logo}

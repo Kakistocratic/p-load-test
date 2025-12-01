@@ -48,17 +48,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
       )}
 
       {/* Text layer */}
-      <div className="container relative z-10 min-h-[100vh] flex items-center justify-center">
-        <div className="max-w-[40rem] md:text-center mb-8">
+      <div className="container relative z-10 min-h-[100vh] flex items-center justify-center px-4">
+        <div className="max-w-[40rem] lg:max-w-[55rem] text-center mb-8 w-full">
           {richText && (
             <RichText
-              className="mb-6 [&_h1]:text-7xl md:[&_h1]:text-8xl [&_p]:text-lg md:[&_p]:text-2xl [&_h1]:text-foreground text-foreground"
+              className="mb-8 [&_h1]:text-5xl sm:[&_h1]:text-6xl md:[&_h1]:text-7xl lg:[&_h1]:text-9xl [&_h1]:break-words [&_h1]:hyphens-auto [&_p]:text-xl md:[&_p]:text-2xl [&_h1]:text-foreground text-foreground"
               data={richText}
               enableGutter={false}
             />
           )}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
+            <ul className="flex justify-center gap-4 lg:gap-6">
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>
@@ -70,7 +70,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
                         link?.className,
-                        'text-lg md:text-xl px-8 py-4 md:px-8 md:py-4',
+                        'text-xl md:text-2xl lg:text-4xl lg:px-12 lg:py-8 px-8 py-4 md:px-8 md:py-4',
                       )}
                     />
                   </li>
