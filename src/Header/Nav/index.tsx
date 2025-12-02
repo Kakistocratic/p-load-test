@@ -97,6 +97,9 @@ export const HeaderNav: React.FC<{
             </CMSLink>
           </Button>
         )}
+
+        {/* Theme Switcher */}
+        <ThemeSelector textColorClass={textColorClass} showIcon={true} />
       </nav>{' '}
       {/* Mobile Navigation */}
       <div className="flex md:hidden gap-3 items-center">
