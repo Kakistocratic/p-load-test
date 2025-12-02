@@ -3,7 +3,6 @@
 import React from 'react'
 
 import type { Header as HeaderType, ContactInfo } from '@/payload-types'
-import type { Theme } from '@/providers/Theme/types'
 
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
@@ -107,6 +106,7 @@ export const HeaderNav: React.FC<{
           <span className="sr-only">Search</span>
           <SearchIcon className={cn('w-5', textColorClass)} />
         </Link>
+        <ThemeSelector textColorClass={textColorClass} showIcon />
         <MobileMenu
           menu={navItems}
           atTop={atTop}

@@ -42,12 +42,12 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
   return (
     <footer className="mt-auto border-t border-border bg-secondary dark:bg-tertiary text-white">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-8 text-center md:text-left justify-items-center md:justify-items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-12 xl:grid-cols-4 gap-8 mb-8 text-center md:text-left justify-items-center md:justify-items-stretch">
           {/* Empty cell on left for tablet */}
           <div className="hidden md:block xl:hidden"></div>
 
           {/* Logo Column - centered on mobile, middle on tablet, first column on desktop */}
-          <div className="flex items-center justify-center xl:justify-start xl:col-start-1 xl:row-start-1">
+          <div className="flex items-start justify-center xl:justify-start xl:col-start-1 xl:row-start-1">
             <Link className="flex items-center" href="/">
               <div className="w-[230px] h-auto">
                 {hasLogo ? <Media resource={currentLogo} imgClassName="w-auto h-auto" /> : <Logo />}

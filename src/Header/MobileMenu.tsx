@@ -10,6 +10,7 @@ import { MenuIcon, XIcon } from 'lucide-react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
 import { useTheme } from '@/providers/Theme'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { Media } from '@/components/Media'
 import { Logo } from '@/components/Logo/Logo'
 import Link from 'next/link'
@@ -176,6 +177,9 @@ function MobileMenuContent({
                 />
               )}
             </Link>
+            <div className="mx-2">
+              <ThemeSelector textColorClass={textColorClass} showIcon />
+            </div>
             <SheetClose
               className={cn(
                 'flex h-11 w-11 items-center justify-center rounded-md border-2 transition-colors',
