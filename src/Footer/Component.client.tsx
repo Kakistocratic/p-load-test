@@ -85,10 +85,20 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
               {openingHoursData?.hours && openingHoursData.hours.length > 0 ? (
                 openingHoursData.hours.map((hours, index) => (
                   <div key={index} className="opening-hours-item flex gap-3 ml-0 md:ml-0">
-                    <div
-                      className="clock-icon flex-shrink-0 w-5 h-5 mt-0.5"
+                    <svg
+                      className="flex-shrink-0 w-5 h-5 mt-1"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      stroke="rgb(247,231,207)"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       aria-hidden="true"
-                    ></div>
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
                     <div className="flex flex-col">
                       <div className="text-lg font-medium text-background dark:text-primary">
                         {hours.dayRange}
@@ -199,11 +209,6 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
               </div>
             )}
           </div>
-        </div>
-
-        {/* Bottom Theme Selector */}
-        <div className="flex items-center justify-center pt-8 md:justify-start md:items-start">
-          <ThemeSelector />
         </div>
       </div>
     </footer>
