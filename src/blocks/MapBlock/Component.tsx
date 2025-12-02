@@ -204,7 +204,7 @@ export const MapBlock: React.FC<Props> = (props) => {
         <div
           onClick={() => setIsLoaded(true)}
           className="relative w-full border border-border overflow-hidden cursor-pointer group block leading-[0]"
-          style={{ height: heightMap[height || 'medium'] }}
+          style={{ maxHeight: heightMap[height || 'medium'] }}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && setIsLoaded(true)}
@@ -236,7 +236,7 @@ export const MapBlock: React.FC<Props> = (props) => {
         <button
           onClick={() => setIsLoaded(true)}
           className="w-full border-2 border-dashed border-border hover:border-gray-400 transition-colors cursor-pointer flex items-center justify-center"
-          style={{ height: heightMap[height || 'medium'] }}
+          style={{ maxHeight: heightMap[height || 'medium'] }}
           aria-label="Load interactive map"
         >
           <div className="text-center">
@@ -248,7 +248,7 @@ export const MapBlock: React.FC<Props> = (props) => {
       {error ? (
         <div
           className="w-full border border-red-500 bg-red-50 p-8 flex items-center justify-center"
-          style={{ height: heightMap[height || 'medium'] }}
+          style={{ maxHeight: heightMap[height || 'medium'] }}
         >
           <div className="text-center">
             <p className="text-red-700 font-semibold mb-2">Map Configuration Error</p>
@@ -259,7 +259,7 @@ export const MapBlock: React.FC<Props> = (props) => {
         <div
           ref={mapRef}
           className="w-full border border-border overflow-hidden"
-          style={{ height: heightMap[height || 'medium'] }}
+          style={{ maxHeight: heightMap[height || 'medium'] }}
         />
       ) : null}
     </div>
