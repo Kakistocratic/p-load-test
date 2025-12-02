@@ -54,7 +54,7 @@ function MobileMenuContent({
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 1024) {
         setIsOpen(false)
       }
     }
@@ -177,9 +177,6 @@ function MobileMenuContent({
                 />
               )}
             </Link>
-            <div className="mx-2">
-              <ThemeSelector textColorClass={textColorClass} showIcon />
-            </div>
             <SheetClose
               className={cn(
                 'flex h-11 w-11 items-center justify-center rounded-md border-2 transition-colors',
@@ -192,9 +189,9 @@ function MobileMenuContent({
           </div>
 
           {/* Menu content */}
-          <div className="container flex-1 overflow-y-auto py-8">
+          <div className="container flex-1 overflow-y-auto py-8 flex flex-col items-center justify-start">
             {menu?.length ? (
-              <ul className="flex w-full flex-col gap-6">
+              <ul className="flex w-full flex-col gap-6 items-center">
                 {menu.map((item, index) => (
                   <li key={item?.id || `menu-item-${index}`}>
                     {item?.link && (
@@ -211,7 +208,7 @@ function MobileMenuContent({
 
             {/* Social Media Icons */}
             {showSocialMedia && contactData && (
-              <div className="flex gap-6 items-center mt-8 pt-8 border-border">
+              <div className="flex gap-6 items-center mt-8 pt-8 border-border justify-center w-full">
                 {contactData.facebookUrl && (
                   <a
                     href={contactData.facebookUrl}

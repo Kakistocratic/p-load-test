@@ -28,7 +28,7 @@ export const HeaderNav: React.FC<{
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex gap-4 items-center">
+      <nav className="hidden lg:flex gap-4 items-center">
         {navItems.map(({ link }, i) => {
           return link ? (
             <CMSLink
@@ -81,7 +81,7 @@ export const HeaderNav: React.FC<{
         )}
         <Link href="/search">
           <span className="sr-only">Search</span>
-          <SearchIcon className={cn('w-5', textColorClass)} />
+          <SearchIcon className={cn('w-5 lg:hidden xl:inline', textColorClass)} />
         </Link>
         {/* Booking Button */}
         {data?.bookingButton?.enabled && data?.bookingButton?.link && (
@@ -101,7 +101,7 @@ export const HeaderNav: React.FC<{
         <ThemeSelector textColorClass={textColorClass} showIcon={true} />
       </nav>{' '}
       {/* Mobile Navigation */}
-      <div className="flex md:hidden gap-3 items-center">
+      <div className="flex lg:hidden gap-3 items-center">
         <Link href="/search">
           <span className="sr-only">Search</span>
           <SearchIcon className={cn('w-5', textColorClass)} />
