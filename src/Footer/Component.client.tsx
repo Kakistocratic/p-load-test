@@ -42,12 +42,12 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
   return (
     <footer className="mt-auto border-t border-border bg-secondary dark:bg-tertiary text-white">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-8 text-center md:text-left justify-items-center md:justify-items-stretch">
           {/* Empty cell on left for tablet */}
           <div className="hidden md:block xl:hidden"></div>
 
           {/* Logo Column - centered on mobile, middle on tablet, first column on desktop */}
-          <div className="flex items-start justify-center xl:justify-start xl:col-start-1 xl:row-start-1">
+          <div className="flex items-center justify-center xl:justify-start xl:col-start-1 xl:row-start-1">
             <Link className="flex items-center" href="/">
               <div className="w-[230px] h-auto">
                 {hasLogo ? <Media resource={currentLogo} imgClassName="w-auto h-auto" /> : <Logo />}
@@ -59,11 +59,11 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           <div className="hidden md:block xl:hidden"></div>
 
           {/* Navigation Column */}
-          <div className="flex flex-col md:ml-0">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               Sidekart
             </h3>
-            <nav className="flex flex-col ml-20 md:ml-0 gap-2">
+            <nav className="flex flex-col gap-2 items-center md:items-start">
               {navItems.map(({ link }, i) => {
                 return (
                   <CMSLink
@@ -77,14 +77,14 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           </div>
 
           {/* Opening Hours Column */}
-          <div className="flex flex-col md:ml-0">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               {openingHoursTitle}
             </h3>
             <div className="flex flex-col gap-3">
               {openingHoursData?.hours && openingHoursData.hours.length > 0 ? (
                 openingHoursData.hours.map((hours, index) => (
-                  <div key={index} className="opening-hours-item flex gap-3 ml-20 md:ml-0">
+                  <div key={index} className="opening-hours-item flex gap-3 ml-0 md:ml-0">
                     <div
                       className="clock-icon flex-shrink-0 w-5 h-5 mt-0.5"
                       aria-hidden="true"
@@ -110,12 +110,12 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
           </div>
 
           {/* Contact Info Column */}
-          <div className="flex flex-col md:ml-0">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-4xl font-semibold mb-5 text-background dark:text-primary text-center md:text-left">
               {contactTitle}
             </h3>
             {contactData && (
-              <div className="flex flex-col ml-20 md:ml-0 gap-2">
+              <div className="flex flex-col gap-2 items-center md:items-start">
                 {/* Address */}
                 {(contactData.streetAddress || contactData.city || contactData.postalCode) && (
                   <div className="mb-2">
@@ -202,7 +202,7 @@ export function FooterClient({ footerData, openingHoursData, contactData }: Foot
         </div>
 
         {/* Bottom Theme Selector */}
-        <div className="flex items-start pt-8">
+        <div className="flex items-center justify-center pt-8 md:justify-start md:items-start">
           <ThemeSelector />
         </div>
       </div>
