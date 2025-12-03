@@ -4,6 +4,8 @@ import {
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  UnorderedListFeature,
+  OrderedListFeature,
 } from '@payloadcms/richtext-lexical'
 import { revalidateBookingSettings } from './hooks/revalidateBookingSettings'
 
@@ -189,6 +191,8 @@ export const BookingSettings: GlobalConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
+            UnorderedListFeature(),
+            OrderedListFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
           ]

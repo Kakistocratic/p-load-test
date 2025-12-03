@@ -208,7 +208,7 @@ function MobileMenuContent({
 
             {/* Social Media Icons */}
             {showSocialMedia && contactData && (
-              <div className="flex gap-6 items-center mt-8 pt-8 border-border justify-center w-full">
+              <div className="flex gap-6 items-center mt-8 border-border justify-center w-full">
                 {contactData.facebookUrl && (
                   <a
                     href={contactData.facebookUrl}
