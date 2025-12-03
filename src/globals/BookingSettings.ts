@@ -1,11 +1,16 @@
 import type { GlobalConfig } from 'payload'
 import {
+  BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
-  UnorderedListFeature,
+  LinkFeature,
   OrderedListFeature,
+  ParagraphFeature,
+  UnderlineFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 import { revalidateBookingSettings } from './hooks/revalidateBookingSettings'
 
@@ -187,16 +192,20 @@ export const BookingSettings: GlobalConfig = {
       type: 'richText',
       label: 'Booking instruksjoner og tips',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
-            UnorderedListFeature(),
-            OrderedListFeature(),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
+        features: () => [
+          ParagraphFeature(),
+          BoldFeature(),
+          ItalicFeature(),
+          UnderlineFeature(),
+          LinkFeature({
+            enabledCollections: ['pages', 'posts'],
+          }),
+          HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
+          UnorderedListFeature(),
+          OrderedListFeature(),
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+        ],
       }),
       admin: {
         description: 'Tips og instruksjoner som vises ved siden av kalenderen',
