@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
           },
           {
             status: {
-              in: ['pending', 'confirmed'],
+              in: ['confirmed'],
             },
           },
         ],

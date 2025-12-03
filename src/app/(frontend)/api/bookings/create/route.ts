@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     const bookingStartTime = selectedDateTime
     const bookingEndTime = new Date(bookingStartTime.getTime() + occupancyDuration * 60000)
 
-    // Find all confirmed/pending bookings for the same date
+    // Find all confirmed bookings for the same date
     const existingBookings = await payload.find({
       collection: 'bookings',
       where: {
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
           },
           {
             status: {
-              in: ['pending', 'confirmed'],
+              in: ['confirmed'],
             },
           },
         ],
