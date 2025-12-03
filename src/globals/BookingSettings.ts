@@ -197,9 +197,7 @@ export const BookingSettings: GlobalConfig = {
           BoldFeature(),
           ItalicFeature(),
           UnderlineFeature(),
-          LinkFeature({
-            enabledCollections: ['pages', 'posts'],
-          }),
+          LinkFeature({}),
           HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
           UnorderedListFeature(),
           OrderedListFeature(),
