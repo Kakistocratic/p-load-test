@@ -245,23 +245,24 @@ export const MapBlock: React.FC<Props> = (props) => {
           </div>
         </button>
       )}
-      {error ? (
+      {error && (
         <div
           className="w-full border border-red-500 bg-red-50 p-8 flex items-center justify-center"
-          style={{ maxHeight: heightMap[height || 'medium'] }}
+          style={{ height: heightMap[height || 'medium'] }}
         >
           <div className="text-center">
             <p className="text-red-700 font-semibold mb-2">Map Configuration Error</p>
             <p className="text-red-600 text-sm">{error}</p>
           </div>
         </div>
-      ) : isLoaded ? (
+      )}
+      {isLoaded && !error && (
         <div
           ref={mapRef}
           className="w-full border border-border overflow-hidden"
-          style={{ maxHeight: heightMap[height || 'medium'] }}
+          style={{ height: heightMap[height || 'medium'] }}
         />
-      ) : null}
+      )}
     </div>
   )
 }
