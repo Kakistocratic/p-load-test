@@ -16,6 +16,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
   richText,
   logo,
   headerTheme,
+  contentWidth,
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
@@ -55,7 +56,11 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
         )}
 
         {/* Content layer - constrained width */}
-        <div className="container relative z-10 h-full">
+        <div
+          className={`relative z-10 h-full ${
+            contentWidth === 'narrow' ? 'max-w-4xl mx-auto px-4' : 'container'
+          }`}
+        >
           <div className="relative h-full flex items-end">
             {/* Text positioned at bottom left */}
             <div className="max-w-[40rem]">

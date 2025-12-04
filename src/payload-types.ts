@@ -229,6 +229,10 @@ export interface Page {
      * Logo to display centered in the hero
      */
     logo?: (number | null) | Media;
+    /**
+     * Choose narrow width to match slim content sections like booking forms
+     */
+    contentWidth?: ('standard' | 'narrow') | null;
   };
   layout: (
     | CallToActionBlock
@@ -1350,6 +1354,7 @@ export interface PagesSelect<T extends boolean = true> {
               overlayOpacity?: T;
             };
         logo?: T;
+        contentWidth?: T;
       };
   layout?:
     | T

@@ -139,6 +139,26 @@ export const hero: Field = {
       },
       relationTo: 'media',
     },
+    {
+      name: 'contentWidth',
+      type: 'select',
+      label: 'Content Width',
+      admin: {
+        condition: (_, { type } = {}) => type === 'logoMediumImpact',
+        description: 'Choose narrow width to match slim content sections like booking forms',
+      },
+      defaultValue: 'standard',
+      options: [
+        {
+          label: 'Standard (container)',
+          value: 'standard',
+        },
+        {
+          label: 'Narrow (max-w-4xl)',
+          value: 'narrow',
+        },
+      ],
+    },
   ],
   label: false,
 }
