@@ -66,7 +66,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
             <div className="max-w-[40rem]">
               {richText && (
                 <RichText
-                  className="mb-6 text-left [&_h1]:text-primary [&_h2]:text-primary [&_h3]:text-primary [&_h4]:text-primary [&_p]:text-primary"
+                  className="-mb-1 text-left [&_h1]:text-primary [&_h2]:text-primary [&_h3]:text-primary [&_h4]:text-primary [&_p]:text-primary"
                   data={richText}
                   enableGutter={false}
                 />

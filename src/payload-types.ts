@@ -603,7 +603,7 @@ export interface BookingBlock {
    * Controls the vertical spacing (margin) around this block
    */
   blockSpacing?: ('none' | 'small' | 'medium') | null;
-  heading: string;
+  heading?: string | null;
   /**
    * Kort beskrivelse som vises over bookingskjemaet
    */

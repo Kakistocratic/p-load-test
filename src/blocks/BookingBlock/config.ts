@@ -16,7 +16,7 @@ export const BookingBlock: Block = {
       type: 'text',
       label: 'Overskrift',
       defaultValue: 'Reserver bord',
-      required: true,
+      required: false,
     },
     {
       name: 'description',
