@@ -192,7 +192,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ bookingSettings }) => 
   const minPartySize = 1
 
   return (
-    <div className="flex flex-col gap-8 max-w-5xl mx-auto">
+    <div className="flex flex-col gap-8">
       {/* Calendar Section */}
       <div className="bg-card border border-border rounded-lg p-6">
         <div className="flex flex-col md:flex-row gap-8">

@@ -26,8 +26,8 @@ export const BookingBlock: React.FC<BookingBlockProps> = async ({ heading, descr
   const bookingSettings = await getCachedGlobal('booking-settings')
 
   return (
-    <div className="container my-16">
-      <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 my-16">
+      <div>
         {heading && <h2 className="text-4xl font-bold text-center mb-4">{heading}</h2>}
         {description && (
           <p className="text-center text-muted-foreground mb-8 text-lg">{description}</p>

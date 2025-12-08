@@ -33,7 +33,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
 
   return (
     <div className="w-full -mt-[10.4rem]" data-theme="dark">
-      <div className="relative aspect-[4/2] md:aspect-[4/2] lg:aspect-[5/2] xl:aspect-[5/1]">
+      <div className="relative aspect-[4/2] md:aspect-[4/2] lg:aspect-[4/2] xl:aspect-[5/1]">
         {/* Image layer - full width */}
         {media && typeof media === 'object' && (
           <>
@@ -58,15 +58,15 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
         {/* Content layer - constrained width */}
         <div
           className={`relative z-10 h-full ${
-            contentWidth === 'narrow' ? 'max-w-4xl mx-auto px-4' : 'container'
+            contentWidth === 'narrow' ? 'container-narrow' : 'container'
           }`}
         >
           <div className="relative h-full flex items-end">
             {/* Text positioned at bottom left */}
-            <div className="max-w-[40rem]">
+            <div className="max-w-[40rem] pb-2">
               {richText && (
                 <RichText
-                  className="-mb-1 text-left [&_h1]:text-primary [&_h2]:text-primary [&_h3]:text-primary [&_h4]:text-primary [&_p]:text-primary"
+                  className="-mb-1 text-left [&_h1]:text-5xl [&_h1]:text-primary [&_h2]:text-primary [&_h3]:text-primary [&_h4]:text-primary [&_p]:text-primary"
                   data={richText}
                   enableGutter={false}
                 />
@@ -87,7 +87,7 @@ export const LogoMediumImpactHero: React.FC<Page['hero']> = ({
             {/* Logo centered in the hero */}
             {logo && (
               <div className="absolute inset-0 hidden sm:flex items-center justify-center">
-                <div className="w-[200px] md:w-[300px]">
+                <div className="w-[200px] md:w-[300px] xl:w-[170px] 2xl:w-[300px]">
                   <Media
                     resource={logo}
                     imgClassName="w-full h-auto object-contain"
