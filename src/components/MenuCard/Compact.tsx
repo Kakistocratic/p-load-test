@@ -6,7 +6,20 @@ interface MenuCardCompactProps {
 }
 
 export const MenuCardCompact: React.FC<MenuCardCompactProps> = ({ item }) => {
-  const { name, description, price, optionalExtras, allergens, ingredients, temperature } = item
+  const {
+    name,
+    description,
+    price,
+    optionalExtras,
+    allergens,
+    ingredients,
+    temperature,
+    isWine,
+    wineLabel,
+    isBeer,
+    beerLabel,
+    bottlePrice,
+  } = item
 
   return (
     <div className="p-4 border border-border rounded-lg bg-card h-full flex flex-col">
@@ -14,13 +27,44 @@ export const MenuCardCompact: React.FC<MenuCardCompactProps> = ({ item }) => {
       <div className="mb-2">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="text-lg font-semibold leading-tight">{name}</h3>
-          <span className="text-lg font-bold text-primary whitespace-nowrap">{price} kr</span>
+          {/* Price display with glass/bottle icons for wine */}
+          {isWine ? (
+            <div className="flex flex-col items-end gap-0.5">
+              <span className="text-lg font-bold text-primary whitespace-nowrap flex items-center gap-1">
+                <span className="text-base">🍸</span>
+                {price} kr
+              </span>
+              {bottlePrice && (
+                <span className="text-sm font-bold text-primary whitespace-nowrap flex items-center gap-1">
+                  <span className="text-base">🍾</span>
+                  {bottlePrice} kr
+                </span>
+              )}
+            </div>
+          ) : (
+            <span className="text-lg font-bold text-primary whitespace-nowrap">{price} kr</span>
+          )}
         </div>
+
+        {/* Wine/Beer labels */}
+        {isWine && wineLabel && (
+          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+            <span>🍇</span>
+            <span>{wineLabel}</span>
+          </div>
+        )}
+        {isBeer && beerLabel && (
+          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+            <span>🌾</span>
+            <span>{beerLabel}</span>
+          </div>
+        )}
 
         {temperature && (
           <span className="inline-block text-xs text-muted-foreground capitalize">
             {temperature === 'varm' && 'Varm'}
             {temperature === 'kald' && 'Kald'}
+            {temperature === 'romtemperatur' && 'Romtemperatur'}
             {temperature === 'begge' && 'Varm eller kald'}
           </span>
         )}

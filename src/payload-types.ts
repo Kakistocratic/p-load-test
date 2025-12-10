@@ -858,7 +858,7 @@ export interface Menu {
   /**
    * Base price in NOK
    */
-  price: number;
+  price?: number | null;
   /**
    * Add optional extras with additional costs (e.g., extra cream, oat milk)
    */
@@ -884,9 +884,29 @@ export interface Menu {
    */
   type: 'drink' | 'food';
   /**
-   * Is this item served hot, cold, or both?
+   * Is this item served hot, cold, room temperature, or both?
    */
-  temperature?: ('varm' | 'kald' | 'begge') | null;
+  temperature?: ('varm' | 'kald' | 'romtemperatur' | 'begge') | null;
+  /**
+   * Check if this is a wine drink
+   */
+  isWine?: boolean | null;
+  /**
+   * Wine type or grape variety (e.g., "Pinot Noir", "Chardonnay")
+   */
+  wineLabel?: string | null;
+  /**
+   * Price per bottle in NOK (optional)
+   */
+  bottlePrice?: number | null;
+  /**
+   * Check if this is a beer drink
+   */
+  isBeer?: boolean | null;
+  /**
+   * Beer type or style (e.g., "IPA", "Lager", "Stout")
+   */
+  beerLabel?: string | null;
   /**
    * Upload an image for this menu item
    */
@@ -1633,6 +1653,11 @@ export interface MenuSelect<T extends boolean = true> {
   category?: T;
   type?: T;
   temperature?: T;
+  isWine?: T;
+  wineLabel?: T;
+  bottlePrice?: T;
+  isBeer?: T;
+  beerLabel?: T;
   image?: T;
   noImage?: T;
   allergens?: T;

@@ -39,7 +39,7 @@ export const Menu: CollectionConfig = {
     {
       name: 'price',
       type: 'number',
-      required: true,
+      required: false,
       min: 0,
       admin: {
         description: 'Base price in NOK',
@@ -118,12 +118,65 @@ export const Menu: CollectionConfig = {
           value: 'kald',
         },
         {
+          label: 'Romtemperatur',
+          value: 'romtemperatur',
+        },
+        {
           label: 'Begge',
           value: 'begge',
         },
       ],
       admin: {
-        description: 'Is this item served hot, cold, or both?',
+        description: 'Is this item served hot, cold, room temperature, or both?',
+      },
+    },
+    {
+      name: 'isWine',
+      type: 'checkbox',
+      required: false,
+      admin: {
+        description: 'Check if this is a wine drink',
+        position: 'sidebar',
+      },
+      defaultValue: false,
+    },
+    {
+      name: 'wineLabel',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'Wine type or grape variety (e.g., "Pinot Noir", "Chardonnay")',
+        condition: (data) => data.isWine === true,
+      },
+    },
+    {
+      name: 'bottlePrice',
+      type: 'number',
+      required: false,
+      min: 0,
+      admin: {
+        description: 'Price per bottle in NOK (optional)',
+        step: 0.01,
+        condition: (data) => data.isWine === true,
+      },
+    },
+    {
+      name: 'isBeer',
+      type: 'checkbox',
+      required: false,
+      admin: {
+        description: 'Check if this is a beer drink',
+        position: 'sidebar',
+      },
+      defaultValue: false,
+    },
+    {
+      name: 'beerLabel',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'Beer type or style (e.g., "IPA", "Lager", "Stout")',
+        condition: (data) => data.isBeer === true,
       },
     },
     {
