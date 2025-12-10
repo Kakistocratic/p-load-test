@@ -40,6 +40,7 @@ export const Media: CollectionConfig = {
     {
       name: 'inlineData',
       type: 'textarea',
+      maxLength: 500000, // Allow up to 500KB of inline data
       admin: {
         readOnly: true,
         description: 'Auto-generated inline data for instant rendering (SVG content or base64)',
