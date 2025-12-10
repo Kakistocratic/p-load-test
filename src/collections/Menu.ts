@@ -146,6 +146,7 @@ export const Menu: CollectionConfig = {
       required: false,
       admin: {
         description: 'Wine type or grape variety (e.g., "Pinot Noir", "Chardonnay")',
+        position: 'sidebar',
         condition: (data) => data.isWine === true,
       },
     },
@@ -157,6 +158,7 @@ export const Menu: CollectionConfig = {
       admin: {
         description: 'Price per bottle in NOK (optional)',
         step: 0.01,
+        position: 'sidebar',
         condition: (data) => data.isWine === true,
       },
     },
@@ -176,6 +178,7 @@ export const Menu: CollectionConfig = {
       required: false,
       admin: {
         description: 'Beer type or style (e.g., "IPA", "Lager", "Stout")',
+        position: 'sidebar',
         condition: (data) => data.isBeer === true,
       },
     },

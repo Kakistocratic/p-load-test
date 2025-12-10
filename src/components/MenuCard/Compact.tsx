@@ -30,10 +30,12 @@ export const MenuCardCompact: React.FC<MenuCardCompactProps> = ({ item }) => {
           {/* Price display with glass/bottle icons for wine */}
           {isWine ? (
             <div className="flex flex-col items-end gap-0.5">
-              <span className="text-lg font-bold text-primary whitespace-nowrap flex items-center gap-1">
-                <span className="text-base">🍸</span>
-                {price} kr
-              </span>
+              {price && (
+                <span className="text-lg font-bold text-primary whitespace-nowrap flex items-center gap-1">
+                  <span className="text-base">🍸</span>
+                  {price} kr
+                </span>
+              )}
               {bottlePrice && (
                 <span className="text-sm font-bold text-primary whitespace-nowrap flex items-center gap-1">
                   <span className="text-base">🍾</span>

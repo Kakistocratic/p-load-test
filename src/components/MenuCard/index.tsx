@@ -41,10 +41,12 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           {/* Price - top right with glass/bottle icons for wine */}
           {isWine ? (
             <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
-              <span className="text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                <span>🍸</span>
-                {price} kr
-              </span>
+              {price && (
+                <span className="text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
+                  <span>🍸</span>
+                  {price} kr
+                </span>
+              )}
               {bottlePrice && (
                 <span className="text-lg font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
                   <span>🍾</span>
@@ -88,10 +90,12 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           {/* Price - top right with glass/bottle icons for wine */}
           {isWine ? (
             <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
-              <span className="text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                <span>🍸</span>
-                {price} kr
-              </span>
+              {price && (
+                <span className="text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
+                  <span>🍸</span>
+                  {price} kr
+                </span>
+              )}
               {bottlePrice && (
                 <span className="text-lg font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
                   <span>🍾</span>
