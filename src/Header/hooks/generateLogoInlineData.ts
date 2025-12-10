@@ -11,9 +11,6 @@ import type { GlobalAfterChangeHook } from 'payload'
 export const generateLogoInlineData: GlobalAfterChangeHook = async ({ doc, req }) => {
   const { payload } = req
 
-  payload.logger.info('=== generateLogoInlineData hook triggered ===')
-  payload.logger.info(`logoDark: ${doc.logoDark}, logoLight: ${doc.logoLight}`)
-
   let needsUpdate = false
   const updates: Array<{ id: string | number; inlineData: string }> = []
 
@@ -26,19 +23,12 @@ export const generateLogoInlineData: GlobalAfterChangeHook = async ({ doc, req }
         req,
       })
 
-      payload.logger.info(
-        `logoDark media found: ${logoDoc?.filename}, url: ${logoDoc?.url}, mimeType: ${logoDoc?.mimeType}, hasInlineData: ${!!logoDoc?.inlineData}`,
-      )
-
       // Always regenerate inline data to ensure it's up to date
       if (logoDoc && logoDoc.url) {
         const inlineData = await generateInlineDataFromUrl(logoDoc.url, logoDoc.mimeType, payload)
         if (inlineData) {
           updates.push({ id: doc.logoDark, inlineData })
           needsUpdate = true
-          payload.logger.info(`Generated inline data for logoDark (${inlineData.length} chars)`)
-        } else {
-          payload.logger.warn(`Failed to generate inline data for logoDark`)
         }
       }
     } catch (error) {
@@ -55,19 +45,12 @@ export const generateLogoInlineData: GlobalAfterChangeHook = async ({ doc, req }
         req,
       })
 
-      payload.logger.info(
-        `logoLight media found: ${logoDoc?.filename}, url: ${logoDoc?.url}, mimeType: ${logoDoc?.mimeType}, hasInlineData: ${!!logoDoc?.inlineData}`,
-      )
-
       // Always regenerate inline data to ensure it's up to date
       if (logoDoc && logoDoc.url) {
         const inlineData = await generateInlineDataFromUrl(logoDoc.url, logoDoc.mimeType, payload)
         if (inlineData) {
           updates.push({ id: doc.logoLight, inlineData })
           needsUpdate = true
-          payload.logger.info(`Generated inline data for logoLight (${inlineData.length} chars)`)
-        } else {
-          payload.logger.warn(`Failed to generate inline data for logoLight`)
         }
       }
     } catch (error) {
@@ -77,7 +60,6 @@ export const generateLogoInlineData: GlobalAfterChangeHook = async ({ doc, req }
 
   // Update media documents with inline data
   if (needsUpdate) {
-    payload.logger.info(`Updating ${updates.length} media documents with inline data`)
     for (const update of updates) {
       try {
         await payload.update({
@@ -88,13 +70,10 @@ export const generateLogoInlineData: GlobalAfterChangeHook = async ({ doc, req }
           },
           req,
         })
-        payload.logger.info(`✓ Generated inline data for logo media ID: ${update.id}`)
       } catch (error) {
         payload.logger.error(`Error updating media ${update.id}: ${error}`)
       }
     }
-  } else {
-    payload.logger.info('No inline data updates needed')
   }
 
   return doc
@@ -123,8 +102,6 @@ async function generateInlineDataFromUrl(
       absoluteUrl = `${baseUrl}${url}`
     }
 
-    payload.logger.info(`Fetching file from URL: ${absoluteUrl}`)
-
     // Fetch the file content from the URL
     const response = await fetch(absoluteUrl)
 
@@ -137,24 +114,18 @@ async function generateInlineDataFromUrl(
     if (mimeType === 'image/svg+xml') {
       const svgContent = await response.text()
       if (svgContent.includes('<svg')) {
-        payload.logger.info('Successfully generated inline SVG data')
         return svgContent
-      } else {
-        payload.logger.warn('File claimed to be SVG but no <svg> tag found')
-        return null
       }
+      return null
     }
     // Handle raster images - convert to base64
     else if (mimeType?.startsWith('image/')) {
       const arrayBuffer = await response.arrayBuffer()
       const buffer = Buffer.from(arrayBuffer)
       const base64 = buffer.toString('base64')
-      const dataUri = `data:${mimeType};base64,${base64}`
-      payload.logger.info(`Successfully generated base64 data (${dataUri.length} chars)`)
-      return dataUri
+      return `data:${mimeType};base64,${base64}`
     }
 
-    payload.logger.warn(`Unsupported mime type: ${mimeType}`)
     return null
   } catch (error) {
     payload.logger.error(`Error generating inline data from URL: ${error}`)

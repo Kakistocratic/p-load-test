@@ -26,22 +26,22 @@ const InlineLogo: React.FC<{
   const isSvg = inlineData.includes('<svg')
 
   if (isSvg) {
-    // Render SVG directly
+    // Render SVG directly with transition support
     return (
       <div
-        className={className}
+        className={cn(className, 'transition-all duration-300')}
         style={{ width: `${width}px`, height: `${height}px` }}
         dangerouslySetInnerHTML={{ __html: inlineData }}
       />
     )
   }
 
-  // Render base64 image
+  // Render base64 image with transition support
   return (
     <img
       src={inlineData}
       alt={alt}
-      className={className}
+      className={cn(className, 'transition-all duration-300')}
       style={{ width: `${width}px`, height: `${height}px`, objectFit: 'contain' }}
     />
   )
