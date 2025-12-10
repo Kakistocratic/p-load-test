@@ -14,7 +14,8 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 const { breakpoints } = cssVariables
 
 // A base64 encoded neutral gray placeholder while the image is loading
-const placeholderBlur = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN89erVfwAJYwPNteQx0wAAAABJRU5ErkJggg=='
+const placeholderBlur =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN89erVfwAJYwPNteQx0wAAAABJRU5ErkJggg=='
 
 export const ImageMedia: React.FC<MediaProps> = (props) => {
   const {
@@ -27,6 +28,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     size: sizeFromProps,
     src: srcFromProps,
     loading: loadingFromProps,
+    onLoad,
   } = props
 
   let width: number | undefined
@@ -65,6 +67,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         className={cn(imgClassName)}
         src={src as string}
         loading={loading}
+        onLoad={onLoad}
         style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
       />
     )
@@ -86,6 +89,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         src={src}
         width={!fill ? width : undefined}
         fetchPriority={priority ? 'high' : undefined}
+        onLoad={onLoad}
       />
     </picture>
   )

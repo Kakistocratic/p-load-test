@@ -37,6 +37,15 @@ export const Media: CollectionConfig = {
         },
       }),
     },
+    {
+      name: 'inlineData',
+      type: 'textarea',
+      admin: {
+        readOnly: true,
+        description: 'Auto-generated inline data for instant rendering (SVG content or base64)',
+        condition: (data) => !!data?.inlineData,
+      },
+    },
   ],
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload

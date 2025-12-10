@@ -330,6 +330,10 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Auto-generated inline data for instant rendering (SVG content or base64)
+   */
+  inlineData?: string | null;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1575,6 +1579,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  inlineData?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;

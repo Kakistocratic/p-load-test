@@ -14,6 +14,39 @@ import { Logo } from '@/components/Logo/Logo'
 import { Media } from '@/components/Media'
 import { HeaderNav } from './Nav'
 
+// Component to render inline logo data (SVG or base64) for instant display
+const InlineLogo: React.FC<{
+  inlineData: string
+  alt: string
+  className?: string
+  width: number
+  height: number
+}> = ({ inlineData, alt, className, width, height }) => {
+  // Check if it's SVG content or base64 data URI
+  const isSvg = inlineData.includes('<svg')
+
+  if (isSvg) {
+    // Render SVG directly
+    return (
+      <div
+        className={className}
+        style={{ width: `${width}px`, height: `${height}px` }}
+        dangerouslySetInnerHTML={{ __html: inlineData }}
+      />
+    )
+  }
+
+  // Render base64 image
+  return (
+    <img
+      src={inlineData}
+      alt={alt}
+      className={className}
+      style={{ width: `${width}px`, height: `${height}px`, objectFit: 'contain' }}
+    />
+  )
+}
+
 interface HeaderClientProps {
   data: Header
   contactData?: ContactInfo | null
@@ -85,6 +118,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
   const logoWidth = scrolled ? 90 : 130
   const logoHeight = scrolled ? 64 : 92
 
+  // Check if logos have inline data for instant rendering
+  const darkLogoInline =
+    data?.logoDark && typeof data.logoDark === 'object' ? data.logoDark.inlineData : null
+  const lightLogoInline =
+    data?.logoLight && typeof data.logoLight === 'object' ? data.logoLight.inlineData : null
+
   return (
     <header className={outerClass}>
       <div className={cn('container relative transition-all duration-300')}>
@@ -98,38 +137,80 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, contactData })
                   height: `${logoHeight}px`,
                 }}
               >
-                <Media
-                  resource={data.logoDark}
-                  imgClassName={cn(
-                    'absolute inset-0 transition-opacity duration-300',
-                    shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
-                  )}
-                  priority
-                  loading="eager"
-                />
-                <Media
-                  resource={data.logoLight}
-                  imgClassName={cn(
-                    'absolute inset-0 transition-opacity duration-300',
-                    !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
-                  )}
-                  priority
-                  loading="eager"
-                />
+                {darkLogoInline && lightLogoInline ? (
+                  // Both logos have inline data - render instantly
+                  <>
+                    <InlineLogo
+                      inlineData={darkLogoInline}
+                      alt={(typeof data.logoDark === 'object' && data.logoDark?.alt) || 'Logo'}
+                      className={cn(
+                        'absolute inset-0 transition-opacity duration-300',
+                        shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                      )}
+                      width={logoWidth}
+                      height={logoHeight}
+                    />
+                    <InlineLogo
+                      inlineData={lightLogoInline}
+                      alt={(typeof data.logoLight === 'object' && data.logoLight?.alt) || 'Logo'}
+                      className={cn(
+                        'absolute inset-0 transition-opacity duration-300',
+                        !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                      )}
+                      width={logoWidth}
+                      height={logoHeight}
+                    />
+                  </>
+                ) : (
+                  // Fallback to Media component if inline data not available
+                  <>
+                    <Media
+                      resource={data.logoDark}
+                      imgClassName={cn(
+                        'absolute inset-0 transition-opacity duration-300',
+                        shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                      )}
+                      priority
+                      loading="eager"
+                    />
+                    <Media
+                      resource={data.logoLight}
+                      imgClassName={cn(
+                        'absolute inset-0 transition-opacity duration-300',
+                        !shouldShowLightLogo ? 'opacity-100 z-10' : 'opacity-0 z-0',
+                      )}
+                      priority
+                      loading="eager"
+                    />
+                  </>
+                )}
               </div>
             ) : hasLogo ? (
               <div
+                className="relative"
                 style={{
                   width: `${logoWidth}px`,
                   height: `${logoHeight}px`,
                 }}
               >
-                <Media
-                  resource={currentLogo}
-                  imgClassName="w-full h-full transition-all duration-300"
-                  priority
-                  loading="eager"
-                />
+                {currentLogo && typeof currentLogo === 'object' && currentLogo.inlineData ? (
+                  // Single logo with inline data - render instantly
+                  <InlineLogo
+                    inlineData={currentLogo.inlineData}
+                    alt={currentLogo.alt || 'Logo'}
+                    className="w-full h-full transition-all duration-300"
+                    width={logoWidth}
+                    height={logoHeight}
+                  />
+                ) : (
+                  // Fallback to Media component
+                  <Media
+                    resource={currentLogo}
+                    imgClassName="w-full h-full transition-all duration-300"
+                    priority
+                    loading="eager"
+                  />
+                )}
               </div>
             ) : (
               <Logo
