@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { revalidateDelete, revalidateMenu } from './Menu/hooks/revalidateMenu'
+
 export const Menu: CollectionConfig = {
   slug: 'menu',
   labels: {
@@ -8,6 +10,10 @@ export const Menu: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateMenu],
+    afterDelete: [revalidateDelete],
   },
   admin: {
     useAsTitle: 'name',

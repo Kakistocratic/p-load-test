@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import {
+  revalidateDelete,
+  revalidateMenuCategory,
+} from './MenuCategories/hooks/revalidateMenuCategory'
 
 export const MenuCategories: CollectionConfig = {
   slug: 'menu-categories',
@@ -14,6 +18,10 @@ export const MenuCategories: CollectionConfig = {
     delete: authenticated,
     read: anyone,
     update: authenticated,
+  },
+  hooks: {
+    afterChange: [revalidateMenuCategory],
+    afterDelete: [revalidateDelete],
   },
   admin: {
     useAsTitle: 'name',
