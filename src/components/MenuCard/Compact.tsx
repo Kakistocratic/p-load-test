@@ -1,5 +1,7 @@
 import React from 'react'
 import type { Menu } from '@/payload-types'
+import { CocktailIcon } from '@/components/icons/CocktailIcon'
+import { BottleIcon } from '@/components/icons/BottleIcon'
 
 interface MenuCardCompactProps {
   item: Menu
@@ -26,25 +28,25 @@ export const MenuCardCompact: React.FC<MenuCardCompactProps> = ({ item }) => {
       {/* Header */}
       <div className="mb-2">
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="text-lg font-semibold leading-tight">{name}</h3>
+          <h3 className="text-xl font-semibold leading-tight">{name}</h3>
           {/* Price display with glass/bottle icons for wine */}
           {isWine ? (
             <div className="flex flex-col items-end gap-0.5">
               {price && (
-                <span className="text-lg font-bold text-primary whitespace-nowrap flex items-center gap-1">
-                  <span className="text-base">🍸</span>
+                <span className="text-xl font-bold text-primary whitespace-nowrap flex items-center gap-1">
+                  <CocktailIcon useDarkMode />
                   {price} kr
                 </span>
               )}
               {bottlePrice && (
-                <span className="text-sm font-bold text-primary whitespace-nowrap flex items-center gap-1">
-                  <span className="text-base">🍾</span>
+                <span className="text-xl font-bold text-primary whitespace-nowrap flex items-center gap-1">
+                  <BottleIcon useDarkMode />
                   {bottlePrice} kr
                 </span>
               )}
             </div>
           ) : (
-            <span className="text-lg font-bold text-primary whitespace-nowrap">{price} kr</span>
+            <span className="text-xl font-bold text-primary whitespace-nowrap">{price} kr</span>
           )}
         </div>
 
