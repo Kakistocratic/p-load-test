@@ -1,8 +1,7 @@
 import React from 'react'
 import { Media } from '@/components/Media'
 import type { Menu } from '@/payload-types'
-import { CocktailIcon } from '@/components/icons/CocktailIcon'
-import { BottleIcon } from '@/components/icons/BottleIcon'
+import { CardPrice } from '@/components/CardPrice'
 
 interface MenuCardProps {
   item: Menu
@@ -40,32 +39,12 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
             {name}
           </h3>
 
-          {/* Price - top right with glass/bottle icons for wine */}
-          {isWine ? (
-            <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
-              {price && (
-                <span className="text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                  <CocktailIcon color="#f7e7cf" />
-                  {price} kr
-                </span>
-              )}
-              {bottlePrice && (
-                <span className="text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                  <BottleIcon color="#f7e7cf" />
-                  {bottlePrice} kr
-                </span>
-              )}
-            </div>
-          ) : (
-            <span className="absolute top-4 right-4 text-xl font-bold text-white bg-primary dark:bg-tertiary/90 px-3 py-1.5 rounded-md shadow-lg">
-              {price} kr
-            </span>
-          )}
+          <CardPrice price={price} bottlePrice={bottlePrice} isWine={isWine} variant="card" />
 
           {/* temperature */}
           <div className="absolute bottom-4 left-4 flex flex-col gap-1">
             {temperature && (
-              <span className="inline-block text-sm px-2 py-1 rounded-md bg-black/50 text-white backdrop-blur-sm">
+              <span className="inline-block text-xl px-2 py-1 rounded-md bg-black/50 text-white backdrop-blur-sm">
                 {temperature === 'varm' && '🔥 Varm'}
                 {temperature === 'kald' && '❄️ Kald'}
                 {temperature === 'romtemperatur' && '🌡️ Romtemperatur'}
@@ -77,27 +56,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
       ) : (
         <div className="relative w-full aspect-5/6 bg-muted flex items-center justify-center">
           <h3 className="absolute top-4 left-4 text-2xl font-bold pr-24">{name}</h3>
-          {/* Price - top right with glass/bottle icons for wine */}
-          {isWine ? (
-            <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
-              {price && (
-                <span className="text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                  <CocktailIcon color="#f7e7cf" />
-                  {price} kr
-                </span>
-              )}
-              {bottlePrice && (
-                <span className="text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5">
-                  <BottleIcon color="#f7e7cf" />
-                  {bottlePrice} kr
-                </span>
-              )}
-            </div>
-          ) : (
-            <span className="absolute top-4 right-4 text-xl font-bold bg-primary/90 px-3 py-1.5 rounded-md shadow-lg">
-              {price} kr
-            </span>
-          )}
+          <CardPrice price={price} bottlePrice={bottlePrice} isWine={isWine} variant="card" />
           {/* Wine/Beer labels - bottom left, stacked above temperature */}
           <div className="absolute bottom-4 left-4 flex flex-col gap-1">
             {temperature && (
@@ -115,18 +74,18 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
       {/* Content section below image */}
       <div className="p-4 flex flex-col">
         {isWine && wineLabel && (
-          <span className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded-md bg-muted-foreground/20">
-            <span>🍇</span>
+          <span className="inline-flex items-center gap-1 text-xl py-1 rounded-md">
+            <span className="text-xl">🍇</span>
             <span>{wineLabel}</span>
           </span>
         )}
         {isBeer && beerLabel && (
-          <span className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded-md bg-muted-foreground/20">
-            <span>🌾</span>
+          <span className="inline-flex items-center gap-1 text-xl py-1 rounded-md">
+            <span className="text-xl">🌾</span>
             <span>{beerLabel}</span>
           </span>
         )}
-        {description && <p className="text-sm text-foreground mb-3 line-clamp-2">{description}</p>}
+        {description && <p className="text-lg text-foreground mb-3 line-clamp-2">{description}</p>}
 
         {/* Ingredients & Allergens */}
         <div className="space-y-1 text-xs text-muted-foreground">

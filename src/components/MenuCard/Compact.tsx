@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Menu } from '@/payload-types'
-import { CocktailIcon } from '@/components/icons/CocktailIcon'
-import { BottleIcon } from '@/components/icons/BottleIcon'
+import { CardPrice } from '@/components/CardPrice'
 
 interface MenuCardCompactProps {
   item: Menu
@@ -29,53 +28,36 @@ export const MenuCardCompact: React.FC<MenuCardCompactProps> = ({ item }) => {
       <div className="mb-2">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="text-xl font-semibold leading-tight">{name}</h3>
-          {/* Price display with glass/bottle icons for wine */}
-          {isWine ? (
-            <div className="flex flex-col items-end gap-0.5">
-              {price && (
-                <span className="text-xl font-bold text-primary whitespace-nowrap flex items-center gap-1">
-                  <CocktailIcon useDarkMode />
-                  {price} kr
-                </span>
-              )}
-              {bottlePrice && (
-                <span className="text-xl font-bold text-primary whitespace-nowrap flex items-center gap-1">
-                  <BottleIcon useDarkMode />
-                  {bottlePrice} kr
-                </span>
-              )}
-            </div>
-          ) : (
-            <span className="text-xl font-bold text-primary whitespace-nowrap">{price} kr</span>
+          <CardPrice price={price} bottlePrice={bottlePrice} isWine={isWine} variant="compact" />
+        </div>
+        <div className="flex flex-col">
+          {/*Wine and Beer labels*/}
+          {isWine && wineLabel && (
+            <span className="inline-flex items-center gap-1 text-xl py-1 rounded-md">
+              <span className="text-xl">🍇</span>
+              <span>{wineLabel}</span>
+            </span>
+          )}
+          {isBeer && beerLabel && (
+            <span className="inline-flex items-center gap-1 text-xl py-1 rounded-md">
+              <span className="text-xl">🌾</span>
+              <span>{beerLabel}</span>
+            </span>
+          )}
+
+          {temperature && (
+            <span className="inline-block text-xl py-1 rounded-md bg-muted">
+              {temperature === 'varm' && '🔥 Varm'}
+              {temperature === 'kald' && '❄️ Kald'}
+              {temperature === 'romtemperatur' && '🌡️ Romtemperatur'}
+              {temperature === 'begge' && '🔥❄️ Varm eller kald'}
+            </span>
           )}
         </div>
-
-        {/* Wine/Beer labels */}
-        {isWine && wineLabel && (
-          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
-            <span>🍇</span>
-            <span>{wineLabel}</span>
-          </div>
-        )}
-        {isBeer && beerLabel && (
-          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
-            <span>🌾</span>
-            <span>{beerLabel}</span>
-          </div>
-        )}
-
-        {temperature && (
-          <span className="inline-block text-xs text-muted-foreground capitalize">
-            {temperature === 'varm' && 'Varm'}
-            {temperature === 'kald' && 'Kald'}
-            {temperature === 'romtemperatur' && 'Romtemperatur'}
-            {temperature === 'begge' && 'Varm eller kald'}
-          </span>
-        )}
       </div>
 
       {/* Description */}
-      {description && <p className="text-sm text-foreground mb-3 flex-grow">{description}</p>}
+      {description && <p className="text-lg text-foreground mb-3 flex-grow">{description}</p>}
 
       {/* Optional Extras */}
       {optionalExtras && optionalExtras.length > 0 && (
