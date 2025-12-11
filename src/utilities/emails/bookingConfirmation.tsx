@@ -70,6 +70,7 @@ const BookingConfirmationEmail = ({
           />
           <Heading
             style={{
+              margin: 0,
               padding: '8px 0',
               color: '#f7e7cf',
               backgroundColor: '#1b2d1b',
